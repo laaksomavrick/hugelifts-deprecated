@@ -4,20 +4,14 @@
 
 <script>
 
+import { getHelloWorld } from '../api/api'
+
 export default {
 
     mounted: async function() {
 
-      const test = () => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                console.log("ping!")
-                resolve()
-            }, 5000)
-        })
-      }
-
-      await test()
+        const response = await getHelloWorld()
+        console.log(response.data)
 
     }
 
