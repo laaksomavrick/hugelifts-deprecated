@@ -1,0 +1,39 @@
+Front end:
+
+    Vue
+    Vue-router
+    Vuex
+
+    SASS with bootstrap extends for mobile responsiveness, mixins
+        -> Dead simple UI; needs to run clean on mobile
+
+    Unit testing as necessary for important features w/ Karma?
+
+Backend:
+
+    Laravel
+        -> Best practices, unit testing, idioms
+
+    MySQL
+        -> Same old
+
+    Dockerize for deploys
+        -> No idea how to do this, learn!
+
+Product considerations:
+
+    I want to:
+        Plan my lifts
+        Track my lifts
+        Automatically calculate new lifts based on success/fail with 5/3/1 or LP
+        Be able to ad hoc my gym sessions by category (ie DB vs BB incline press), since machines aren't always open
+        Create a repository of lifts to ad-hoc from
+        Be able to access the above with a spotty connection; data conscious
+
+    Misc:
+        very lightweight UI as this is a web app on a phone
+        mobile first UI given above
+        see SL 5x5 UI for good example
+        Squatting loading spinner; svg :)
+        PWA for mobile optimization? -> WORKBOX!
+        Maybe use sketch with bootstrap components to plan the UI + theme?

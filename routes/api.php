@@ -13,11 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/hello', function (Request $request) {
-    return response()->json([
-        'hello' => 'world'
-    ]);
-});
+Route::get('/hello', 'ApiController@index');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
