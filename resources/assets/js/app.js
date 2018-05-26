@@ -1,30 +1,16 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
+import { sync } from 'vuex-router-sync'
 
+import Store from './store/store'
+import Router from './routes'
 import App from './views/App'
-import Home from './views/Home'
-import About from './views/About'
 
-const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/about',
-            name: 'about',
-            component: About
-        }
-    ]
-})
+sync(Store, Router)
 
 const app = new Vue({
     el: '#app',
     components: { App },
-    router
+    router: Router,
+    store: Store
 })
