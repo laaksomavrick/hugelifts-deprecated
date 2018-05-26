@@ -5,7 +5,8 @@ Vue.use(VueRouter)
 
 import App from './views/App'
 import Home from './views/Home'
-import About from './views/About'
+import Login from './views/Login'
+import Create from './views/Create'
 
 const router = new VueRouter({
     mode: 'history',
@@ -16,9 +17,14 @@ const router = new VueRouter({
             component: Home
         },
         {
-            path: '/about',
-            name: 'about',
-            component: About
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/create',
+            name: 'create',
+            component: Create
         }
     ]
 })

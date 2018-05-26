@@ -1,12 +1,16 @@
 <template>
-    <p>homepage</p>
+    <div>
+      <p>homepage</p>
+    </div>
 </template>
 
 <script>
 
 import { getHelloWorld } from '../api/api'
 
+
 export default {
+
 
     mounted: async function() {
 
