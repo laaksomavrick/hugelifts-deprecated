@@ -3,22 +3,41 @@
         <div class="create__form">
             <div class="create__form-group">
                 <label>Username</label>
-                <input class="create__form-control"></input>
+                <input 
+                    class="create__form-control"
+                    v-model="name"
+                >
+                </input>
             </div>
             <div class="create__form-group">
                 <label>Email</label>
-                <input class="create__form-control"></input>
+                <input 
+                    class="create__form-control"
+                    v-model="email"
+                >
+                </input>
             </div>
             <div class="create__form-group">
                 <label>Password</label>
-                <input class="create__form-control" type="password"></input>
+                <input 
+                    class="create__form-control" 
+                    type="password"
+                    v-model="password"
+                >
+                </input>
             </div>
             <div class="create__form-group">
                 <label>Confirm password</label>
-                <input class="create__form-control" type="password"></input>
+                <input 
+                    class="create__form-control" 
+                    type="password"
+                    v-model="confirmPassword"
+                >
+                </input>
             </div>
             <button 
                 class="create__button"
+                v-bind:class="{ disabled: !valid }"
                 @click="submit"
             >
                 Submit
@@ -29,13 +48,19 @@
 
 <script>
 
+import { mapActions } from 'vuex'
+
 export default {
+
+    //TODO: spinner on submit
+    //TODO: redirect to home on finish
 
     data: function() {
         return {
-            username: null,
+            name: null,
             email: null,
-            password: null
+            password: null,
+            confirmPassword: null
         }
     },
 
@@ -46,8 +71,22 @@ export default {
     methods: {
 
         submit: function() {
-            console.log("here")
-        }
+
+            if (!this.valid) { return }
+
+            const data = {
+                name: this.name,
+                email: this.email,
+                password: this.password
+            }
+
+            this.createUser(data)
+
+        },
+
+        ...mapActions([
+            'createUser'
+        ])
 
     },
 
@@ -56,8 +95,10 @@ export default {
         valid: function() {
             return (
                    this.password 
-                && this.password.length > 6
-                && this.username
+                && this.password.length >= 6
+                && this.confirmPassword
+                && this.confirmPassword === this.password
+                && this.name
                 && this.email
             )
         }
