@@ -12,10 +12,8 @@ const mutations = {
 }
 
 const getters = {
-
-  getUser: state => state.user,
-  getAuthenticated: state => state.authenticated
-
+    getUser: state => state.user,
+    getAuthenticated: state => state.authenticated
 }
 
 export default {
