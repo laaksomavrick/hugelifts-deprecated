@@ -1,0 +1,37 @@
+@import '~bootstrap/scss/bootstrap';
+
+.account {
+
+    @include make-row();
+    height: 100%;
+
+    &__form {
+
+        @include make-col-ready();
+
+        @include media-breakpoint-up(xs) {
+            @include make-col(8);
+        }
+
+        @include media-breakpoint-up(lg) {
+            @include make-col(4);
+        }
+
+        margin: auto;
+
+    }
+
+    &__form-group {
+        @extend .form-group;
+    }
+
+    &__form-control {
+        @extend .form-control;
+    }
+
+    &__button {
+        @extend .btn;
+        @extend .btn-primary;
+        width: 100%;
+    }
+}

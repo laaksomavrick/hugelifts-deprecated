@@ -5,6 +5,8 @@ import Home from './views/Home'
 import Login from './views/Login'
 import Create from './views/Create'
 
+import Store from'./store/store'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -31,7 +33,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const authRequired = to.matched.some(route => route.meta.auth)
-    const authed = false //TODO
+    const authed = Store.state.user.authenticated
     authRequired && !authed ? next('/login') : next()
 })
 

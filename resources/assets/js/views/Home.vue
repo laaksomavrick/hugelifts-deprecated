@@ -6,16 +6,11 @@
 
 <script>
 
-import { getHelloWorld } from '../api/api'
-
-
 export default {
 
 
-    mounted: async function() {
+    mounted: function() {
 
-        const response = await getHelloWorld()
-        console.log(response.data)
 
     }
 
