@@ -55,11 +55,14 @@
 <script>
 
 import { mapActions } from 'vuex'
+import { formatErrors } from '../utils/error'
 
 export default {
 
     //TODO: spinner on submit
     //TODO: redirect to home on finish
+    //TODO: get access token
+    //TODO: write feature test for refresh logic when expired
 
     data: function() {
         return {
@@ -69,10 +72,6 @@ export default {
             confirmPassword: null,
             errors: []
         }
-    },
-
-    mounted: function() {
-
     },
 
     methods: {
@@ -92,8 +91,7 @@ export default {
                 await this.createUser(data)
 
             } catch (e) {
-                const errors = e.data.errors
-                this.errors = errors
+                this.errors = formatErrors(e)
             }
 
         },

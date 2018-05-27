@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
+
+use App\Http\Requests\CreateUser;
+Use App\Repositories\Users;
 
 class UsersController extends Controller {
 
@@ -12,35 +14,15 @@ class UsersController extends Controller {
 
     }
 
-    public function create(Request $request) {
+    public function create(CreateUser $request, Users $users) {
 
         //TODO: lots of logic here
-            //move validator to validator class ~> Validator
-            //move error handler response to generic way of handling
             //move user creation somewhere more appropriate ~> UserRepository
             //move token generation somewhere more appropriate ~> It's own controller
-            // Write tests for login?
-        
-        $valid = validator($request->only('name', 'email', 'password'), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6'
-        ]);
+            // Write tests for login, front end specifically for refreshing
 
-        if ($valid->fails()) {
-            $error = $valid->errors()->all();
-            return response([
-                'errors' => $error
-            ], 500);
-        }
-
-        $data = request()->only('name', 'email', 'password');
-
-        $user = User::Create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
+        $validated = $request->validated();
+        $user = $users->create($validated);
 
         //TODO: move below to a .then() client side to get the access token perhaps
 
