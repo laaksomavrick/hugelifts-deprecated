@@ -6,9 +6,20 @@ import auth from './auth'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
     modules: {
         user,
         auth
     }
 })
+
+store.subscribe((mutation, state) => {
+    switch (mutation.type) {
+        case "setAccessToken":
+            localStorage.setItem("accessToken", state.access_token)
+        break
+        default: break
+    }
+})
+
+export default store

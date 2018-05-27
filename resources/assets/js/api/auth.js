@@ -1,5 +1,5 @@
 import axios from 'axios'
 
-export const create = data => {
-    return axios.post('/api/token', data)
+export const authenticate = data => {
+    return axios.post('/api/token/authenticate', data)
 }

@@ -61,7 +61,6 @@ export default {
 
     //TODO: spinner on submit
     //TODO: redirect to home on finish
-    //TODO: get access token
     //TODO: write feature test for refresh logic when expired
 
     data: function() {
@@ -89,6 +88,7 @@ export default {
                 }
 
                 await this.createUser(data)
+                await this.createToken(data)
 
             } catch (e) {
                 this.errors = formatErrors(e)
@@ -97,7 +97,8 @@ export default {
         },
 
         ...mapActions([
-            'createUser'
+            'createUser',
+            'createToken'
         ])
 
     },
