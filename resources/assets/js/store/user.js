@@ -1,8 +1,7 @@
 import { create } from '../api/user'
 
 const state = {
-    user: {},
-    authenticated: false
+    user: {}
 }
 
 const actions = {
@@ -13,10 +12,9 @@ const actions = {
                 const response = await create(data)
                 const json = response.data
                 commit('setUser', json)
-                commit('setAuthenticated', true)
                 resolve()
             } catch (e) {
-                reject(e)
+                reject(e.response)
             }
         })
     }
@@ -27,17 +25,12 @@ const mutations = {
 
     setUser(state, user) {
         state.user = user
-    },
-
-    setAuthenticated(state, authed) {
-        state.authenticated = authed
     }
 
 }
 
 const getters = {
-    getUser: state => state.user,
-    getAuthenticated: state => state.authenticated
+    getUser: state => state.user
 }
 
 export default {

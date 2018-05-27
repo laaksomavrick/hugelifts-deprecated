@@ -13,8 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/user', 'UsersController@create');
+Route::post('/token/authenticate', 'TokensController@authenticate');
 
+Route::post('/user', 'UsersController@create');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
