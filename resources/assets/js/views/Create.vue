@@ -2,7 +2,7 @@
     <div class="create">
         <div class="create__form">
             <div class="create__form-group">
-                <label>Username</label>
+                <label>Name</label>
                 <input 
                     class="create__form-control"
                     v-model="name"
@@ -42,6 +42,12 @@
             >
                 Submit
             </button>
+            <div
+                class="create__alert"
+                v-for="error in errors"
+            >
+                {{ error }}
+            </div>
         </div>
     </div>
 </template>
@@ -60,7 +66,8 @@ export default {
             name: null,
             email: null,
             password: null,
-            confirmPassword: null
+            confirmPassword: null,
+            errors: []
         }
     },
 
@@ -70,17 +77,24 @@ export default {
 
     methods: {
 
-        submit: function() {
+        submit: async function() {
 
-            if (!this.valid) { return }
+            try {
 
-            const data = {
-                name: this.name,
-                email: this.email,
-                password: this.password
+                if (!this.valid) { return }
+
+                const data = {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password
+                }
+
+                await this.createUser(data)
+
+            } catch (e) {
+                const errors = e.data.errors
+                this.errors = errors
             }
-
-            this.createUser(data)
 
         },
 
@@ -131,6 +145,10 @@ export default {
 
     &__button {
         @extend .account__button;
+    }
+
+    &__alert {
+        @extend .account__alert;
     }
 }
 

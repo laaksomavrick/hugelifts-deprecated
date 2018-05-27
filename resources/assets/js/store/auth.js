@@ -1,20 +1,22 @@
-import { create } from '../api/user'
+import { create } from '../api/auth'
 
 const state = {
-    user: {}
+    authenticated: false,
+    accessToken: null,
+    expiresIn: null
 }
 
 const actions = {
 
-    createUser({ commit }, data) {
+    createToken({ commit }, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await create(data)
                 const json = response.data
-                commit('setUser', json)
+                commit('setAuthenticated', true)
                 resolve()
             } catch (e) {
-                reject(e.response)
+                reject(e)
             }
         })
     }
@@ -23,14 +25,14 @@ const actions = {
 
 const mutations = {
 
-    setUser(state, user) {
-        state.user = user
+    setAuthenticated(state, authenticated) {
+        state.authenticated = authenticated
     }
 
 }
 
 const getters = {
-    getUser: state => state.user
+    getAuthenticated: state => state.authenticated
 }
 
 export default {

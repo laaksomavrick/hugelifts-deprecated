@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 class UsersController extends Controller {
@@ -14,12 +15,11 @@ class UsersController extends Controller {
     public function create(Request $request) {
 
         //TODO: lots of logic here
-            //move validator to validator class
+            //move validator to validator class ~> Validator
             //move error handler response to generic way of handling
-            //move user creation somewhere more appropriate
-            //move token generation somewhere more appropriate
-            //move user + token return somewhere more appropriate
-            //encapsulate all of these processes into a service (UserCreationService) ~> DI
+            //move user creation somewhere more appropriate ~> UserRepository
+            //move token generation somewhere more appropriate ~> It's own controller
+            // Write tests for login?
         
         $valid = validator($request->only('name', 'email', 'password'), [
             'name' => 'required|string|max:255',
@@ -42,8 +42,22 @@ class UsersController extends Controller {
             'password' => bcrypt($data['password'])
         ]);
 
+        //TODO: move below to a .then() client side to get the access token perhaps
 
-        //TODO token
+        /*$client = DB::table('oauth_clients')->where('password_client', 1)->first();
+
+        $request->request->add([
+            'grant_type' => 'password',
+            'client_id' => $client->id,
+            'client_secret' => $client->secret,
+            'username' => $data['email'],
+            'password' => $data['password'],
+            'scope' => null
+        ]);
+
+        $proxied = Request::create('oauth/token', 'POST');
+
+        return \Route::dispatch($proxied); */
 
         return response($user, 200);
 
