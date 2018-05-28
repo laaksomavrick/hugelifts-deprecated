@@ -7,6 +7,8 @@ import Create from './views/Create'
 
 import Store from'./store/store'
 
+import { checkAndSetAuthenticated } from './utils/auth'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -33,7 +35,11 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const authRequired = to.matched.some(route => route.meta.auth)
-    const authed = Store.state.auth.authenticated || localStorage.getItem("accessToken")
+    let authed = Store.state.auth.authenticated
+    if (!authed) {
+        checkAndSetAuthenticated()
+        authed = Store.state.auth.authenticated
+    }
     authRequired && !authed ? next('/login') : next()
 })
 
