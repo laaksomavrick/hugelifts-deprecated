@@ -33,7 +33,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const authRequired = to.matched.some(route => route.meta.auth)
-    const authed = Store.state.auth.authenticated
+    const authed = Store.state.auth.authenticated || localStorage.getItem("accessToken")
     authRequired && !authed ? next('/login') : next()
 })
 

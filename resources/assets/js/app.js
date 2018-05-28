@@ -7,6 +7,7 @@ import Router from './routes'
 import App from './views/App'
 
 import _ from './api/api'
+import { checkAndSetAuthenticated } from './utils/auth'
 
 sync(Store, Router)
 
@@ -14,5 +15,8 @@ const app = new Vue({
     el: '#app',
     components: { App },
     router: Router,
-    store: Store
+    store: Store,
+    beforeCreate: function() {
+        checkAndSetAuthenticated()
+    }
 })

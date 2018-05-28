@@ -16,8 +16,11 @@ const store = new Vuex.Store({
 store.subscribe((mutation, state) => {
     switch (mutation.type) {
         case "setAccessToken":
-            localStorage.setItem("accessToken", state.access_token)
-        break
+            localStorage.setItem("accessToken", mutation.payload)
+            break
+        case "setExpiresIn":
+            localStorage.setItem("expiresIn", mutation.payload)
+            break
         default: break
     }
 })

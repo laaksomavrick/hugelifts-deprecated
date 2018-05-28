@@ -40,7 +40,7 @@
                 v-bind:class="{ disabled: !valid }"
                 @click="submit"
             >
-                Submit
+                {{ buttonMessage }}
             </button>
             <div
                 class="create__alert"
@@ -59,17 +59,14 @@ import { formatErrors } from '../utils/error'
 
 export default {
 
-    //TODO: spinner on submit
-    //TODO: redirect to home on finish
-    //TODO: write feature test for refresh logic when expired
-
     data: function() {
         return {
             name: null,
             email: null,
             password: null,
             confirmPassword: null,
-            errors: []
+            errors: [],
+            working: false
         }
     },
 
@@ -81,6 +78,8 @@ export default {
 
                 if (!this.valid) { return }
 
+                this.working = true
+
                 const data = {
                     name: this.name,
                     email: this.email,
@@ -90,8 +89,12 @@ export default {
                 await this.createUser(data)
                 await this.createToken(data)
 
+                this.working = false
+                this.$router.push('/')
+
             } catch (e) {
                 this.errors = formatErrors(e)
+                this.working = false
             }
 
         },
@@ -113,7 +116,12 @@ export default {
                 && this.confirmPassword === this.password
                 && this.name
                 && this.email
+                && this.working === false
             )
+        },
+
+        buttonMessage: function() {
+            return this.working ? 'Submitting' : 'Submit'
         }
 
     }

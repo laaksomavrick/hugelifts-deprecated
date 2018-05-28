@@ -37,3 +37,16 @@ Product considerations:
         Squatting loading spinner; svg :)
         PWA for mobile optimization? -> WORKBOX!
         Maybe use sketch with bootstrap components to plan the UI + theme?
+
+
+
+
+
+
+
+
+
+TODOS:
+    test protected api from /
+    write unit test for checking auth
+    write unit test for refresh token logic
