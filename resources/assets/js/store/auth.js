@@ -37,6 +37,12 @@ const mutations = {
 
     setExpiresIn(state, expiry) {
         state.expiresIn = expiry
+    },
+
+    initialize(state, data) {
+        state.accessToken = data.accessToken
+        state.expiresIn = data.expiresIn
+        state.authenticated = true
     }
 
 }
