@@ -67,6 +67,7 @@ export default {
                 }
 
                 await this.createToken(data)
+                await this.getUser()
 
                 this.working = false
                 this.$router.push('/')
@@ -79,7 +80,8 @@ export default {
         },
 
         ...mapActions([
-            'createToken'
+            'createToken',
+            'getUser'
         ])
 
     },

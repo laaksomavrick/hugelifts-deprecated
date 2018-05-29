@@ -1,4 +1,4 @@
-import { create } from '../api/user'
+import { create, get } from '../api/user'
 
 const state = {
     user: {}
@@ -11,6 +11,20 @@ const actions = {
             try {
                 const response = await create(data)
                 const json = response.data
+                commit('setUser', json)
+                resolve()
+            } catch (e) {
+                reject(e.response)
+            }
+        })
+    },
+
+    getUser({ commit }) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await get()
+                const json = response.data
+                console.log(json)
                 commit('setUser', json)
                 resolve()
             } catch (e) {

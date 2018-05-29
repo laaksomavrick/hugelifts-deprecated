@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +14,4 @@ use Illuminate\Http\Request;
 Route::post('/token/authenticate', 'TokensController@authenticate');
 
 Route::post('/user', 'UsersController@create');
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')->get('/user', 'UsersController@get');

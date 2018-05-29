@@ -13,7 +13,8 @@ class UsersController extends Controller
 
     public function get(Request $request) 
     {
-
+        $user = $request->user();
+        return response($user, 200);
     }
 
     public function create(CreateUser $request, Users $users) 
