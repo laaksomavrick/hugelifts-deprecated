@@ -6,6 +6,8 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Models\Exercise;
+
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
@@ -27,5 +29,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function exercises()
+    {
+        return $this->hasMany(Exercise::class);
+    }
 
 }

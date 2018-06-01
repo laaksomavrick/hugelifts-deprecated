@@ -1,7 +1,9 @@
 <template>
     <div class="home">
         <navbar></navbar>
-        <router-view></router-view>
+        <div class="home__slot">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
@@ -24,6 +26,16 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+@import '../../sass/bscore';
+
+.home {
+
+    &__slot {
+        @include make-container();
+    }
+
+}
 
 </style>
