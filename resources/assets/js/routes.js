@@ -5,6 +5,10 @@ import Home from './views/Home'
 import Login from './views/Login'
 import Create from './views/Create'
 
+import RoutineSchedule from './components/RoutineSchedule'
+import RoutineManager from './components/RoutineManager'
+import LiftManager from './components/LiftManager'
+
 import Store from'./store/store'
 
 import { checkAndSetAuthenticated } from './utils/auth'
@@ -18,7 +22,22 @@ const router = new Router({
             path: '/',
             name: 'home',
             component: Home,
-            meta: { auth: true }
+            meta: { auth: true },
+            redirect: '/active',
+            children: [
+                {
+                    path: 'active',
+                    component: RoutineSchedule
+                },
+                {
+                    path: 'routines',
+                    component: RoutineManager
+                },
+                {
+                    path: 'lifts',
+                    component: LiftManager
+                },
+            ]
         },
         {
             path: '/login',
@@ -29,6 +48,10 @@ const router = new Router({
             path: '/create',
             name: 'create',
             component: Create
+        },
+        {
+            path: '*',
+            redirect: '/'
         }
     ]
 })
