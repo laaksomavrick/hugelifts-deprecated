@@ -27,14 +27,17 @@ const router = new Router({
             children: [
                 {
                     path: 'active',
+                    name: 'active',
                     component: RoutineSchedule
                 },
                 {
                     path: 'routines',
+                    name: 'routines',
                     component: RoutineManager
                 },
                 {
                     path: 'lifts',
+                    name: 'lifts',
                     component: LiftManager
                 },
             ]

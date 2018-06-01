@@ -11,7 +11,15 @@
 |
 */
 
+//Public routes
 Route::post('/token/authenticate', 'TokensController@authenticate');
-
 Route::post('/user', 'UsersController@create');
-Route::middleware('auth:api')->get('/user', 'UsersController@get');
+
+//Auth required routes
+Route::middleware('auth:api')->group(function() {
+    
+    Route::get('/user', 'UsersController@get');
+
+    Route::get('/exercises', 'ExercisesController@get');
+
+});
