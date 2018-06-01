@@ -39,14 +39,16 @@ Product considerations:
         Maybe use sketch with bootstrap components to plan the UI + theme?
 
 
+    A routine is a rotating series of exercises
+    An exercise is a set of sets and reps for those sets
+    
 
+    NAV:
+        "Active Routine" view 
+            -> Current and upcoming gym sessions
+            -> "Lift day" view; details for today's sets
+        "Your Routines" view
+            -> Create, read, update, delete routine
+        "Your Lifts" view
+            -> Create, read, update, delete lifts
 
-
-
-
-
-
-TODOS:
-    test protected api from /
-    write unit test for checking auth
-    write unit test for refresh token logic

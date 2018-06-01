@@ -37,7 +37,6 @@ class UserTest extends TestCase
             'name' => 'name',
             'email' => 'email@gmail.ca',
             'password' => 'password',
-
         ]);
 
         $userAuthentication = $this->json('POST', '/api/token/authenticate', [

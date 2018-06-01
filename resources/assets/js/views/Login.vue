@@ -109,10 +109,12 @@ export default {
 
 <style lang="scss" scoped>
 
+@import '../../sass/bscore';
 @import '../../sass/account';
 
 .login {
 
+    @include make-container();
     @extend .account;
 
     &__form {

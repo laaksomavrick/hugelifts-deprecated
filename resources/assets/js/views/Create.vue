@@ -132,11 +132,13 @@ export default {
 
 <style lang="scss" scoped>
 
+@import '../../sass/bscore';
 @import '../../sass/account';
 
 .create {
 
     @extend .account;
+    @include make-container();
 
     &__form {
         @extend .account__form;

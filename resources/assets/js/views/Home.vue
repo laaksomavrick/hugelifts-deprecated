@@ -1,13 +1,18 @@
 <template>
-    <div>
-      <p>homepage</p>
+    <div class="home">
+        <navbar></navbar>
     </div>
 </template>
 
 <script>
 
+import NavBar from '../components/Navbar'
+
 export default {
 
+    components: {
+        'navbar': NavBar
+    },
 
     mounted: function() {
 
@@ -17,3 +22,7 @@ export default {
 }
 
 </script>
+
+<style>
+
+</style>
