@@ -8,7 +8,7 @@
             <span 
                 class="exercises__repmax"
             >
-                {{ exercise.rep_max }}
+                {{ maxRep(exercise) }}
             </span>
         </div>
     </div>
@@ -17,6 +17,7 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
+import { getOneRepMax } from '../utils/lifts'
 
 export default {
 
@@ -31,6 +32,10 @@ export default {
     },
 
     methods: {
+
+        maxRep: function(exercise) {
+            return getOneRepMax(exercise.rep_max, exercise.rep_max_interval)
+        }
 
     },
 
