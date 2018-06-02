@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-Use App\Models\Exercises; //TODO repository;
+Use App\Repositories\ExercisesRepository;
 
 class ExercisesController extends Controller 
 {
 
-    public function get(Request $request) 
+    public function get(Request $request, ExercisesRepository $exercises) 
     {
-        return response(['hi' => 'hello'], 200);
+        $data = $exercises->getFor($request->user()->id);
+        return response($data, 200);
     }
 
     public function create(Request $request) 

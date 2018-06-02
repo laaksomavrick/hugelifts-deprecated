@@ -53,6 +53,7 @@ export default {
     @extend .bg-primary;
 
     color: white;
+    justify-content: left;
 
     &__brand {
         @extend .navbar-brand;
@@ -62,6 +63,8 @@ export default {
 
         @extend .nav-item;
         opacity: 0.7;
+        margin-left: 10px;
+        margin-right: 10px;
 
         &--active {
             @extend .active;
@@ -75,17 +78,6 @@ export default {
         text-decoration: none;
     }
 
-}
-
-@media screen and (min-width: $sm) {
-    .navbar {
-        justify-content: left;
-
-        &__item {
-            margin-left: 10px!important;
-            margin-right: 10px!important;
-        }
-    }
 }
 
 </style>

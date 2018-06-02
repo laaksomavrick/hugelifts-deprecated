@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\CreateUser;
-Use App\Repositories\Users;
+Use App\Repositories\UserRepository;
 
 class UsersController extends Controller 
 {
@@ -17,7 +17,7 @@ class UsersController extends Controller
         return response($user, 200);
     }
 
-    public function create(CreateUser $request, Users $users) 
+    public function create(CreateUser $request, UserRepository $users) 
     {
         $validated = $request->validated();
         $user = $users->create($validated);

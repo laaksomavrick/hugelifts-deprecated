@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class Users
+class UserRepository
 {
 
     public function create($data) {

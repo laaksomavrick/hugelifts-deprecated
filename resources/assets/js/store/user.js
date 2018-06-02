@@ -24,7 +24,6 @@ const actions = {
             try {
                 const response = await get()
                 const json = response.data
-                console.log(json)
                 commit('setUser', json)
                 resolve()
             } catch (e) {

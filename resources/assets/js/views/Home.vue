@@ -11,14 +11,23 @@
 
 import NavBar from '../components/Navbar'
 
+import { mapActions } from 'vuex'
+
 export default {
 
     components: {
         'navbar': NavBar
     },
 
-    mounted: function() {
+    mounted: async function() {
+        await this.startup()
+    },
 
+    methods: {
+
+        ...mapActions([
+            'startup'
+        ])
 
     }
 

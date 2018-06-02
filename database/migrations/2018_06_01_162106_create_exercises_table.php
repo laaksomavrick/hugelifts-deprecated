@@ -20,7 +20,8 @@ class CreateExercisesTable extends Migration
             $table->string('name');
             $table->unsignedTinyInteger('rep_max_interval');
             $table->unsignedSmallInteger('rep_max');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

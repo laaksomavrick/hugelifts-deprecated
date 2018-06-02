@@ -1,15 +1,22 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
+import { startup } from './actions'
+
 import user from './user'
 import auth from './auth'
+import exercise from './exercise'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+    actions: {
+        startup   
+    },
     modules: {
         user,
-        auth
+        auth,
+        exercise
     }
 })
 
