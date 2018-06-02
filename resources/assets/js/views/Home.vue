@@ -43,6 +43,8 @@ export default {
 
     &__slot {
         @include make-container();
+        padding-left: 0;
+        padding-right: 0;
     }
 
 }

@@ -79,8 +79,7 @@ export default {
         },
 
         ...mapActions([
-            'createToken',
-            'getUser'
+            'createToken'
         ])
 
     },

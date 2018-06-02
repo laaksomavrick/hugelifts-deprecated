@@ -1,12 +1,75 @@
 <template>
-    <div>
-        zxc
+    <div class="exercises">
+        <div 
+            v-for="exercise in getExercises"
+            class="exercises__item"
+        >
+            {{ exercise.name }}
+            <span 
+                class="exercises__repmax"
+            >
+                {{ exercise.rep_max }}
+            </span>
+        </div>
     </div>
 </template>
 
 <script>
+
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+
+    data: function() {
+        return {
+
+        }
+    },
+
+    mounted: function() {
+
+    },
+
+    methods: {
+
+    },
+
+    computed: {
+
+        ...mapGetters([
+            'getExercises'
+        ])
+
+    }
+
+}
 </script>
 
 <style lang="scss" scoped>
+
+@import '../../sass/bscore';
+@import '~bootstrap/scss/list-group';
+@import '~bootstrap/scss/badge';
+
+.exercises {
+
+    @extend .list-group;
+
+    &__item {
+        @extend .list-group-item;
+        @extend .list-group-item-action;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__repmax {
+        @extend .badge;
+        @extend .badge-primary;
+        @extend .badge-pill;
+    }
+
+}
 
 </style>

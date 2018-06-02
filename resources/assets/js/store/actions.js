@@ -8,8 +8,8 @@ import exercise from './exercise'
 export const startup = ({dispatch}) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = dispatch('getUser')
-            const exercises = dispatch('getExercises')
+            const user = dispatch('fetchUser')
+            const exercises = dispatch('fetchExercises')
             await Promise.all([user, exercises])
             resolve()
         } catch (e) {

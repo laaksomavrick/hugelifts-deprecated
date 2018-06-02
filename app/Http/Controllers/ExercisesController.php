@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-Use App\Repositories\ExercisesRepository;
+Use App\Repositories\ExerciseRepository;
 
 class ExercisesController extends Controller 
 {
 
-    public function get(Request $request, ExercisesRepository $exercises) 
+    public function get(Request $request, ExerciseRepository $exercises) 
     {
         $data = $exercises->getFor($request->user()->id);
         return response($data, 200);

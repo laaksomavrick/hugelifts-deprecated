@@ -19,7 +19,7 @@ const actions = {
         })
     },
 
-    getUser({ commit }) {
+    fetchUser({ commit }) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await get()

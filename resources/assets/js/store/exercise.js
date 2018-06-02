@@ -6,7 +6,7 @@ const state = {
 
 const actions = {
 
-    getExercises({ commit }) {
+    fetchExercises({ commit }) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await get()
