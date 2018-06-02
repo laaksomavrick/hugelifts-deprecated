@@ -3,6 +3,7 @@
         <div 
             v-for="exercise in getExercises"
             class="exercises__item"
+            @click="handleExerciseClick(exercise)"
         >
             {{ exercise.name }}
             <span 
@@ -18,6 +19,7 @@
 
 import { mapActions, mapGetters } from 'vuex'
 import { getOneRepMax } from '../utils/lifts'
+import { EDIT_LIFT_ROUTE } from '../constants'
 
 export default {
 
@@ -32,6 +34,11 @@ export default {
     },
 
     methods: {
+
+        handleExerciseClick: function(exercise) {
+            const id = exercise.id
+            this.$router.push({ name: EDIT_LIFT_ROUTE, params: { id }})
+        },
 
         maxRep: function(exercise) {
             return getOneRepMax(exercise.rep_max, exercise.rep_max_interval)

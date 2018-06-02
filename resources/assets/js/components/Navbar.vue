@@ -14,7 +14,7 @@
             <font-awesome-icon 
                 class="navbar__icon" 
                 :icon="icon" 
-                v-if="addVisible"
+                v-if="addIsVisible"
                 @click="handleAddClick" 
             />
         </div>
@@ -25,7 +25,7 @@
 
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare'
-import { ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE } from '../constants'
+import { ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE, NEW_LIFT_ROUTE } from '../constants'
 
 export default {
 
@@ -52,14 +52,19 @@ export default {
         },
 
         handleAddClick: function() {
-            console.log("hello world")
+            switch(this.$route.name) {
+                case LIFTS_ROUTE:
+                    this.$router.push(NEW_LIFT_ROUTE)
+                break
+                default: break
+            }
         }
 
     },
 
     computed : {
 
-        addVisible: function() {
+        addIsVisible: function() {
             //TODO
             return true
         },

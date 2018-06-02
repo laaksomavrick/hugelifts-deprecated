@@ -8,6 +8,8 @@ import Create from './views/Create'
 import RoutineSchedule from './components/RoutineSchedule'
 import RoutineManager from './components/RoutineManager'
 import LiftManager from './components/LiftManager'
+import CreateLift from './components/CreateLift'
+import EditLift from './components/EditLift'
 
 import Store from'./store/store'
 
@@ -18,7 +20,9 @@ import {
     LIFTS_ROUTE,
     HOME_ROUTE,
     LOGIN_ROUTE,
-    CREATE_ROUTE
+    CREATE_ROUTE,
+    NEW_LIFT_ROUTE,
+    EDIT_LIFT_ROUTE
 } from './constants'
 
 Vue.use(Router)
@@ -48,6 +52,16 @@ const router = new Router({
                     name: LIFTS_ROUTE,
                     component: LiftManager
                 },
+                {
+                    path: NEW_LIFT_ROUTE,
+                    name: NEW_LIFT_ROUTE,
+                    component: CreateLift
+                },
+                {
+                    path: EDIT_LIFT_ROUTE,
+                    name: EDIT_LIFT_ROUTE,
+                    component: EditLift
+                }
             ]
         },
         {
