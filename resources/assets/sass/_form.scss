@@ -13,7 +13,7 @@
         @include make-col-ready();
 
         @include media-breakpoint-up(xs) {
-            @include make-col(8);
+            @include make-col(12);
         }
 
         @include media-breakpoint-up(lg) {

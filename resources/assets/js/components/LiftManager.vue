@@ -70,6 +70,7 @@ export default {
     &__item {
         @extend .list-group-item;
         @extend .list-group-item-action;
+        border-radius: 0px!important;
         cursor: pointer;
         display: flex;
         align-items: center;

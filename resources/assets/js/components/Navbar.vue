@@ -1,7 +1,10 @@
 <template>
     <nav class="navbar">
         <div class="navbar__brand">
-            Brand
+            <font-awesome-icon 
+                class="navbar__brand-icon" 
+                :icon="brandIcon" 
+            />
         </div>
         <div class="navbar__routes">
             <template v-for="route in routes">
@@ -12,8 +15,8 @@
         </div>
         <div class="navbar__actions">
             <font-awesome-icon 
-                class="navbar__icon" 
-                :icon="icon" 
+                class="navbar__plus-icon" 
+                :icon="plusIcon" 
                 v-if="addIsVisible"
                 @click="handleAddClick" 
             />
@@ -25,6 +28,7 @@
 
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare'
+import faDumbbell from '@fortawesome/fontawesome-free-solid/faDumbbell'
 import { ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE, NEW_LIFT_ROUTE } from '../constants'
 
 export default {
@@ -69,8 +73,12 @@ export default {
             return true
         },
 
-        icon: function() {
+        plusIcon: function() {
             return faPlusSquare
+        },
+
+        brandIcon: function() {
+            return faDumbbell
         }
 
     }
@@ -126,9 +134,13 @@ export default {
         text-decoration: none;
     }
 
-    &__icon {
+    &__plus-icon {
         font-size: 17px;
         cursor: pointer;
+    }
+
+    &__brand-icon {
+        
     }
 
 }
