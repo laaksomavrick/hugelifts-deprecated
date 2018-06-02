@@ -12,6 +12,14 @@ import LiftManager from './components/LiftManager'
 import Store from'./store/store'
 
 import { checkAndSetAuthenticated } from './utils/auth'
+import { 
+    ACTIVE_ROUTE, 
+    ROUTINES_ROUTE, 
+    LIFTS_ROUTE,
+    HOME_ROUTE,
+    LOGIN_ROUTE,
+    CREATE_ROUTE
+} from './constants'
 
 Vue.use(Router)
 
@@ -20,36 +28,36 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            name: 'home',
+            name: HOME_ROUTE,
             component: Home,
             meta: { auth: true },
-            redirect: '/active',
+            redirect: ACTIVE_ROUTE,
             children: [
                 {
-                    path: 'active',
-                    name: 'active',
+                    path: ACTIVE_ROUTE,
+                    name: ACTIVE_ROUTE,
                     component: RoutineSchedule
                 },
                 {
-                    path: 'routines',
-                    name: 'routines',
+                    path: ROUTINES_ROUTE,
+                    name: ROUTINES_ROUTE,
                     component: RoutineManager
                 },
                 {
-                    path: 'lifts',
-                    name: 'lifts',
+                    path: LIFTS_ROUTE,
+                    name: LIFTS_ROUTE,
                     component: LiftManager
                 },
             ]
         },
         {
-            path: '/login',
-            name: 'login',
+            path: LOGIN_ROUTE,
+            name: LOGIN_ROUTE,
             component: Login
         },
         {
-            path: '/create',
-            name: 'create',
+            path: CREATE_ROUTE,
+            name: CREATE_ROUTE,
             component: Create
         },
         {
