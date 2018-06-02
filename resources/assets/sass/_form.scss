@@ -1,6 +1,9 @@
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/alert';
+@import './bscore';
 
-.account {
+.form {
 
     @include make-row();
     height: 100%;
@@ -27,6 +30,10 @@
 
     &__form-control {
         @extend .form-control;
+    }
+
+    &__form-row {
+        @extend .form-row;
     }
 
     &__button {

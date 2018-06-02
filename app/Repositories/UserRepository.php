@@ -8,8 +8,8 @@ use App\Models\User;
 class UserRepository
 {
 
-    public function create($data) {
-
+    public function create($data) 
+    {
         return User::Create([
             'name' => $data['name'],
             'email' => $data['email'],

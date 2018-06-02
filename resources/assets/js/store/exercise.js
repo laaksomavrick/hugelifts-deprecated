@@ -17,6 +17,21 @@ const actions = {
                 reject(e.response)
             }
         })
+    },
+
+    createExercise({ commit }, data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await create(data)
+                const json = response.data
+                console.log(response)
+                console.log(json)
+                commit('addExercise', json)
+                resolve()
+            } catch (e) {
+                reject(e)
+            }
+        })
     }
 
 }
@@ -25,6 +40,10 @@ const mutations = {
 
     setExercises(state, exercises) {
         state.exercises = exercises
+    },
+
+    addExercise(state, exercise) {
+        state.exercises = [...state.exercises, exercise]
     }
 
 }

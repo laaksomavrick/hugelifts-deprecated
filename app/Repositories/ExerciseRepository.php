@@ -13,4 +13,14 @@ class ExerciseRepository
         return Exercise::where('user_id', $userId)->get();
     }
 
+    public function create($userId, $data)
+    {
+        return Exercise::create([
+            'user_id' => $userId,
+            'name' => $data['name'],
+            'rep_max' => $data['rep_max'],
+            'rep_max_interval' => $data['rep_max_interval']
+        ]);
+    }
+
 }

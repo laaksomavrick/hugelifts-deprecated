@@ -40,7 +40,12 @@
                 v-bind:class="{ disabled: !valid }"
                 @click="submit"
             >
-                {{ buttonMessage }}
+                <template v-if="working">
+                    <font-awesome-icon :icon="icon" spin />
+                </template>
+                <template v-else>
+                    Create
+                </template>
             </button>
             <div
                 class="create__alert"
@@ -53,6 +58,9 @@
 </template>
 
 <script>
+
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
 
 import { mapActions } from 'vuex'
 import { formatErrors } from '../utils/error'
@@ -120,8 +128,8 @@ export default {
             )
         },
 
-        buttonMessage: function() {
-            return this.working ? 'Submitting' : 'Submit'
+        icon: function() {
+            return faSpinner
         }
 
     }
@@ -133,31 +141,31 @@ export default {
 <style lang="scss" scoped>
 
 @import '../../sass/bscore';
-@import '../../sass/account';
+@import '../../sass/form';
 
 .create {
 
-    @extend .account;
+    @extend .form;
     @include make-container();
 
     &__form {
-        @extend .account__form;
+        @extend .form__form;
     }
 
     &__form-group {
-        @extend .account__form-group;
+        @extend .form__form-group;
     }
 
     &__form-control {
-        @extend .account__form-control;
+        @extend .form__form-control;
     }
 
     &__button {
-        @extend .account__button;
+        @extend .form__button;
     }
 
     &__alert {
-        @extend .account__alert;
+        @extend .form__alert;
     }
 }
 

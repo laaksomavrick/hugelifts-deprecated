@@ -21,5 +21,6 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/user', 'UsersController@get');
 
     Route::get('/exercises', 'ExercisesController@get');
+    Route::post('/exercises', 'ExercisesController@create');
 
 });

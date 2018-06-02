@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+Use App\Http\Requests\CreateExercise;;
 Use App\Repositories\ExerciseRepository;
 
 class ExercisesController extends Controller 
@@ -15,8 +16,11 @@ class ExercisesController extends Controller
         return response($data, 200);
     }
 
-    public function create(Request $request) 
+    public function create(CreateExercise $request, ExerciseRepository $exercises) 
     {
+        $validated = $request->validated();
+        $exercise = $exercises->create($request->user()->id, $validated);
+        return response($exercise, 200);
     }
 
     public function update(Request $request) 
