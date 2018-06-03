@@ -77,8 +77,7 @@ export default {
             type: Object,
             default: null
         },
-        onSubmit: Function,
-        title: String
+        onSubmit: Function
     },
 
     data: function() {

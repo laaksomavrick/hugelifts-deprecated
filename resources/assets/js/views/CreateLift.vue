@@ -2,12 +2,13 @@
         <lift-form 
             :exercise="null"
             :onSubmit="createExercise"
+            title="Create Lift"
         />
 </template>
 
 <script>
 
-import LiftForm from './LiftForm'
+import LiftForm from '../components/LiftForm'
 import { mapActions } from 'vuex'
 
 export default {
