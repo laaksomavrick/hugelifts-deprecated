@@ -34,6 +34,7 @@ const router = new Router({
             name: HOME_ROUTE,
             component: Home,
             meta: { auth: true },
+            redirect: ACTIVE_ROUTE,
             children: [
                 {
                     path: ACTIVE_ROUTE,
@@ -81,10 +82,8 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const authRequired = to.matched.some(route => route.meta.auth)
-    console.log(authRequired)
     let authed = Store.state.auth.authenticated
-    if (!authed && authRequired) {
-        console.log('here')
+    if (!authed) {
         checkAndSetAuthenticated()
         authed = Store.state.auth.authenticated
     }

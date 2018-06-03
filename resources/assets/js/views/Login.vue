@@ -19,11 +19,11 @@
                 </input>
             </div>
             <progress-button 
-                class="login_button"
+                class="login__button"
                 v-bind:class="{ disabled: !valid }"
                 :working="working"
                 :handleClick="submit"
-                buttonText="Create"
+                buttonText="Login"
             />
             <div
                 class="login__alert"
