@@ -1,7 +1,9 @@
 <template>
     <div class="lift-form">
         <div class="lift-form__form">
-            <h4 class="lift-form__title">{{ title }}</h4>
+            <h4 class="lift-form__title">
+                {{ title }}
+            </h4>
             <div class="lift-form__form-group">
                 <label>Name</label>
                 <input 
@@ -38,11 +40,18 @@
                 </div>
             </div>
             <progress-button
-                class="lift-form__button"
+                class="lift-form__button lift-form__button--primary"
                 v-bind:class="{ disabled: !valid }"
                 :working="working"
-                :handleClick="submit"
+                :handleClick="onSubmitClick"
                 buttonText="Update"
+            />
+            <progress-button
+                v-if="deleteable"
+                class="lift-form__button lift-form__button--danger"
+                :working="working"
+                :handleClick="onDeleteClick"
+                buttonText="Delete"
             />
             <div
                 class="lift-form__alert"
@@ -58,6 +67,7 @@
 
 import ProgressButton from '../components/ProgressButton'
 import { formatErrors } from '../utils/error'
+import { mapActions } from 'vuex'
 
 export default {
 
@@ -88,7 +98,7 @@ export default {
 
     methods: {
 
-        submit: async function() {
+        onSubmitClick: async function() {
 
             try {
 
@@ -113,7 +123,15 @@ export default {
                 this.working = false
             }
 
-        }
+        },
+
+        onDeleteClick: function() {
+            this.toggleConfirmModal(true)
+        },
+
+        ...mapActions([
+            'toggleConfirmModal'
+        ])
 
     },
 
@@ -125,6 +143,10 @@ export default {
                 && this.repMax
                 && this.repMaxInterval
             )
+        },
+
+        deleteable: function() {
+            return !!this.exercise
         }
 
     }
@@ -162,6 +184,13 @@ export default {
 
     &__button {
         @extend .form__button;
+Deleteprimary {
+            @extend .btn-primary;
+        }
+
+        &--danger {
+            @extend .btn-danger;
+        }
     }
 
     &__form-row {
