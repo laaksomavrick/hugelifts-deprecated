@@ -3,6 +3,7 @@
             :exercise="null"
             :onSubmit="createExercise"
             title="Create Lift"
+            buttonText="Create"
         />
 </template>
 

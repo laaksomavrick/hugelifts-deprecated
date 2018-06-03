@@ -18,18 +18,13 @@
                 >
                 </input>
             </div>
-            <button 
-                class="login__button"
+            <progress-button 
+                class="login_button"
                 v-bind:class="{ disabled: !valid }"
-                @click="submit"
-            >
-                <template v-if="working">
-                    <font-awesome-icon :icon="icon" spin />
-                </template>
-                <template v-else>
-                    Submit
-                </template>
-            </button>
+                :working="working"
+                :handleClick="submit"
+                buttonText="Create"
+            />
             <div
                 class="login__alert"
                 v-for="error in errors"
@@ -42,13 +37,15 @@
 
 <script>
 
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
-
+import ProgressButton from '../components/ProgressButton'
 import { mapActions } from 'vuex'
 import { formatErrors } from '../utils/error'
 
 export default {
+
+    components: {
+        ProgressButton
+    },
 
     data: function() {
         return {

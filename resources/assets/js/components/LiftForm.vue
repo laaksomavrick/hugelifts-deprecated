@@ -37,18 +37,13 @@
                     </div>
                 </div>
             </div>
-            <button 
+            <progress-button
                 class="lift-form__button"
                 v-bind:class="{ disabled: !valid }"
-                @click="submit"
-            >
-                <template v-if="working">
-                    <font-awesome-icon :icon="icon" spin />
-                </template>
-                <template v-else>
-                    Create
-                </template>
-            </button>
+                :working="working"
+                :handleClick="submit"
+                buttonText="Update"
+            />
             <div
                 class="lift-form__alert"
                 v-for="error in errors"
@@ -61,15 +56,13 @@
 
 <script>
 
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
-
+import ProgressButton from '../components/ProgressButton'
 import { formatErrors } from '../utils/error'
 
 export default {
 
     components: {
-        FontAwesomeIcon
+        ProgressButton
     },
 
     props: {
@@ -78,7 +71,8 @@ export default {
             default: null
         },
         onSubmit: Function,
-        title: String
+        title: String,
+        buttonText: String
     },
 
     data: function() {
@@ -131,10 +125,6 @@ export default {
                 && this.repMax
                 && this.repMaxInterval
             )
-        },
-
-        icon: function() {
-            return faSpinner
         }
 
     }
@@ -159,7 +149,7 @@ export default {
 
     &__form {
         @extend .form__form;
-        padding-top: 15px;
+        padding-top: 30px;
     }
 
     &__form-group {

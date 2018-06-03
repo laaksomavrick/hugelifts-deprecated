@@ -3,6 +3,7 @@
             :exercise="exercise"
             :onSubmit="updateExercise"
             title="Edit Lift"
+            buttonText="Update"
         />
 </template>
 
