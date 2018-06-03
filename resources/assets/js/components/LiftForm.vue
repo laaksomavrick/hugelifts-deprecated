@@ -126,11 +126,25 @@ export default {
         },
 
         onDeleteClick: function() {
-            this.toggleConfirmModal(true)
+            const data = {
+                open: true,
+                props: {
+                    headerText: `Delete ${this.name}?`,
+                    bodyText: `Are you sure you want to delete ${this.name}?`,
+                    onDelete: () => { 
+                        this.destroyExercise(this.id)
+                        this.$router.go(-1)
+                    }
+
+                }
+            }
+            console.log(data)
+            this.toggleConfirmModal(data)
         },
 
         ...mapActions([
-            'toggleConfirmModal'
+            'toggleConfirmModal',
+            'destroyExercise'
         ])
 
     },

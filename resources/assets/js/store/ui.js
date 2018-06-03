@@ -1,5 +1,8 @@
 const state = {
-    confirmModalOpen: false
+    confirmModal: {
+        open: false,
+        props: {}
+    }
 }
 
 const actions = {
@@ -12,14 +15,15 @@ const actions = {
 
 const mutations = {
 
-    setConfirmModal(state, value) {
-        state.confirmModalOpen = value
+    setConfirmModal(state, data) {
+        state.confirmModal.open = data.open
+        state.confirmModal.props = data.props
     }
 
 }
 
 const getters = {
-    getConfirmModalOpen: state => state.confirmModalOpen
+    getConfirmModal: state => state.confirmModal
 }
 
 export default {

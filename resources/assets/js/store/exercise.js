@@ -1,4 +1,4 @@
-import { get, create, update } from '../api/exercise'
+import { get, create, update, destroy } from '../api/exercise'
 
 const state = {
     exercises: []
@@ -43,7 +43,21 @@ const actions = {
                 reject(e)
             }
         })
-    }
+    },
+
+    destroyExercise({ commit }, id) {
+        console.log("destroy")
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await destroy(id)
+                const json = response.data
+                commit('removeExercise', id)
+                resolve()
+            } catch (e) {
+                reject(e)
+            }
+        })
+    },
 
 }
 
@@ -61,6 +75,11 @@ const mutations = {
         const filtered = state.exercises.filter(e => e.id !== exercise.id)
         state.exercises = [...filtered, exercise]
     },
+
+    removeExercise(state, id) {
+        const filtered = state.exercises.filter(e => e.id !== id)
+        state.exercises = [...filtered]
+    }
 
 }
 

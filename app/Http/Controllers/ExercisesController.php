@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-Use App\Http\Requests\CreateExercise;;
+Use App\Http\Requests\CreateExercise;
+Use App\Http\Requests\UpdateExercise;
+Use App\Http\Requests\DeleteExercise;
 Use App\Repositories\ExerciseRepository;
 
 class ExercisesController extends Controller 
@@ -23,15 +25,17 @@ class ExercisesController extends Controller
         return response($exercise, 200);
     }
 
-    public function update($id, CreateExercise $request, ExerciseRepository $exercises) 
+    public function update($exerciseId, UpdateExercise $request, ExerciseRepository $exercises) 
     {
         $validated = $request->validated();
-        $exercise = $exercises->update($id, $validated);
+        $exercise = $exercises->update($exerciseId, $validated);
         return response($exercise, 200);
     }
 
-    public function destroy(Request $request) 
+    public function destroy($exerciseId, DeleteExercise $request, ExerciseRepository $exercises) 
     {
+        $exercise = $exercises->destroy($exerciseId);
+        return response($exercise, 200);
     }
 
 }

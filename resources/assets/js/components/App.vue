@@ -1,31 +1,18 @@
 <template>
     <div class="app">
-        <router-view></router-view>
-
-        <!-- move to it's own component -->
-        <modal 
-            v-if="getConfirmModalOpen"
-            headerText="Confirm deletion"
-            bodyText="Are you sure you want to delete this?"
-        />
+        <router-view />
+        <confirm-modal />
     </div>
 </template>
 
 <script>
 
-import Modal from './modals/Modal'
-import { mapGetters, mapActions } from 'vuex'
+import ConfirmModal from './modals/ConfirmModal'
 
 export default {
 
     components: {
-        Modal
-    },
-
-    computed: {
-       ...mapGetters([
-            'getConfirmModalOpen'
-       ])
+        ConfirmModal
     }
 
 }
@@ -36,6 +23,7 @@ export default {
 
 .app {
     height: 100vh;
+    font-family: sans-serif;
 }
 
 </style>

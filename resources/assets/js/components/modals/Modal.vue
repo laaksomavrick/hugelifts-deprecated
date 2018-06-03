@@ -15,12 +15,25 @@
                             </div>
 
                             <div class="modal__body">
-                                {{ bodyText }}
+                                <slot>
+                                </slot>
                             </div>
                             <div class="modal__footer">
-                                <button v-if="onClose" @click="onClose" class="modal__btn modal__btn--secondary">Close</button>
-                                <button v-if="onDelete" @click="onDelete" class="modal__btn modal__btn--danger">Delete</button>
-                                <button v-if="onSubmit" @click="onSubmit" class="modal__btn modal__btn--primary">Submit</button>
+                                <button v-if="onClose" @click="handleOnClose" class="modal__btn modal__btn--secondary">Close</button>
+                                <progress-button 
+                                    v-if="onDelete" 
+                                    :handleClick="handleOnDelete" 
+                                    :working="is_working" 
+                                    buttonText="Delete"
+                                    class="modal__btn modal__btn--danger"
+                                />
+                                <progress-button 
+                                    v-if="onSubmit" 
+                                    :handleClick="handleOnSubmit" 
+                                    :working="is_working" 
+                                    buttonText="Submit"
+                                    class="modal__btn modal__btn--primary"
+                                />
                             </div>
                         </div>
                     </div>
@@ -32,11 +45,16 @@
 
 <script>
 
+import ProgressButton from '../ProgressButton'
+
 export default {
+
+    components: {
+        ProgressButton
+    },
 
     props: {
         headerText: String,
-        bodyText: String,
         onClose: {
             type: Function,
             default: null
@@ -48,8 +66,36 @@ export default {
         onSubmit: {
             type: Function,
             default: null
+        },
+        working: {
+            type: Boolean,
+            default: false
         }
-    }
+
+    },
+
+    methods: {
+
+        handleOnClose: function() {
+            this.onClose()
+        },
+        handleOnDelete: function() {
+            this.onDelete()
+        },
+        handleOnSubmit: function() {
+            this.onSubmit()
+        },
+
+    },
+
+    computed: {
+
+        is_working: function() {
+            return this.working
+        }
+
+    },
+
 
 }
 
