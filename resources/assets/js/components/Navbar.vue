@@ -52,7 +52,7 @@ export default {
     methods: {
 
         isActive: function(name) {
-            return this.$route.name === name
+            return this.$route.path.includes(name)
         },
 
         handleAddClick: function() {

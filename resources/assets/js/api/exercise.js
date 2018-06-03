@@ -11,3 +11,7 @@ export const get = () => {
 export const update = data => {
     return axios.patch(`/api/exercises/${data.id}`, data)
 }
+
+export const destroy = id => {
+    return axios.delete(`/api/exercises/${id}`)
+}

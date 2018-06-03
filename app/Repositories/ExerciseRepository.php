@@ -33,8 +33,14 @@ class ExerciseRepository
         return $this->show($id);
     }
 
-    public function show($id) {
+    public function show($id) 
+    {
         return Exercise::find($id);
+    }
+
+    public function destroy($id)
+    {
+        return Exercise::destroy($id);
     }
 
 }

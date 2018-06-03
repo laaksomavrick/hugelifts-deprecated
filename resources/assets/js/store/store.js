@@ -6,6 +6,7 @@ import { startup } from './actions'
 import user from './user'
 import auth from './auth'
 import exercise from './exercise'
+import ui from './ui'
 
 Vue.use(Vuex)
 
@@ -16,7 +17,8 @@ const store = new Vuex.Store({
     modules: {
         user,
         auth,
-        exercise
+        exercise,
+        ui
     }
 })
 

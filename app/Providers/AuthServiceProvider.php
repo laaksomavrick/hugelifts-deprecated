@@ -6,6 +6,9 @@ use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+use App\Models\Exercise;
+use App\Policies\ExercisePolicy;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -14,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Exercise::class => ExercisePolicy::class
     ];
 
     /**
