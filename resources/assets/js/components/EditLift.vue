@@ -1,13 +1,42 @@
 <template>
-    <div>
-        edit lift
-    </div>
+        <lift-form 
+            :exercise="exercise"
+            :onSubmit="updateExercise"
+        />
 </template>
 
 <script>
-//TODO share form with create lift
+
+import LiftForm from './LiftForm'
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+
+    components: {
+        LiftForm
+    },
+
+    methods: {
+
+        ...mapActions([
+            'updateExercise'
+        ])
+
+    },
+
+    computed: {
+
+        exercise: function() {
+            //TODO: api call if not found (direct route load)
+            return this.getExercise(this.$route.params.id)
+        },
+
+        ...mapGetters([
+            'getExercise'
+        ])
+
+    }
+
+}
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>

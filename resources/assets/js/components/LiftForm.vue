@@ -1,0 +1,181 @@
+<template>
+    <div class="lift-form">
+        <div class="lift-form__form">
+            <div class="lift-form__form-group">
+                <label>Name</label>
+                <input 
+                    class="lift-form__form-control"
+                    v-model="name"
+                >
+                </input>
+            </div>
+            <div class="lift-form__form-group">
+                <label>Max Lift</label>
+                <div class="lift-form__form-row">
+                    <div class="col">
+                        <input 
+                            class="lift-form__form-control"
+                            placeholder="Reps"
+                            type="number"
+                            min="0"
+                            step="1"
+                            v-model="repMaxInterval"
+                        >
+                        </input>
+                    </div>
+                    <div class="col">
+                        <input 
+                            class="lift-form__form-control"
+                            placeholder="Weight"
+                            type="number"
+                            min="0"
+                            step="1"
+                            v-model="repMax"
+                        >
+                        </input>
+                    </div>
+                </div>
+            </div>
+            <button 
+                class="lift-form__button"
+                v-bind:class="{ disabled: !valid }"
+                @click="submit"
+            >
+                <template v-if="working">
+                    <font-awesome-icon :icon="icon" spin />
+                </template>
+                <template v-else>
+                    Create
+                </template>
+            </button>
+            <div
+                class="lift-form__alert"
+                v-for="error in errors"
+            >
+                {{ error }}
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
+
+import { formatErrors } from '../utils/error'
+
+export default {
+
+    components: {
+        FontAwesomeIcon
+    },
+
+    props: {
+        exercise: {
+            type: Object,
+            default: null
+        },
+        onSubmit: Function
+    },
+
+    data: function() {
+        return {
+            name: this.exercise ? this.exercise.name : null,
+            repMaxInterval: this.exercise ? this.exercise.rep_max_interval : null,
+            repMax: this.exercise ? this.exercise.rep_max : null,
+            id: this.exercise ? this.exercise.id : null,
+            errors: [],
+            working: false
+        }
+    },
+
+    methods: {
+
+        submit: async function() {
+
+            try {
+
+                if (!this.valid) { return }
+
+                this.working = true
+
+                const data = {
+                    id: this.id,
+                    name: this.name,
+                    rep_max_interval: this.repMaxInterval,
+                    rep_max: this.repMax
+                }
+
+                await this.onSubmit(data)
+
+                this.working = false
+                this.$router.go(-1)
+
+            } catch (e) {
+                this.errors = formatErrors(e)
+                this.working = false
+            }
+
+        }
+
+    },
+
+    computed: {
+
+        valid: function() {
+            return (
+                this.name
+                && this.repMax
+                && this.repMaxInterval
+            )
+        },
+
+        icon: function() {
+            return faSpinner
+        }
+
+    }
+
+}
+
+</script>
+
+<style lang="scss" scoped>
+
+@import '../../sass/bscore';
+@import '../../sass/form';
+
+.lift-form {
+
+    @extend .form;
+    @include make-container();
+    
+
+    &__form {
+        @extend .form__form;
+        padding-top: 15px;
+    }
+
+    &__form-group {
+        @extend .form__form-group;
+    }
+
+    &__form-control {
+        @extend .form__form-control;
+    }
+
+    &__button {
+        @extend .form__button;
+    }
+
+    &__form-row {
+        @extend .form__form-row;
+    }
+
+    &__alert {
+        @extend .form__alert;
+    }
+}
+
+</style>

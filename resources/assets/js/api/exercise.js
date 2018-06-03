@@ -7,3 +7,7 @@ export const create = data => {
 export const get = () => {
     return axios.get('/api/exercises')
 }
+
+export const update = data => {
+    return axios.patch(`/api/exercises/${data.id}`, data)
+}

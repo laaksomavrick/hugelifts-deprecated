@@ -22,5 +22,6 @@ Route::middleware('auth:api')->group(function() {
 
     Route::get('/exercises', 'ExercisesController@get');
     Route::post('/exercises', 'ExercisesController@create');
+    Route::patch('/exercises/{id}', 'ExercisesController@update');
 
 });

@@ -1,4 +1,4 @@
-import { get, create } from '../api/exercise'
+import { get, create, update } from '../api/exercise'
 
 const state = {
     exercises: []
@@ -19,13 +19,24 @@ const actions = {
         })
     },
 
+    updateExercise({ commit }, data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await update(data)
+                const json = response.data
+                commit('editExercise', json)
+                resolve()
+            } catch (e) {
+                reject(e)
+            }
+        })
+    },
+
     createExercise({ commit }, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await create(data)
                 const json = response.data
-                console.log(response)
-                console.log(json)
                 commit('addExercise', json)
                 resolve()
             } catch (e) {
@@ -44,12 +55,18 @@ const mutations = {
 
     addExercise(state, exercise) {
         state.exercises = [...state.exercises, exercise]
-    }
+    },
+
+    editExercise(state, exercise) {
+        const filtered = state.exercises.filter(e => e.id !== exercise.id)
+        state.exercises = [...filtered, exercise]
+    },
 
 }
 
 const getters = {
-    getExercises: state => state.exercises
+    getExercises: state => state.exercises,
+    getExercise: state => id => state.exercises.find(e => e.id === id)
 }
 
 export default {

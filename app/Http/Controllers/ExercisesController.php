@@ -12,7 +12,7 @@ class ExercisesController extends Controller
 
     public function get(Request $request, ExerciseRepository $exercises) 
     {
-        $data = $exercises->getFor($request->user()->id);
+        $data = $exercises->get($request->user()->id);
         return response($data, 200);
     }
 
@@ -23,8 +23,11 @@ class ExercisesController extends Controller
         return response($exercise, 200);
     }
 
-    public function update(Request $request) 
+    public function update($id, CreateExercise $request, ExerciseRepository $exercises) 
     {
+        $validated = $request->validated();
+        $exercise = $exercises->update($id, $validated);
+        return response($exercise, 200);
     }
 
     public function destroy(Request $request) 
