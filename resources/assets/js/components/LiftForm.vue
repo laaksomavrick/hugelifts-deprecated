@@ -131,8 +131,8 @@ export default {
                 props: {
                     headerText: `Delete ${this.name}?`,
                     bodyText: `Are you sure you want to delete ${this.name}?`,
-                    onDelete: () => { 
-                        this.destroyExercise(this.id)
+                    onDelete: async () => { 
+                        await this.destroyExercise(this.id)
                         this.$router.go(-1)
                     }
 
@@ -198,7 +198,8 @@ export default {
 
     &__button {
         @extend .form__button;
-Deleteprimary {
+
+        &--primary {
             @extend .btn-primary;
         }
 
