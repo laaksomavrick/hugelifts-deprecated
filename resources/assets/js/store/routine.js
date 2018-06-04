@@ -1,17 +1,17 @@
-import { get, create, update, destroy } from '../api/exercise'
+import { get, create, update, destroy } from '../api/routine'
 
 const state = {
-    exercises: []
+    routines: []
 }
 
 const actions = {
 
-    fetchExercises({ commit }) {
+    fetchRoutines({ commit }) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await get()
                 const json = response.data
-                commit('setExercises', json)
+                commit('setRoutines', json)
                 resolve()
             } catch (e) {
                 reject(e.response)
@@ -19,12 +19,12 @@ const actions = {
         })
     },
 
-    updateExercise({ commit }, data) {
+    updateRoutine({ commit }, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await update(data)
                 const json = response.data
-                commit('editExercise', json)
+                commit('editRoutine', json)
                 resolve()
             } catch (e) {
                 reject(e)
@@ -32,12 +32,12 @@ const actions = {
         })
     },
 
-    createExercise({ commit }, data) {
+    createRoutine({ commit }, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await create(data)
                 const json = response.data
-                commit('addExercise', json)
+                commit('addRoutine', json)
                 resolve()
             } catch (e) {
                 reject(e)
@@ -45,12 +45,12 @@ const actions = {
         })
     },
 
-    destroyExercise({ commit }, id) {
+    destroyRoutine({ commit }, id) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await destroy(id)
                 const json = response.data
-                commit('removeExercise', id)
+                commit('removeRoutine', id)
                 resolve()
             } catch (e) {
                 reject(e)
@@ -62,29 +62,29 @@ const actions = {
 
 const mutations = {
 
-    setExercises(state, exercises) {
-        state.exercises = exercises
+    setRoutines(state, routines) {
+        state.routines = routines
     },
 
-    addExercise(state, exercise) {
-        state.exercises = [...state.exercises, exercise]
+    addRoutine(state, routine) {
+        state.routines = [...state.routines, routine]
     },
 
-    editExercise(state, exercise) {
-        const filtered = state.exercises.filter(e => e.id !== exercise.id)
-        state.exercises = [...filtered, exercise]
+    editRoutine(state, routine) {
+        const filtered = state.routines.filter(e => e.id !== routine.id)
+        state.routines = [...filtered, routine]
     },
 
-    removeExercise(state, id) {
-        const filtered = state.exercises.filter(e => e.id !== id)
-        state.exercises = [...filtered]
+    removeRoutine(state, id) {
+        const filtered = state.routines.filter(e => e.id !== id)
+        state.routines = [...filtered]
     }
 
 }
 
 const getters = {
-    getExercises: state => state.exercises,
-    getExercise: state => id => state.exercises.find(e => e.id === id)
+    getRoutines: state => state.routines,
+    getRoutine: state => id => state.routines.find(e => e.id === id)
 }
 
 export default {

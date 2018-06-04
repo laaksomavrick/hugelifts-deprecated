@@ -7,6 +7,7 @@ import user from './user'
 import auth from './auth'
 import exercise from './exercise'
 import ui from './ui'
+import routine from './routine'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ const store = new Vuex.Store({
         user,
         auth,
         exercise,
-        ui
+        ui,
+        routine
     }
 })
 
