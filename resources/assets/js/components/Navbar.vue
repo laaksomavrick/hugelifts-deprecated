@@ -29,7 +29,7 @@
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare'
 import faDumbbell from '@fortawesome/fontawesome-free-solid/faDumbbell'
-import { HOME_ROUTE, ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE, NEW_LIFT_ROUTE, EDIT_LIFT_ROUTE } from '../constants'
+import { HOME_ROUTE, ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE, NEW_LIFT_ROUTE, EDIT_LIFT_ROUTE, NEW_ROUTINE_ROUTE } from '../constants'
 
 export default {
 
@@ -59,6 +59,9 @@ export default {
             switch(this.$route.name) {
                 case LIFTS_ROUTE:
                     this.$router.push(NEW_LIFT_ROUTE)
+                break
+                case ROUTINES_ROUTE:
+                    this.$router.push(NEW_ROUTINE_ROUTE)
                 break
                 default: break
             }

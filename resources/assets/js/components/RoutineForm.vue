@@ -1,46 +1,31 @@
 <template>
-    <div class="lift-form">
-        <div class="lift-form__form">
-            <h4 class="lift-form__title">
+    <div class="routine-form">
+        <div class="routine-form__form">
+            <h4 class="routine-form__title">
                 {{ title }}
             </h4>
-            <div class="lift-form__form-group">
+            <div class="routine-form__form-group">
                 <label>Name</label>
                 <input 
-                    class="lift-form__form-control"
+                    class="routine-form__form-control"
                     v-model="name"
                 >
                 </input>
             </div>
-            <div class="lift-form__form-group">
-                <label>Max Lift</label>
-                <div class="lift-form__form-row">
-                    <div class="col">
-                        <input 
-                            class="lift-form__form-control"
-                            placeholder="Reps"
-                            type="number"
-                            min="0"
-                            step="1"
-                            v-model="repMaxInterval"
-                        >
-                        </input>
-                    </div>
-                    <div class="col">
-                        <input 
-                            class="lift-form__form-control"
-                            placeholder="Weight"
-                            type="number"
-                            min="0"
-                            step="1"
-                            v-model="repMax"
-                        >
-                        </input>
-                    </div>
+            <div class="routine-form__form-group ">
+                <label>Exercises</label>
+                <div class="routine-form__exercises">
+                    <template 
+                        v-if="routine"
+                        v-for="exercise in exercises"
+                        class=""
+                    >
+                        <routine-exercise :exercise="exercise" />
+                    </template>
                 </div>
             </div>
             <progress-button
-                class="lift-form__button lift-form__button--primary"
+                class="routine-form__button routine-form__button--primary"
                 v-bind:class="{ disabled: !valid }"
                 :working="working"
                 :handleClick="onSubmitClick"
@@ -48,13 +33,13 @@
             />
             <progress-button
                 v-if="deleteable"
-                class="lift-form__button lift-form__button--danger"
+                class="routine-form__button routine-form__button--danger"
                 :working="working"
                 :handleClick="onDeleteClick"
                 buttonText="Delete"
             />
             <div
-                class="lift-form__alert"
+                class="routine-form__alert"
                 v-for="error in errors"
             >
                 {{ error }}
@@ -66,31 +51,47 @@
 <script>
 
 import ProgressButton from '../components/ProgressButton'
+import RoutineExercise from '../components/RoutineExercise'
 import { formatErrors } from '../utils/error'
 import { mapActions } from 'vuex'
 
 export default {
 
+    /*
+        name
+        exercises: [
+            {
+                exercise_id
+                routine_id
+                sets: [
+                    {
+                        reps
+                        percantage
+                    }
+                ]
+            }
+        ]
+
+    */
+
     components: {
-        ProgressButton
+        ProgressButton,
+        RoutineExercise
     },
 
     props: {
-        exercise: {
+        routine: {
             type: Object,
             default: null
         },
         onSubmit: Function,
-        title: String,
         buttonText: String
     },
 
     data: function() {
         return {
-            name: this.exercise ? this.exercise.name : null,
-            repMaxInterval: this.exercise ? this.exercise.rep_max_interval : null,
-            repMax: this.exercise ? this.exercise.rep_max : null,
-            id: this.exercise ? this.exercise.id : null,
+            name: this.routine ? this.routine.name : null,
+            id: this.routine ? this.routine.id : null,
             errors: [],
             working: false
         }
@@ -109,11 +110,9 @@ export default {
                 const data = {
                     id: this.id,
                     name: this.name,
-                    rep_max_interval: this.repMaxInterval,
-                    rep_max: this.repMax
                 }
 
-                await this.onSubmit(data)
+                //await this.onSubmit(data)
 
                 this.working = false
                 this.$router.go(-1)
@@ -132,19 +131,17 @@ export default {
                     headerText: `Delete ${this.name}?`,
                     bodyText: `Are you sure you want to delete ${this.name}?`,
                     onDelete: async () => { 
-                        await this.destroyExercise(this.id)
+                        //await this.destroyExercise(this.id)
                         this.$router.go(-1)
                     }
 
                 }
             }
-            console.log(data)
             this.toggleConfirmModal(data)
         },
 
         ...mapActions([
             'toggleConfirmModal',
-            'destroyExercise'
         ])
 
     },
@@ -154,13 +151,19 @@ export default {
         valid: function() {
             return (
                 this.name
-                && this.repMax
-                && this.repMaxInterval
             )
         },
 
         deleteable: function() {
-            return !!this.exercise
+            return !!this.routine
+        },
+
+        title: function() {
+            return this.routine ? this.routine.name : 'New Routine'
+        },
+
+        exercises: function() {
+            return this.routine ? this.routine.exercises : []
         }
 
     }
@@ -174,7 +177,7 @@ export default {
 @import '../../sass/bscore';
 @import '../../sass/form';
 
-.lift-form {
+.routine-form {
 
     @extend .form;
     @include make-container();
@@ -194,6 +197,23 @@ export default {
 
     &__form-control {
         @extend .form__form-control;
+    }
+
+    &__exercises {
+
+        & > *:first-child {
+            margin-top: 0px!important;
+            margin-bottom: 5px!important;
+        }
+        & > *:last-child {
+            margin-top: 5px;
+            margin-bottom: 0px;
+        }
+        & > * {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
     }
 
     &__button {

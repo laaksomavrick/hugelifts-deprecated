@@ -5,7 +5,7 @@
         </div>
         <div
             class="routines__item"
-            @click=""
+            @click="handleRoutineClick(getActiveRoutine)"
         >
             {{ getActiveRoutine.name }}
         </div>
@@ -15,7 +15,7 @@
         <div
             v-for="routine in getInactiveRoutines"
             class="routines__item"
-            @click=""
+            @click="handleRoutineClick(routine)"
         >
             {{ routine.name }}
         </div>
@@ -25,8 +25,18 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
+import { EDIT_ROUTINE_ROUTE } from '../constants'
 
 export default {
+
+    methods: {
+
+        handleRoutineClick: function(routine) {
+            const id = routine.id
+            this.$router.push({ name: EDIT_ROUTINE_ROUTE, params: { id }})
+        }
+
+    },
 
     computed: {
 
