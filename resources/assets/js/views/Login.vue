@@ -25,6 +25,9 @@
                 :handleClick="submit"
                 buttonText="Login"
             />
+            <div class="login__message">
+                No account? Click <router-link :to="create">here</router-link> to register.
+            </div>
             <div
                 class="login__alert"
                 v-for="error in errors"
@@ -40,6 +43,7 @@
 import ProgressButton from '../components/ProgressButton'
 import { mapActions } from 'vuex'
 import { formatErrors } from '../utils/error'
+import { CREATE_ROUTE } from '../constants'
 
 export default {
 
@@ -102,6 +106,10 @@ export default {
 
         icon: function() {
             return faSpinner
+        },
+
+        create: function() {
+            return CREATE_ROUTE
         }
 
     }

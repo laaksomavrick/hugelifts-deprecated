@@ -1,9 +1,6 @@
 <template>
     <transition name="modal-fade">
-        <div 
-            class="modal"
-            role="dialog"
-        >
+        <div class="modal"role="dialog">
             <div class="modal__mask">
                 <div class="modal__wrapper">
                     <div class="modal__dialog">
@@ -18,19 +15,26 @@
                                 <slot>
                                 </slot>
                             </div>
+
                             <div class="modal__footer">
-                                <button v-if="onClose" @click="handleOnClose" class="modal__btn modal__btn--secondary">Close</button>
+                                <button 
+                                    v-if="onClose" 
+                                    @click="handleOnClose"
+                                    class="modal__btn modal__btn--secondary"
+                                >
+                                    Close
+                                </button>
                                 <progress-button 
                                     v-if="onDelete" 
                                     :handleClick="handleOnDelete" 
-                                    :working="is_working" 
+                                    :working="isWorking" 
                                     buttonText="Delete"
                                     class="modal__btn modal__btn--danger"
                                 />
                                 <progress-button 
                                     v-if="onSubmit" 
                                     :handleClick="handleOnSubmit" 
-                                    :working="is_working" 
+                                    :working="isWorking" 
                                     buttonText="Submit"
                                     class="modal__btn modal__btn--primary"
                                 />
@@ -79,9 +83,11 @@ export default {
         handleOnClose: function() {
             this.onClose()
         },
+
         handleOnDelete: function() {
             this.onDelete()
         },
+
         handleOnSubmit: function() {
             this.onSubmit()
         },
@@ -90,7 +96,7 @@ export default {
 
     computed: {
 
-        is_working: function() {
+        isWorking: function() {
             return this.working
         }
 
