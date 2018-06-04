@@ -1,10 +1,10 @@
 <template>
-        <lift-form 
-            :exercise="null"
-            :onSubmit="createExercise"
-            title="Create Lift"
-            buttonText="Create"
-        />
+    <lift-form 
+        :exercise="null"
+        :onSubmit="createExercise"
+        title="Create Lift"
+        buttonText="Create"
+    />
 </template>
 
 <script>

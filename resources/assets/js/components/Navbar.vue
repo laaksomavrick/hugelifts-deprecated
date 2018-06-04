@@ -29,7 +29,7 @@
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare'
 import faDumbbell from '@fortawesome/fontawesome-free-solid/faDumbbell'
-import { ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE, NEW_LIFT_ROUTE } from '../constants'
+import { HOME_ROUTE, ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE, NEW_LIFT_ROUTE, EDIT_LIFT_ROUTE } from '../constants'
 
 export default {
 
@@ -69,8 +69,11 @@ export default {
     computed : {
 
         addIsVisible: function() {
-            //TODO
-            return true
+            const path = this.$route.path
+            return (
+                   path === ROUTINES_ROUTE
+                || path === LIFTS_ROUTE
+            )
         },
 
         plusIcon: function() {
