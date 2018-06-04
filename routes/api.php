@@ -24,4 +24,6 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/exercises', 'ExercisesController@create');
     Route::patch('/exercises/{exerciseId}', 'ExercisesController@update');
     Route::delete('/exercises/{exerciseId}', 'ExercisesController@destroy');
+
+    Route::get('/routines', 'RoutinesController@get');
 });
