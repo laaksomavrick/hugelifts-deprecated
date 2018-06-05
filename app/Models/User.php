@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Models\Exercise;
+use App\Models\Routine;
 
 class User extends Authenticatable
 {
@@ -33,6 +34,11 @@ class User extends Authenticatable
     public function exercises()
     {
         return $this->hasMany(Exercise::class);
+    }
+
+    public function routines()
+    {
+        return $this->hasMany(Routine::class);
     }
 
 }

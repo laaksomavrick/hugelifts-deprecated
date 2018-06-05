@@ -44,7 +44,7 @@
                 v-bind:class="{ disabled: !valid }"
                 :working="working"
                 :handleClick="onSubmitClick"
-                buttonText="Update"
+                :buttonText="buttonText"
             />
             <progress-button
                 v-if="deleteable"

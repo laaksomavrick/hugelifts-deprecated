@@ -23,16 +23,6 @@ import { EDIT_LIFT_ROUTE } from '../constants'
 
 export default {
 
-    data: function() {
-        return {
-
-        }
-    },
-
-    mounted: function() {
-
-    },
-
     methods: {
 
         handleExerciseClick: function(exercise) {

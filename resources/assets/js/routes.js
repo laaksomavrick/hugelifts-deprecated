@@ -4,11 +4,13 @@ import Router from 'vue-router'
 import Home from './views/Home'
 import Login from './views/Login'
 import Create from './views/Create'
-import CreateLift from './views/CreateLift'
-import EditLift from './views/EditLift'
 import Schedule from './views/Schedule'
 import Routine from './views/Routine'
+import CreateRoutine from './views/CreateRoutine'
+import EditRoutine from './views/EditRoutine'
 import Lifts from './views/Lifts'
+import CreateLift from './views/CreateLift'
+import EditLift from './views/EditLift'
 
 import Store from'./store/store'
 
@@ -21,7 +23,9 @@ import {
     LOGIN_ROUTE,
     CREATE_ROUTE,
     NEW_LIFT_ROUTE,
-    EDIT_LIFT_ROUTE
+    EDIT_LIFT_ROUTE,
+    NEW_ROUTINE_ROUTE,
+    EDIT_ROUTINE_ROUTE,
 } from './constants'
 
 Vue.use(Router)
@@ -45,6 +49,16 @@ const router = new Router({
                     path: ROUTINES_ROUTE,
                     name: ROUTINES_ROUTE,
                     component: Routine
+                },
+                {
+                    path: NEW_ROUTINE_ROUTE,
+                    name: NEW_ROUTINE_ROUTE,
+                    component: CreateRoutine
+                },
+                {
+                    path: EDIT_ROUTINE_ROUTE,
+                    name: EDIT_ROUTINE_ROUTE,
+                    component: EditRoutine
                 },
                 {
                     path: LIFTS_ROUTE,
