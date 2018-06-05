@@ -17,7 +17,7 @@
         <!-- days -->
         <div class="routine-form__days">
             <label class="routine-form__label">Days</label>
-            <div v-for="day in days">
+            <div v-for="day in sortedDays">
                 <div 
                     class="routine-form__day" 
                     v-bind:class="{ 'routine-form__day--active': day.id === selected }"
@@ -25,12 +25,7 @@
                 >
                     {{ day.name }}
                 </div>
-                <template 
-                    v-if="day && day.exercises && day.id === selected"
-                    v-for="exercise in day.exercises"
-                >
-                    <routine-day-exercise :exercise="exercise" :onChange="handleRoutineDayExerciseChange" />
-                </template>
+                <routine-day :day="day" :onChange="handleRoutineDayChange" :visible="day.id === selected" />
             </div>
         </div>
         <!-- buttons -->
@@ -62,7 +57,7 @@
 <script>
 
 import ProgressButton from '../components/ProgressButton'
-import RoutineDayExercise from '../components/RoutineDayExercise'
+import RoutineDay from '../components/RoutineDay'
 import { formatErrors } from '../utils/error'
 import { mapActions } from 'vuex'
 
@@ -70,7 +65,7 @@ export default {
 
     components: {
         ProgressButton,
-        RoutineDayExercise
+        RoutineDay
     },
 
     props: {
@@ -139,17 +134,10 @@ export default {
             day.id === this.selected ? this.selected = null : this.selected = day.id
         },
 
-        handleRoutineDayExerciseChange: function(routineDayExercise) {
-            const oldDay = this.days.find(day => day.id === routineDayExercise.routine_day_id)
-            let filtered = oldDay.exercises.filter(e => e.id !== routineDayExercise.id)
-            const exercises = [...filtered, routineDayExercise]
-
-            const newDay = {...oldDay, exercises}
-
-            filtered = this.days.filter(day => day.id !== newDay.id)
-
-            this.days = [...filtered, newDay]
-
+        handleRoutineDayChange: function(routineDay) {
+            const filtered = this.days.filter(day => day.id !== routineDay.id)
+            this.days = [...filtered, routineDay]
+            console.log(this.days)
         },
 
         ...mapActions([
@@ -173,6 +161,10 @@ export default {
         title: function() {
             return this.routine ? 'Edit Routine' : 'New Routine'
         },
+
+        sortedDays: function() {
+            return this.days ? this.days.sort((a, b) => a.ordinal > b.ordinal) : []
+        }
 
     }
 
@@ -229,8 +221,7 @@ export default {
         justify-content: space-between;
 
         &--active {
-            background: $primary!important;
-            color: white!important;
+            @extend .list-group-item-primary;
         }
     }
 

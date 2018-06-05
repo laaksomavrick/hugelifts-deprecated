@@ -54,9 +54,7 @@ export default {
         handleChange: function(e) {
             const reps = parseInt(this.reps)
             const percentage = parseInt(this.percentage)
-            const routine_day_exercise_id = this.set.routine_day_exercise_id
-            const id = this.set.id
-            const set = { id, routine_day_exercise_id, reps, percentage }
+            const set = { ...this.set, reps, percentage }
             this.onChange(set)
         }
 
@@ -85,7 +83,8 @@ export default {
     align-items: center;
 
     &__text {
-
+        width: 55px;
+        text-align: center;
     }
 
     &__actions {

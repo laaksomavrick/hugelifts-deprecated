@@ -14,9 +14,15 @@
             </div>
         </div>
         <div class="exercise__content">
-            <template v-for="(set, index) in sets">
+            <template v-for="(set, index) in sortedSets">
                 <set-row :ordinal="index" :set="set" :onChange="handleSetChange" />
             </template>
+            <button 
+                class="exercise__add-set"
+                @click="handleAddSet"
+            >
+                Add
+            </button>
         </div>
     </div>
 </template>
@@ -37,23 +43,24 @@ export default {
         SetRow
     },
 
-    data: function() {
-        return {
-            sets: this.exercise.sets
-        }
-    },
-
     methods: {
 
         handleSetChange: function(changedSet) {
-            const filtered = this.sets.filter(set => set.id !== changedSet.id)
-            this.sets = [...filtered, changedSet]
-            const routineDayExercise = {
-                id: this.exercise.id,
-                exercise_id: this.exercise.exercise_id,
-                routine_day_id: this.exercise.routine_day_id,
-                sets: this.sets
-            }
+
+            const filtered = this.exercise.sets.filter(set => set.id !== changedSet.id)
+            const sets = [...filtered, changedSet]
+
+            const routineDayExercise = {...this.exercise, sets }
+            this.onChange(routineDayExercise)
+        },
+
+        handleAddSet: function() {
+
+            const set = {...this.exercise.sets[this.exercise.sets.length - 1]}
+            delete set.id
+            const sets = [...this.exercise.sets, set]
+
+            const routineDayExercise = {...this.exercise, sets }
             this.onChange(routineDayExercise)
         }
 
@@ -64,6 +71,10 @@ export default {
         name: function() {
             const id = this.exercise.exercise_id
             return this.getExercise(id).name
+        },
+
+        sortedSets: function() {
+            return this.exercise.sets.sort((a, b) => a.id > b.id)
         },
 
         ...mapGetters([
@@ -80,6 +91,7 @@ export default {
 
 @import '../../sass/bscore';
 @import '~bootstrap/scss/list-group';
+@import '~bootstrap/scss/buttons';
 
 .exercise {
 
@@ -122,6 +134,12 @@ export default {
             margin-top: 5px;
             margin-bottom: 5px;
         }
+    }
+
+    &__add-set {
+        @extend .btn;
+        @extend .btn-primary;
+        width: 55px;
     }
 
 }

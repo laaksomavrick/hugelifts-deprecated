@@ -39,6 +39,7 @@ class CreateRoutinesTable extends Migration
             $table->unsignedInteger('routine_day_id');
             $table->foreign('exercise_id')->references('id')->on('exercises');
             $table->foreign('routine_day_id')->references('id')->on('routine_days');
+            $table->unsignedTinyInteger('ordinal');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
