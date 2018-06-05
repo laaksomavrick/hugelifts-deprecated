@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\RoutineExercise;
+use App\Models\RoutineDay;
 
 class Routine extends Model
 {
 
-    protected $with = ['exercises.sets'];
+    protected $with = ['days.exercises.sets'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function exercises()
+    public function days()
     {
-        return $this->hasMany(RoutineExercise::class);
+        return $this->hasMany(RoutineDay::class);
     }
 
 }

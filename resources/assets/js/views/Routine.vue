@@ -7,7 +7,7 @@
             class="routines__item"
             @click="handleRoutineClick(getActiveRoutine)"
         >
-            {{ getActiveRoutine.name }}
+            {{ getActiveRoutine ? getActiveRoutine.name : '' }}
         </div>
         <div class="routines__subheader">
             Inactive

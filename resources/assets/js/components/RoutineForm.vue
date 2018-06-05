@@ -1,5 +1,6 @@
 <template>
     <div class="routine-form">
+        <!-- title, name -->
         <div class="routine-form__form">
             <h4 class="routine-form__title">
                 {{ title }}
@@ -12,18 +13,28 @@
                 >
                 </input>
             </div>
-            <div class="routine-form__form-group ">
-                <label>Exercises</label>
-                <div class="routine-form__exercises">
-                    <template 
-                        v-if="routine"
-                        v-for="exercise in exercises"
-                        class=""
-                    >
-                        <routine-exercise :exercise="exercise" />
-                    </template>
+        </div>
+        <!-- days -->
+        <div class="routine-form__days">
+            <label class="routine-form__label">Days</label>
+            <div v-for="day in days">
+                <div 
+                    class="routine-form__day" 
+                    v-bind:class="{ 'routine-form__day--active': day.id === selected }"
+                    @click="select(day)"
+                >
+                    {{ day.name }}
                 </div>
+                <template 
+                    v-if="day && day.exercises && day.id === selected"
+                    v-for="exercise in day.exercises"
+                >
+                    <routine-day-exercise :exercise="exercise" :onChange="handleRoutineDayExerciseChange" />
+                </template>
             </div>
+        </div>
+        <!-- buttons -->
+        <div class="routine-form__buttons">
             <progress-button
                 class="routine-form__button routine-form__button--primary"
                 v-bind:class="{ disabled: !valid }"
@@ -51,32 +62,15 @@
 <script>
 
 import ProgressButton from '../components/ProgressButton'
-import RoutineExercise from '../components/RoutineExercise'
+import RoutineDayExercise from '../components/RoutineDayExercise'
 import { formatErrors } from '../utils/error'
 import { mapActions } from 'vuex'
 
 export default {
 
-    /*
-        name
-        exercises: [
-            {
-                exercise_id
-                routine_id
-                sets: [
-                    {
-                        reps
-                        percantage
-                    }
-                ]
-            }
-        ]
-
-    */
-
     components: {
         ProgressButton,
-        RoutineExercise
+        RoutineDayExercise
     },
 
     props: {
@@ -90,9 +84,10 @@ export default {
 
     data: function() {
         return {
+            days: this.routine ? this.routine.days : [],
             name: this.routine ? this.routine.name : null,
-            id: this.routine ? this.routine.id : null,
             errors: [],
+            selected: null,
             working: false
         }
     },
@@ -140,6 +135,23 @@ export default {
             this.toggleConfirmModal(data)
         },
 
+        select: function(day) {
+            day.id === this.selected ? this.selected = null : this.selected = day.id
+        },
+
+        handleRoutineDayExerciseChange: function(routineDayExercise) {
+            const oldDay = this.days.find(day => day.id === routineDayExercise.routine_day_id)
+            let filtered = oldDay.exercises.filter(e => e.id !== routineDayExercise.id)
+            const exercises = [...filtered, routineDayExercise]
+
+            const newDay = {...oldDay, exercises}
+
+            filtered = this.days.filter(day => day.id !== newDay.id)
+
+            this.days = [...filtered, newDay]
+
+        },
+
         ...mapActions([
             'toggleConfirmModal',
         ])
@@ -150,7 +162,7 @@ export default {
 
         valid: function() {
             return (
-                this.name
+                this.routine
             )
         },
 
@@ -159,12 +171,8 @@ export default {
         },
 
         title: function() {
-            return this.routine ? this.routine.name : 'New Routine'
+            return this.routine ? 'Edit Routine' : 'New Routine'
         },
-
-        exercises: function() {
-            return this.routine ? this.routine.exercises : []
-        }
 
     }
 
@@ -176,11 +184,14 @@ export default {
 
 @import '../../sass/bscore';
 @import '../../sass/form';
+@import '~bootstrap/scss/list-group';
 
 .routine-form {
 
     @extend .form;
-    @include make-container();
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
 
     &__title {
         text-align: center;
@@ -197,6 +208,36 @@ export default {
 
     &__form-control {
         @extend .form__form-control;
+    }
+
+    &__label {
+        margin-bottom: .5rem;
+        padding-left: 15px;
+    }
+
+    &__days {
+        @extend .list-group;
+    }
+
+    &__day {
+        @extend .list-group-item;
+        @extend .list-group-item-action;
+        border-radius: 0px!important;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &--active {
+            background: $primary!important;
+            color: white!important;
+        }
+    }
+
+    &__buttons {
+        padding-top: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
     &__exercises {

@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Routine;
+use App\Models\RoutineDay;
 use App\Models\Set;
 
-class RoutineExercise extends Model
+class RoutineDayExercise extends Model
 {
 
-    public function routine()
+    public function routineDay()
     {
-        return $this->belongsTo(Routine::class);
+        return $this->belongsTo(RoutineDay::class);
     }
 
     public function sets()

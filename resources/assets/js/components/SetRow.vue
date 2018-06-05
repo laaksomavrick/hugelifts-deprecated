@@ -11,7 +11,8 @@
                 min="1"
                 max="12"
                 step="1"
-                :value="reps"
+                v-model="reps"
+                @change="handleChange"
             >
             </input>
             <input
@@ -21,7 +22,8 @@
                 min="0"
                 max="100"
                 step="5"
-                :value="percentage"
+                v-model="percentage"
+                @change="handleChange"
             >
             </input>
         </div>
@@ -36,7 +38,28 @@ export default {
 
     props: {
         set: Object,
-        ordinal: Number
+        ordinal: Number,
+        onChange: Function
+    },
+
+    data: function() {
+        return {
+            reps: this.set.reps,
+            percentage: this.set.percentage
+        }
+    },
+
+    methods: {
+        
+        handleChange: function(e) {
+            const reps = parseInt(this.reps)
+            const percentage = parseInt(this.percentage)
+            const routine_day_exercise_id = this.set.routine_day_exercise_id
+            const id = this.set.id
+            const set = { id, routine_day_exercise_id, reps, percentage }
+            this.onChange(set)
+        }
+
     },
 
     computed: {
@@ -44,14 +67,6 @@ export default {
         text: function() {
             const ordinal = this.ordinal + 1
             return `Set ${ordinal}.`
-        },
-
-        reps: function() {
-            return this.set.reps
-        },
-
-        percentage: function() {
-            return this.set.percentage
         }
 
     }
