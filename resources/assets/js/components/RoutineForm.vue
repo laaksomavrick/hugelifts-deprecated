@@ -21,28 +21,35 @@
                 <div 
                     class="routine-form__day" 
                     v-bind:class="{ 'routine-form__day--active': day.id === selected }"
-                    @click="select(day)"
                 >
-                    {{ day.name }}
+                    <div class="routine-form__day-header" @click="select(day)">
+                        {{ day.name }}
+                    </div>
                 </div>
                 <routine-day :day="day" :onChange="handleRoutineDayChange" :visible="day.id === selected" />
             </div>
         </div>
         <!-- buttons -->
         <div class="routine-form__buttons">
+            <div class="routine-form__add-buttons">
+                <button 
+                    v-bind:class="{ disabled: selected === null }"
+                    class="routine-form__add-exercise"
+                >
+                    Edit Exercise 
+                </button>
+                <button 
+                    class="routine-form__add-day"
+                >
+                    Edit Days 
+                </button>
+            </div>
             <progress-button
                 class="routine-form__button routine-form__button--primary"
                 v-bind:class="{ disabled: !valid }"
                 :working="working"
                 :handleClick="onSubmitClick"
                 :buttonText="buttonText"
-            />
-            <progress-button
-                v-if="deleteable"
-                class="routine-form__button routine-form__button--danger"
-                :working="working"
-                :handleClick="onDeleteClick"
-                buttonText="Delete"
             />
             <div
                 class="routine-form__alert"
@@ -56,6 +63,10 @@
 
 <script>
 
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
+
 import ProgressButton from '../components/ProgressButton'
 import RoutineDay from '../components/RoutineDay'
 import { formatErrors } from '../utils/error'
@@ -65,7 +76,8 @@ export default {
 
     components: {
         ProgressButton,
-        RoutineDay
+        RoutineDay,
+        FontAwesomeIcon
     },
 
     props: {
@@ -134,6 +146,10 @@ export default {
             day.id === this.selected ? this.selected = null : this.selected = day.id
         },
 
+        handleDayOptions: function(day) {
+            console.log(day)
+        },
+
         handleRoutineDayChange: function(routineDay) {
             const filtered = this.days.filter(day => day.id !== routineDay.id)
             this.days = [...filtered, routineDay]
@@ -164,6 +180,14 @@ export default {
 
         sortedDays: function() {
             return this.days ? this.days.sort((a, b) => a.ordinal > b.ordinal) : []
+        },
+
+        plus: function() {
+            return faPlus 
+        },
+
+        times: function() {
+            return faTimes 
         }
 
     }
@@ -177,6 +201,7 @@ export default {
 @import '../../sass/bscore';
 @import '../../sass/form';
 @import '~bootstrap/scss/list-group';
+@import '~bootstrap/scss/buttons';
 
 .routine-form {
 
@@ -225,10 +250,61 @@ export default {
         }
     }
 
+
+    &__day-header {
+        flex: 1;
+        text-align: left;
+    }
+
+    &__day-option {
+        margin-left: auto;    
+        color: white;
+        @extend .btn;
+        width: 37px;
+        height: 37px;
+        padding: 5px;
+        margin-left: 5px;
+
+        svg {
+            height: 15px;
+            width: 15px;
+        }
+
+        &--primary {
+            background: $primary;
+        }
+
+        &--danger {
+            background: $danger;
+        }
+    }
+
     &__buttons {
         padding-top: 20px;
         padding-left: 15px;
         padding-right: 15px;
+    }
+
+    &__add-buttons {
+        display: flex;
+        & > *:first-child {
+            margin-right: 2.5px;
+        }
+        & > *:last-child {
+            margin-left: 2.5px;
+        }
+    }
+
+    &__add-exercise {
+        @extend .btn;
+        @extend .btn-secondary;
+        flex: 1;
+    }
+
+    &__add-day {
+        @extend .btn;
+        @extend .btn-secondary;
+        flex: 1;
     }
 
     &__exercises {
@@ -249,6 +325,7 @@ export default {
     }
 
     &__button {
+        margin-top: 5px;
         @extend .form__button;
 
         &--primary {
