@@ -1,7 +1,7 @@
 <template>
     <div class="routine-form">
-        <!-- title, name -->
         <div class="routine-form__form">
+            <!-- title, name -->
             <h4 class="routine-form__title">
                 {{ title }}
             </h4>
@@ -13,20 +13,20 @@
                 >
                 </input>
             </div>
-        </div>
-        <!-- days -->
-        <div class="routine-form__days">
-            <label class="routine-form__label">Days</label>
-            <div v-for="day in sortedDays">
-                <div 
-                    class="routine-form__day" 
-                    v-bind:class="{ 'routine-form__day--active': day.id === selected }"
-                >
-                    <div class="routine-form__day-header" @click="select(day)">
-                        {{ day.name }}
+            <!-- days -->
+            <div class="routine-form__days">
+                <label class="routine-form__label">Days</label>
+                <div v-for="day in sortedDays">
+                    <div 
+                        class="routine-form__day" 
+                        v-bind:class="{ 'routine-form__day--active': day.id === selected }"
+                    >
+                        <div class="routine-form__day-header" @click="select(day)">
+                            {{ day.name }}
+                        </div>
                     </div>
+                    <routine-day :day="day" :onChange="handleRoutineDayChange" :visible="day.id === selected" />
                 </div>
-                <routine-day :day="day" :onChange="handleRoutineDayChange" :visible="day.id === selected" />
             </div>
         </div>
         <!-- buttons -->
@@ -35,13 +35,14 @@
                 <button 
                     v-bind:class="{ disabled: selected === null }"
                     class="routine-form__add-exercise"
+                    @click="handleEditExercise"
                 >
-                    Edit Exercise 
+                    Edit Exercises 
                 </button>
                 <button 
                     class="routine-form__add-day"
                 >
-                    Edit Days 
+                    Edit Days
                 </button>
             </div>
             <progress-button
@@ -126,38 +127,37 @@ export default {
 
         },
 
-        onDeleteClick: function() {
-            const data = {
-                open: true,
-                props: {
-                    headerText: `Delete ${this.name}?`,
-                    bodyText: `Are you sure you want to delete ${this.name}?`,
-                    onDelete: async () => { 
-                        //await this.destroyExercise(this.id)
-                        this.$router.go(-1)
-                    }
-
-                }
-            }
-            this.toggleConfirmModal(data)
-        },
-
         select: function(day) {
             day.id === this.selected ? this.selected = null : this.selected = day.id
         },
 
-        handleDayOptions: function(day) {
-            console.log(day)
+        handleEditExercise: function() {
+            if (!this.selected) { return }
+            const day = this.routine.days.find(d => d.id === this.selected)
+            const data = {
+                open: true,
+                props: {
+                    headerText: `Edit ${day.name}`,
+                    day: day,
+                    onSubmit: async (routineDay) => { 
+                        this.handleRoutineDayChange(routineDay)
+                        if (routineDay.exercises.length === 0) {
+                            this.selected = null
+                        }
+                    }
+
+                }
+            }
+            this.toggleRoutineDayExercisesModal(data)
         },
 
         handleRoutineDayChange: function(routineDay) {
             const filtered = this.days.filter(day => day.id !== routineDay.id)
             this.days = [...filtered, routineDay]
-            console.log(this.days)
         },
 
         ...mapActions([
-            'toggleConfirmModal',
+            'toggleRoutineDayExercisesModal',
         ])
 
     },
@@ -228,8 +228,6 @@ export default {
     }
 
     &__label {
-        margin-bottom: .5rem;
-        padding-left: 15px;
     }
 
     &__days {

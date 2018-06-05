@@ -2,17 +2,20 @@
     <div class="app">
         <router-view />
         <confirm-modal />
+        <routine-day-exercises-modal />
     </div>
 </template>
 
 <script>
 
 import ConfirmModal from './modals/ConfirmModal'
+import RoutineDayExercisesModal from './modals/RoutineDayExercisesModal'
 
 export default {
 
     components: {
-        ConfirmModal
+        ConfirmModal,
+        RoutineDayExercisesModal
     }
 
 }
