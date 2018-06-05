@@ -15,11 +15,11 @@
         </div>
         <div class="exercise__content">
             <template v-for="(set, index) in sortedSets">
-                <set-row :ordinal="index" :set="set" :onChange="handleSetChange" />
+                <set-row :ordinal="index" :set="set" :onChange="handleSetChange" :onRemove="handleSetRemove" />
             </template>
             <button 
                 class="exercise__add-set"
-                @click="handleAddSet"
+                @click="handleSetAdd"
             >
                 Add
             </button>
@@ -54,7 +54,16 @@ export default {
             this.onChange(routineDayExercise)
         },
 
-        handleAddSet: function() {
+        handleSetRemove: function(removedSet) {
+
+            const filtered = this.exercise.sets.filter(set => set.id !== removedSet.id)
+            const sets = [...filtered]
+
+            const routineDayExercise = {...this.exercise, sets }
+            this.onChange(routineDayExercise)
+        },
+
+        handleSetAdd: function() {
 
             const set = {...this.exercise.sets[this.exercise.sets.length - 1]}
             delete set.id
@@ -108,6 +117,7 @@ export default {
 
     &__header-context {
         margin-left: auto;
+        margin-right: 37px;
         display: flex;
         & > * {
             min-width: 50px;

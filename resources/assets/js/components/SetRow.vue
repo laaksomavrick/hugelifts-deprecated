@@ -6,7 +6,6 @@
         <div class="set-row__actions">
             <input
                 class="set-row__form-control"
-                placeholder="Reps"
                 type="number"
                 min="1"
                 max="12"
@@ -17,7 +16,6 @@
             </input>
             <input
                 class="set-row__form-control"
-                placeholder="%"
                 type="number"
                 min="0"
                 max="100"
@@ -26,12 +24,17 @@
                 @change="handleChange"
             >
             </input>
+            <button @click="handleRemove" class="set-row__delete">
+                <font-awesome-icon :icon="times" />
+            </button>
         </div>
     </div>
 </template>
 
 <script>
 
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -39,7 +42,12 @@ export default {
     props: {
         set: Object,
         ordinal: Number,
-        onChange: Function
+        onChange: Function,
+        onRemove: Function
+    },
+
+    components: {
+        FontAwesomeIcon
     },
 
     data: function() {
@@ -56,6 +64,10 @@ export default {
             const percentage = parseInt(this.percentage)
             const set = { ...this.set, reps, percentage }
             this.onChange(set)
+        },
+
+        handleRemove: function() {
+            this.onRemove(this.set)
         }
 
     },
@@ -65,6 +77,10 @@ export default {
         text: function() {
             const ordinal = this.ordinal + 1
             return `Set ${ordinal}.`
+        },
+
+        times: function() {
+            return faTimes
         }
 
     }
@@ -77,6 +93,7 @@ export default {
 
 @import '../../sass/bscore';
 @import '../../sass/form';
+@import '~bootstrap/scss/buttons';
 
 .set-row {
     display: flex;
@@ -100,6 +117,11 @@ export default {
         margin-left: 5px;
         margin-right: 5px;
         text-align: center;
+    }
+
+    &__delete {
+        @extend .btn;
+        @extend .btn-danger;
     }
 }
 
