@@ -7,17 +7,20 @@
         :working="working"
     >
         <div class="exercises">
-            <div 
-                v-for="exercise in exercises"
-                class="exercises__item"
-             >
-                <div class="exercises__text">
-                    {{ exerciseName(exercise.id) }}
+            <div class="exercises__items">
+                <div 
+                    v-for="exercise in exercises"
+                    class="exercises__item"
+                 >
+                    <div class="exercises__text">
+                        {{ exerciseName(exercise.id) }}
+                    </div>
+                    <button class="exercises__delete" @click="handleDelete(exercise)">
+                        <font-awesome-icon :icon="times" />
+                    </button>
                 </div>
-                <button class="exercises__delete" @click="handleDelete(exercise)">
-                    <font-awesome-icon :icon="times" />
-                </button>
             </div>
+            <exercise-autocomplete :onEnter="handleAdd" />
         </div>
     </modal>
 </template>
@@ -28,6 +31,7 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
 
 import Modal from './Modal'
+import ExerciseAutocomplete from '../ExerciseAutocomplete'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -37,7 +41,8 @@ export default {
 
     components: {
         Modal,
-        FontAwesomeIcon
+        FontAwesomeIcon,
+        ExerciseAutocomplete
     },
 
     data: function() {
@@ -71,6 +76,10 @@ export default {
 
         handleDelete: function(exercise) {
             this.exercises = this.exercises.filter(e => e.id !== exercise.id)
+        },
+
+        handleAdd: function(exercise) {
+            this.exercises = [...this.exercises, exercise]
         },
 
         exerciseName: function(id) {
@@ -121,6 +130,21 @@ export default {
 
 .exercises {
 
+    &__items {
+        & > * {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        & > *:first-child {
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+        & > *:last-child {
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+    }
+
     &__item {
         display: flex;
         align-items: center;
@@ -135,6 +159,10 @@ export default {
         @extend .btn;
         @extend .btn-danger;
         margin-left: auto;
+        height: 25px;
+        width: 25px;
+        padding: 0;
+        margin: 0;
     }
 
 }
