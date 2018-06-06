@@ -13,14 +13,14 @@
                     class="exercises__item"
                  >
                     <div class="exercises__text">
-                        {{ exerciseName(exercise.id) }}
+                        {{ exerciseName(exercise.exercise_id) }}
                     </div>
                     <button class="exercises__delete" @click="handleDelete(exercise)">
                         <font-awesome-icon :icon="times" />
                     </button>
                 </div>
             </div>
-            <exercise-autocomplete :onEnter="handleAdd" />
+            <exercise-autocomplete :onSubmit="handleAdd" />
         </div>
     </modal>
 </template>
@@ -35,9 +35,6 @@ import ExerciseAutocomplete from '../ExerciseAutocomplete'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-
-    //list of exercises with X
-    //ADD NEW btn ~> autocomplete? dropdown?
 
     components: {
         Modal,
@@ -78,12 +75,23 @@ export default {
             this.exercises = this.exercises.filter(e => e.id !== exercise.id)
         },
 
-        handleAdd: function(exercise) {
+        handleAdd: function(added) {
+            const exercise = {...added}
+            exercise.exercise_id = exercise.id
+            exercise.ordinal = this.exercises.length - 1
+            exercise.routine_day_id = this.day.id
+            exercise.sets = []
+            delete exercise.id
+            delete exercise.rep_max
+            delete exercise.rep_max_interval
+            delete exercise.name
             this.exercises = [...this.exercises, exercise]
         },
 
         exerciseName: function(id) {
-            return this.getExercise(id).name
+            console.log(id)
+            console.log(this.getExercise(parseInt(id)))
+            return this.getExercise(parseInt(id)).name
         },
 
         ...mapActions([
