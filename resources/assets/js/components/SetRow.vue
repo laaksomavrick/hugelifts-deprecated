@@ -11,7 +11,7 @@
                 max="12"
                 step="1"
                 v-model="reps"
-                @change="handleChange"
+                @keyup="handleChange"
             >
             </input>
             <input
@@ -21,7 +21,7 @@
                 max="100"
                 step="5"
                 v-model="percentage"
-                @change="handleChange"
+                @keyup="handleChange"
             >
             </input>
             <button @click="handleRemove" class="set-row__delete">

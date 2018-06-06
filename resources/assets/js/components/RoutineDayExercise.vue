@@ -64,9 +64,9 @@ export default {
         },
 
         handleSetAdd: function() {
-
-            const set = {...this.exercise.sets[this.exercise.sets.length - 1]}
-            delete set.id
+            
+            const id = this.exercise.sets.length === 0 ? 1 : this.exercise.sets[this.exercise.sets.length - 1].id + 1
+            const set = {...this.exercise.sets[this.exercise.sets.length - 1], id: id}
             const sets = [...this.exercise.sets, set]
 
             const routineDayExercise = {...this.exercise, sets }

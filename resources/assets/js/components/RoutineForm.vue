@@ -41,6 +41,7 @@
                 </button>
                 <button 
                     class="routine-form__add-day"
+                    @click="handleEditDays"
                 >
                     Edit Days
                 </button>
@@ -104,6 +105,11 @@ export default {
 
         onSubmitClick: async function() {
 
+            console.log("here")
+            console.log(this.days)
+            console.log(this.name)
+            return
+
             try {
 
                 if (!this.valid) { return }
@@ -133,7 +139,7 @@ export default {
 
         handleEditExercise: function() {
             if (!this.selected) { return }
-            const day = this.routine.days.find(d => d.id === this.selected)
+            const day = this.days.find(d => d.id === this.selected)
             const data = {
                 open: true,
                 props: {
@@ -151,6 +157,22 @@ export default {
             this.toggleRoutineDayExercisesModal(data)
         },
 
+        handleEditDays: function() {
+            const routine = {...this.routine, days: this.days}
+            const data = {
+                open: true,
+                props: {
+                    headerText: `Edit ${routine.name}`,
+                    routine: routine,
+                    onSubmit: async (routine) => { 
+                        this.days =  [...routine.days ]
+                    }
+
+                }
+            }
+            this.toggleRoutineDaysModal(data)
+        },
+
         handleRoutineDayChange: function(routineDay) {
             const filtered = this.days.filter(day => day.id !== routineDay.id)
             this.days = [...filtered, routineDay]
@@ -158,6 +180,7 @@ export default {
 
         ...mapActions([
             'toggleRoutineDayExercisesModal',
+            'toggleRoutineDaysModal',
         ])
 
     },

@@ -5,6 +5,7 @@
         :onClose="onClose"
         :onSubmit="onSubmit"
         :working="working"
+        :disabled="disabled"
     >
         <div class="exercises">
             <div class="exercises__items">
@@ -89,8 +90,6 @@ export default {
         },
 
         exerciseName: function(id) {
-            console.log(id)
-            console.log(this.getExercise(parseInt(id)))
             return this.getExercise(parseInt(id)).name
         },
 
@@ -115,6 +114,10 @@ export default {
 
         times: function() {
             return faTimes
+        },
+
+        disabled: function() {
+            return this.exercises.length === 0
         },
 
         ...mapGetters([
