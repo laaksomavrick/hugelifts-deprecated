@@ -9,6 +9,12 @@ use App\Models\RoutineDay;
 class Routine extends Model
 {
 
+    protected $fillable = [
+        'user_id',
+        'name',
+        'active'
+    ];
+
     protected $with = ['days.exercises.sets'];
 
     public function user()
