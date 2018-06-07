@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Routine;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use App\Models\Exercise;
+use App\Models\Routine;
 
-class UpdateExercise extends FormRequest
+class CreateRoutine extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,8 +15,7 @@ class UpdateExercise extends FormRequest
      */
     public function authorize()
     {
-        $exercise = Exercise::find($this->route('exerciseId'));
-        return $exercise && $this->user()->can('update', $exercise);
+        return true;
     }
 
     /**
@@ -28,8 +27,9 @@ class UpdateExercise extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'rep_max' => 'required|numeric|between:1,99999',
-            'rep_max_interval' => 'required|numeric|between:1, 999'
+            'days' => 'required|array',
+            'days.*.exercises' => 'required|array',
+            'days.*.exercises.*.sets' => 'required|array'
         ];
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Exercise;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Exercise;
 
-class DeleteExercise extends FormRequest
+class CreateExercise extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,8 +13,7 @@ class DeleteExercise extends FormRequest
      */
     public function authorize()
     {
-        $exercise = Exercise::find($this->route('exerciseId'));
-        return $exercise && $this->user()->can('delete', $exercise);
+        return true;
     }
 
     /**
@@ -25,6 +23,10 @@ class DeleteExercise extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'name' => 'required|string|max:255',
+            'rep_max' => 'required|numeric|between:1,99999',
+            'rep_max_interval' => 'required|numeric|between:1, 999'
+        ];
     }
 }

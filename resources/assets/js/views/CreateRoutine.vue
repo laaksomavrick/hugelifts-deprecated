@@ -1,6 +1,7 @@
 <template>
     <routine-form 
         :routine="null"
+        :onSubmit="createRoutine"
         title="Create Routine"
         buttonText="Create"
     />
@@ -20,7 +21,7 @@ export default {
     methods: {
 
         ...mapActions([
-            ''
+            'createRoutine'
         ])
 
     }

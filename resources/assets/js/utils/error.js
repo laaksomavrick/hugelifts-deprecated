@@ -1,6 +1,7 @@
 export const formatErrors = (e) => {
-    if (e && e.data && e.data.errors) {
-        const obj = e.data.errors
+    const response = e.response
+    if (response && response.data && response.data.errors) {
+        const obj = response.data.errors
         let errors = []
         for (let [key, value] of Object.entries(obj)) {
             errors.push(value) 

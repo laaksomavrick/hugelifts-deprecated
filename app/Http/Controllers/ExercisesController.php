@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-Use App\Http\Requests\CreateExercise;
-Use App\Http\Requests\UpdateExercise;
-Use App\Http\Requests\DeleteExercise;
+Use App\Http\Requests\Exercise\CreateExercise;
+Use App\Http\Requests\Exercise\UpdateExercise;
+Use App\Http\Requests\Exercise\DeleteExercise;
 Use App\Repositories\ExerciseRepository;
 
 class ExercisesController extends Controller 

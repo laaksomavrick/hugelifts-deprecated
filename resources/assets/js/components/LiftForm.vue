@@ -42,14 +42,14 @@
             <progress-button
                 class="lift-form__button lift-form__button--primary"
                 v-bind:class="{ disabled: !valid }"
-                :working="working"
+                :working="submitWorking"
                 :handleClick="onSubmitClick"
                 :buttonText="buttonText"
             />
             <progress-button
                 v-if="deleteable"
                 class="lift-form__button lift-form__button--danger"
-                :working="working"
+                :working="deleteWorking"
                 :handleClick="onDeleteClick"
                 buttonText="Delete"
             />
@@ -92,7 +92,8 @@ export default {
             repMax: this.exercise ? this.exercise.rep_max : null,
             id: this.exercise ? this.exercise.id : null,
             errors: [],
-            working: false
+            submitWorking: false,
+            deleteWorking: false
         }
     },
 
@@ -104,7 +105,7 @@ export default {
 
                 if (!this.valid) { return }
 
-                this.working = true
+                this.submitWorking = true
 
                 const data = {
                     id: this.id,
@@ -115,12 +116,12 @@ export default {
 
                 await this.onSubmit(data)
 
-                this.working = false
+                this.submitWorking = false
                 this.$router.go(-1)
 
             } catch (e) {
                 this.errors = formatErrors(e)
-                this.working = false
+                this.submitWorking = false
             }
 
         },
@@ -133,12 +134,13 @@ export default {
                     bodyText: `Are you sure you want to delete ${this.name}?`,
                     onDelete: async () => { 
                         await this.destroyExercise(this.id)
+                        this.deleteWorking = false
                         this.$router.go(-1)
                     }
 
                 }
             }
-            console.log(data)
+            this.deleteWorking = true
             this.toggleConfirmModal(data)
         },
 

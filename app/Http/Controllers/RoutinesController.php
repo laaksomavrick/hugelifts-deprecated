@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\Routine\UpdateRoutine;
+use App\Http\Requests\Routine\CreateRoutine;;
+use App\Http\Requests\Routine\DeleteRoutine;;
+
 Use App\Repositories\RoutineRepository;
 
 class RoutinesController extends Controller 
@@ -15,19 +19,24 @@ class RoutinesController extends Controller
         return response($data, 200);
     }
 
-    public function create(CreateExercise $request, ExerciseRepository $exercises) 
+    public function create(CreateRoutine $request, RoutineRepository $routines) 
     {
-    }
-
-    public function update($routineId, Request $request, RoutineRepository $routines) 
-    {
-        //TODO $request 
-        $routine = $routines->update($routineId, $request->getContent());
+        $validated = $request->validated();
+        $routine = $routines->create($request->user()->id, $validated);
         return response($routine, 200);
     }
 
-    public function destroy($exerciseId, DeleteExercise $request, ExerciseRepository $exercises) 
+    public function update($routineId, UpdateRoutine $request, RoutineRepository $routines) 
     {
+        $validated = $request->validated();
+        $routine = $routines->update($routineId, $validated);
+        return response($routine, 200);
+    }
+
+    public function destroy($routineId, DeleteRoutine $request, RoutineRepository $routines) 
+    {
+        $routine = $routines->destroy($routineId);
+        return response($routine, 200);
     }
 
 }

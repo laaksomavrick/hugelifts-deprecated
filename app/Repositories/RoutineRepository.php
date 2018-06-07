@@ -20,20 +20,34 @@ class RoutineRepository
 
     public function create($userId, $data)
     {
+        $routine = Routine::create(['user_id' => $userId, 'name' => $data['name']]);
+        $this->handleRoutineChange($routine->id, $data);
+        return $this->show($routine->id);
     }
 
     public function update($id, $data)
     {
-        $data = json_decode($data, true); //TODO temporary until $request
-        $name = $data['name'];
+        Routine::where('id', $id)->update(['name' => $data['name']]);
+        $this->handleRoutineChange($id, $data);
+        return $this->show($id);
+    }
+
+    public function show($id) 
+    {
+        return Routine::find($id);
+    }
+
+    public function destroy($id)
+    {
+        return Routine::destroy($id);
+    }
+
+    private function handleRoutineChange($id, $data)
+    {
         $days = $data['days'];
 
         //TODO optimize nested loops
-        DB::transaction(function() use ($id, $name, $days) {
-            //update name
-            Routine::where('id', $id)->update([
-                'name' => $name
-            ]);
+        DB::transaction(function() use ($id, $days) {
             //clear old records
             RoutineDay::where('routine_id', $id)->delete();
             //get fresh record
@@ -52,15 +66,6 @@ class RoutineRepository
                 }
             }
         });
-        return Routine::find($id);
-    }
-
-    public function show($id) 
-    {
-    }
-
-    public function destroy($id)
-    {
     }
 
 }
