@@ -159,7 +159,7 @@ export default {
             const data = {
                 open: true,
                 props: {
-                    headerText: `Edit ${routine.name}`,
+                    headerText: this.name ? `Add days to ${this.name}` : 'Add days',
                     routine: routine,
                     onSubmit: async (routine) => { 
                         this.days =  [...routine.days ]

@@ -28,6 +28,8 @@ class CreateRoutine extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'days' => 'required|array',
+            'days.*.exercises' => 'required|array',
+            'days.*.exercises.*.sets' => 'required|array'
         ];
     }
 }
