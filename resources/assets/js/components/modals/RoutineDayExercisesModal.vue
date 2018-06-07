@@ -79,7 +79,7 @@ export default {
         handleAdd: function(added) {
             const exercise = {...added}
             exercise.exercise_id = exercise.id
-            exercise.ordinal = this.exercises.length - 1
+            exercise.ordinal = this.exercises.length === 0 ? 0 : this.exercises.length
             exercise.routine_day_id = this.day.id
             exercise.sets = []
             delete exercise.id

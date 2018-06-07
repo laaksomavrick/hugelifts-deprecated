@@ -105,11 +105,6 @@ export default {
 
         onSubmitClick: async function() {
 
-            console.log("here")
-            console.log(this.days)
-            console.log(this.name)
-            return
-
             try {
 
                 if (!this.valid) { return }
@@ -117,11 +112,12 @@ export default {
                 this.working = true
 
                 const data = {
-                    id: this.id,
+                    id: this.routine.id,
                     name: this.name,
+                    days: this.days
                 }
 
-                //await this.onSubmit(data)
+                await this.onSubmit(data)
 
                 this.working = false
                 this.$router.go(-1)

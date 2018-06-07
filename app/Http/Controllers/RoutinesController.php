@@ -19,8 +19,11 @@ class RoutinesController extends Controller
     {
     }
 
-    public function update($exerciseId, UpdateExercise $request, ExerciseRepository $exercises) 
+    public function update($routineId, Request $request, RoutineRepository $routines) 
     {
+        //TODO $request 
+        $routine = $routines->update($routineId, $request->getContent());
+        return response($routine, 200);
     }
 
     public function destroy($exerciseId, DeleteExercise $request, ExerciseRepository $exercises) 
