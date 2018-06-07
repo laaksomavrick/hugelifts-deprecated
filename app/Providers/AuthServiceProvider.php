@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use App\Models\Exercise;
+use App\Models\Routine;
 use App\Policies\ExercisePolicy;
+use App\Policies\RoutinePolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,7 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Exercise::class => ExercisePolicy::class
+        Exercise::class => ExercisePolicy::class,
+        Routine::class => RoutinePolicy::class
     ];
 
     /**

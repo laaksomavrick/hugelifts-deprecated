@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Routine;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Exercise;
 
-class DeleteExercise extends FormRequest
+use App\Models\Routine;
+
+class UpdateRoutine extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,8 +15,8 @@ class DeleteExercise extends FormRequest
      */
     public function authorize()
     {
-        $exercise = Exercise::find($this->route('exerciseId'));
-        return $exercise && $this->user()->can('delete', $exercise);
+        $routine = Routine::find($this->route('routineId'));
+        return $routine && $this->user()->can('update', $routine);
     }
 
     /**
@@ -25,6 +26,9 @@ class DeleteExercise extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'name' => 'required|string|max:255',
+            'days' => 'required|array',
+        ];
     }
 }

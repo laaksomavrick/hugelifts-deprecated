@@ -112,7 +112,7 @@ export default {
                 this.working = true
 
                 const data = {
-                    id: this.routine.id,
+                    id: this.routine ? this.routine.id : null,
                     name: this.name,
                     days: this.days
                 }
@@ -123,6 +123,7 @@ export default {
                 this.$router.go(-1)
 
             } catch (e) {
+                console.error(e)
                 this.errors = formatErrors(e)
                 this.working = false
             }
@@ -185,7 +186,7 @@ export default {
 
         valid: function() {
             return (
-                this.routine
+                true === true
             )
         },
 

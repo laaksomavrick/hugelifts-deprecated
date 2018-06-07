@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Exercise;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use App\Models\Exercise;
-
-class UpdateExercise extends FormRequest
+class CreateExercise extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,8 +13,7 @@ class UpdateExercise extends FormRequest
      */
     public function authorize()
     {
-        $exercise = Exercise::find($this->route('exerciseId'));
-        return $exercise && $this->user()->can('update', $exercise);
+        return true;
     }
 
     /**

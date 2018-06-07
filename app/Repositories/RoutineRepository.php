@@ -24,7 +24,6 @@ class RoutineRepository
 
     public function update($id, $data)
     {
-        $data = json_decode($data, true); //TODO temporary until $request
         $name = $data['name'];
         $days = $data['days'];
 
