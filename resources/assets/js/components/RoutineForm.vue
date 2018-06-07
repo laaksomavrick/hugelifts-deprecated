@@ -49,9 +49,16 @@
             <progress-button
                 class="routine-form__button routine-form__button--primary"
                 v-bind:class="{ disabled: !valid }"
-                :working="working"
+                :submitWorking="submitWorking"
                 :handleClick="onSubmitClick"
                 :buttonText="buttonText"
+            />
+            <progress-button
+                v-if="deleteable"
+                class="routine-form__button routine-form__button--danger"
+                :submitWorking="deleteWorking"
+                :handleClick="onDeleteClick"
+                buttonText="Delete"
             />
             <div
                 class="routine-form__alert"
@@ -97,7 +104,8 @@ export default {
             name: this.routine ? this.routine.name : null,
             errors: [],
             selected: null,
-            working: false
+            submitWorking: false,
+            deleteWorking: false
         }
     },
 
@@ -109,7 +117,7 @@ export default {
 
                 if (!this.valid) { return }
 
-                this.working = true
+                this.submitWorking = true
 
                 const data = {
                     id: this.routine ? this.routine.id : null,
@@ -119,15 +127,32 @@ export default {
 
                 await this.onSubmit(data)
 
-                this.working = false
+                this.submitWorking = false
                 this.$router.go(-1)
 
             } catch (e) {
                 console.error(e)
                 this.errors = formatErrors(e)
-                this.working = false
+                this.submitWorking = false
             }
 
+        },
+
+        onDeleteClick: function() {
+            const data = {
+                open: true,
+                props: {
+                    headerText: `Delete ${this.name}?`,
+                    bodyText: `Are you sure you want to delete ${this.name}?`,
+                    onDelete: async () => {
+                        await this.destroyRoutine(this.routine.id)
+                        this.deleteWorking = false
+                        this.$router.go(-1)
+                    }
+                }
+            }
+            this.deleteWorking = true
+            this.toggleConfirmModal(data)
         },
 
         select: function(day) {
@@ -178,6 +203,8 @@ export default {
         ...mapActions([
             'toggleRoutineDayExercisesModal',
             'toggleRoutineDaysModal',
+            'toggleConfirmModal',
+            'destroyRoutine'
         ])
 
     },
@@ -345,6 +372,7 @@ export default {
     &__button {
         margin-top: 5px;
         @extend .form__button;
+        margin-bottom: 0px;
 
         &--primary {
             @extend .btn-primary;

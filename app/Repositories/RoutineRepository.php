@@ -22,22 +22,24 @@ class RoutineRepository
     {
         $routine = Routine::create(['user_id' => $userId, 'name' => $data['name']]);
         $this->handleRoutineChange($routine->id, $data);
-        return Routine::find($routine->id);
+        return $this->show($routine->id);
     }
 
     public function update($id, $data)
     {
         Routine::where('id', $id)->update(['name' => $data['name']]);
         $this->handleRoutineChange($id, $data);
-        return Routine::find($id);
+        return $this->show($id);
     }
 
     public function show($id) 
     {
+        return Routine::find($id);
     }
 
     public function destroy($id)
     {
+        return Routine::destroy($id);
     }
 
     private function handleRoutineChange($id, $data)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\Routine\UpdateRoutine;
 use App\Http\Requests\Routine\CreateRoutine;;
+use App\Http\Requests\Routine\DeleteRoutine;;
 
 Use App\Repositories\RoutineRepository;
 
@@ -32,8 +33,10 @@ class RoutinesController extends Controller
         return response($routine, 200);
     }
 
-    public function destroy($exerciseId, DeleteExercise $request, RoutineRepository $routines) 
+    public function destroy($routineId, DeleteRoutine $request, RoutineRepository $routines) 
     {
+        $routine = $routines->destroy($routineId);
+        return response($routine, 200);
     }
 
 }
