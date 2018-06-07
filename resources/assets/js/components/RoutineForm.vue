@@ -1,7 +1,7 @@
 <template>
     <div class="routine-form">
-        <!-- title, name -->
         <div class="routine-form__form">
+            <!-- title, name -->
             <h4 class="routine-form__title">
                 {{ title }}
             </h4>
@@ -13,41 +13,45 @@
                 >
                 </input>
             </div>
-        </div>
-        <!-- days -->
-        <div class="routine-form__days">
-            <label class="routine-form__label">Days</label>
-            <div v-for="day in days">
-                <div 
-                    class="routine-form__day" 
-                    v-bind:class="{ 'routine-form__day--active': day.id === selected }"
-                    @click="select(day)"
-                >
-                    {{ day.name }}
+            <!-- days -->
+            <div class="routine-form__days">
+                <label class="routine-form__label">Days</label>
+                <div v-for="day in sortedDays">
+                    <div 
+                        class="routine-form__day" 
+                        v-bind:class="{ 'routine-form__day--active': day.id === selected }"
+                    >
+                        <div class="routine-form__day-header" @click="select(day)">
+                            {{ day.name }}
+                        </div>
+                    </div>
+                    <routine-day :day="day" :onChange="handleRoutineDayChange" :visible="day.id === selected" />
                 </div>
-                <template 
-                    v-if="day && day.exercises && day.id === selected"
-                    v-for="exercise in day.exercises"
-                >
-                    <routine-day-exercise :exercise="exercise" :onChange="handleRoutineDayExerciseChange" />
-                </template>
             </div>
         </div>
         <!-- buttons -->
         <div class="routine-form__buttons">
+            <div class="routine-form__add-buttons">
+                <button 
+                    v-bind:class="{ disabled: selected === null }"
+                    class="routine-form__add-exercise"
+                    @click="handleEditExercise"
+                >
+                    Edit Exercises 
+                </button>
+                <button 
+                    class="routine-form__add-day"
+                    @click="handleEditDays"
+                >
+                    Edit Days
+                </button>
+            </div>
             <progress-button
                 class="routine-form__button routine-form__button--primary"
                 v-bind:class="{ disabled: !valid }"
                 :working="working"
                 :handleClick="onSubmitClick"
                 :buttonText="buttonText"
-            />
-            <progress-button
-                v-if="deleteable"
-                class="routine-form__button routine-form__button--danger"
-                :working="working"
-                :handleClick="onDeleteClick"
-                buttonText="Delete"
             />
             <div
                 class="routine-form__alert"
@@ -61,8 +65,12 @@
 
 <script>
 
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
+
 import ProgressButton from '../components/ProgressButton'
-import RoutineDayExercise from '../components/RoutineDayExercise'
+import RoutineDay from '../components/RoutineDay'
 import { formatErrors } from '../utils/error'
 import { mapActions } from 'vuex'
 
@@ -70,7 +78,8 @@ export default {
 
     components: {
         ProgressButton,
-        RoutineDayExercise
+        RoutineDay,
+        FontAwesomeIcon
     },
 
     props: {
@@ -103,11 +112,12 @@ export default {
                 this.working = true
 
                 const data = {
-                    id: this.id,
+                    id: this.routine.id,
                     name: this.name,
+                    days: this.days
                 }
 
-                //await this.onSubmit(data)
+                await this.onSubmit(data)
 
                 this.working = false
                 this.$router.go(-1)
@@ -119,41 +129,54 @@ export default {
 
         },
 
-        onDeleteClick: function() {
-            const data = {
-                open: true,
-                props: {
-                    headerText: `Delete ${this.name}?`,
-                    bodyText: `Are you sure you want to delete ${this.name}?`,
-                    onDelete: async () => { 
-                        //await this.destroyExercise(this.id)
-                        this.$router.go(-1)
-                    }
-
-                }
-            }
-            this.toggleConfirmModal(data)
-        },
-
         select: function(day) {
             day.id === this.selected ? this.selected = null : this.selected = day.id
         },
 
-        handleRoutineDayExerciseChange: function(routineDayExercise) {
-            const oldDay = this.days.find(day => day.id === routineDayExercise.routine_day_id)
-            let filtered = oldDay.exercises.filter(e => e.id !== routineDayExercise.id)
-            const exercises = [...filtered, routineDayExercise]
+        handleEditExercise: function() {
+            if (!this.selected) { return }
+            const day = this.days.find(d => d.id === this.selected)
+            const data = {
+                open: true,
+                props: {
+                    headerText: `Edit ${day.name}`,
+                    day: day,
+                    onSubmit: async (routineDay) => { 
+                        this.handleRoutineDayChange(routineDay)
+                        if (routineDay.exercises.length === 0) {
+                            this.selected = null
+                        }
+                    }
 
-            const newDay = {...oldDay, exercises}
+                }
+            }
+            this.toggleRoutineDayExercisesModal(data)
+        },
 
-            filtered = this.days.filter(day => day.id !== newDay.id)
+        handleEditDays: function() {
+            const routine = {...this.routine, days: this.days}
+            const data = {
+                open: true,
+                props: {
+                    headerText: `Edit ${routine.name}`,
+                    routine: routine,
+                    onSubmit: async (routine) => { 
+                        this.days =  [...routine.days ]
+                    }
 
-            this.days = [...filtered, newDay]
+                }
+            }
+            this.toggleRoutineDaysModal(data)
+        },
 
+        handleRoutineDayChange: function(routineDay) {
+            const filtered = this.days.filter(day => day.id !== routineDay.id)
+            this.days = [...filtered, routineDay]
         },
 
         ...mapActions([
-            'toggleConfirmModal',
+            'toggleRoutineDayExercisesModal',
+            'toggleRoutineDaysModal',
         ])
 
     },
@@ -174,6 +197,18 @@ export default {
             return this.routine ? 'Edit Routine' : 'New Routine'
         },
 
+        sortedDays: function() {
+            return this.days ? this.days.sort((a, b) => a.ordinal > b.ordinal) : []
+        },
+
+        plus: function() {
+            return faPlus 
+        },
+
+        times: function() {
+            return faTimes 
+        }
+
     }
 
 }
@@ -185,6 +220,7 @@ export default {
 @import '../../sass/bscore';
 @import '../../sass/form';
 @import '~bootstrap/scss/list-group';
+@import '~bootstrap/scss/buttons';
 
 .routine-form {
 
@@ -211,8 +247,6 @@ export default {
     }
 
     &__label {
-        margin-bottom: .5rem;
-        padding-left: 15px;
     }
 
     &__days {
@@ -229,8 +263,36 @@ export default {
         justify-content: space-between;
 
         &--active {
-            background: $primary!important;
-            color: white!important;
+            @extend .list-group-item-primary;
+        }
+    }
+
+
+    &__day-header {
+        flex: 1;
+        text-align: left;
+    }
+
+    &__day-option {
+        margin-left: auto;    
+        color: white;
+        @extend .btn;
+        width: 37px;
+        height: 37px;
+        padding: 5px;
+        margin-left: 5px;
+
+        svg {
+            height: 15px;
+            width: 15px;
+        }
+
+        &--primary {
+            background: $primary;
+        }
+
+        &--danger {
+            background: $danger;
         }
     }
 
@@ -238,6 +300,28 @@ export default {
         padding-top: 20px;
         padding-left: 15px;
         padding-right: 15px;
+    }
+
+    &__add-buttons {
+        display: flex;
+        & > *:first-child {
+            margin-right: 2.5px;
+        }
+        & > *:last-child {
+            margin-left: 2.5px;
+        }
+    }
+
+    &__add-exercise {
+        @extend .btn;
+        @extend .btn-secondary;
+        flex: 1;
+    }
+
+    &__add-day {
+        @extend .btn;
+        @extend .btn-secondary;
+        flex: 1;
     }
 
     &__exercises {
@@ -258,6 +342,7 @@ export default {
     }
 
     &__button {
+        margin-top: 5px;
         @extend .form__button;
 
         &--primary {

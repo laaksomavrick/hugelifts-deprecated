@@ -1,6 +1,7 @@
 <template>
         <routine-form 
             :routine="routine"
+            :onSubmit="updateRoutine"
             title="Edit Routine"
             buttonText="Update"
         />
@@ -20,6 +21,7 @@ export default {
     methods: {
 
         ...mapActions([
+            'updateRoutine'
         ])
 
     },

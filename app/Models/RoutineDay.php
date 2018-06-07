@@ -9,6 +9,12 @@ use App\Models\Set;
 class RoutineDay extends Model
 {
 
+    protected $fillable = [
+        'name',
+        'routine_id',
+        'ordinal'
+    ];
+
     public function routine()
     {
         return $this->belongsTo(Routine::class);

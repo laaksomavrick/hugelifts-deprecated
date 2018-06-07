@@ -30,6 +30,7 @@
                                     :working="isWorking" 
                                     buttonText="Delete"
                                     class="modal__btn modal__btn--danger"
+                                    v-bind:class=" { 'disabled' : disabled }"
                                 />
                                 <progress-button 
                                     v-if="onSubmit" 
@@ -37,6 +38,7 @@
                                     :working="isWorking" 
                                     buttonText="Submit"
                                     class="modal__btn modal__btn--primary"
+                                    v-bind:class=" { 'disabled' : disabled }"
                                 />
                             </div>
                         </div>
@@ -72,6 +74,10 @@ export default {
             default: null
         },
         working: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         }
