@@ -14,6 +14,10 @@ class RoutineSchedule extends Model
         'routine_day_id',
     ];
 
+    protected $with = [
+        'day.exercises.sets'
+    ];
+
     public function routine()
     {
         return $this->belongsTo(Routine::class);
