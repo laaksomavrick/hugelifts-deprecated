@@ -52,3 +52,8 @@ Product considerations:
         "Your Lifts" view
             -> Create, read, update, delete lifts
 
+
+
+TODOS:
+    set active in routine form; backend handle change
+    better client side validation for routine form

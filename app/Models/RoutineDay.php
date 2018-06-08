@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\RoutineDayExercise;
+use App\Models\RoutineSchedule;
 use App\Models\Set;
 
 class RoutineDay extends Model
@@ -18,6 +19,11 @@ class RoutineDay extends Model
     public function routine()
     {
         return $this->belongsTo(Routine::class);
+    }
+
+    public function schedule()
+    {
+        return $this->hasOne(RoutineSchedule::class);
     }
 
     public function exercises()
