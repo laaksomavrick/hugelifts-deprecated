@@ -14,12 +14,14 @@
             </template>
         </div>
         <div class="navbar__actions">
-            <font-awesome-icon 
-                class="navbar__plus-icon" 
-                :icon="plusIcon" 
-                v-if="addIsVisible"
-                @click="handleAddClick" 
-            />
+            <div class="navbar__action">
+                <font-awesome-icon 
+                    class="navbar__plus-icon" 
+                    :icon="plusIcon" 
+                    v-if="addIsVisible"
+                    @click="handleAddClick" 
+                />
+            </div>
         </div>
     </nav>
 </template>
@@ -108,6 +110,9 @@ export default {
 
     color: white;
     justify-content: left;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+                0 4px 5px 0 rgba(0, 0, 0, 0.14),
+                0 1px 10px 0 rgba(0, 0, 0, 0.12);
 
     &__brand {
         @extend .navbar-brand;
@@ -119,6 +124,20 @@ export default {
 
     &__actions {
         margin-left: auto;
+    }
+
+    &__action {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+
+        &:active {
+            background: lighten($primary, 10%);
+        }
     }
 
     &__item {
@@ -142,7 +161,6 @@ export default {
 
     &__plus-icon {
         font-size: 17px;
-        cursor: pointer;
     }
 
     &__brand-icon {

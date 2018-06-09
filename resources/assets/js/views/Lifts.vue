@@ -56,6 +56,7 @@ export default {
 .exercises {
 
     @extend .list-group;
+    padding-top: 15px;
 
     &__item {
         @extend .list-group-item;

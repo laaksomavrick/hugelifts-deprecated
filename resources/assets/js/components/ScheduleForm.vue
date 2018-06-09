@@ -3,9 +3,11 @@
         <div class="schedule-form__header">
             {{ dayName }}
         </div>
-        <template v-for="exercise in exercises">
-            <exercise-row :exercise="exercise" />
-        </template>
+        <div class="schedule-form__exercises">
+            <template v-for="exercise in exercises">
+                <exercise-row :exercise="exercise" @completed="handleExerciseCompleted"/>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -22,6 +24,7 @@ export default {
 
     data: function() {
         return {
+            workoutStatus: []
         }
     },
 
@@ -30,12 +33,21 @@ export default {
         console.log("beforeCreate")
     },
 
+    mounted: function() {
+    },
+
     beforeDestroy: function() {
-        //todo set vuex temp state
+        //todo set vuex temp state in EACH EXERCSIE ROW
         console.log("beforeDestroy")
+        console.log(this.exercises)
     },
 
     methods: {
+
+        handleExerciseCompleted: function(data) {
+            console.log(data)
+            //create or update depending if exists or not
+        },
 
     },
 
@@ -71,6 +83,10 @@ export default {
         font-size: $list-header-font-size;
         padding: $list-header-padding;
         padding-left: 0px;
+    }
+
+    &__exercises {
+        @include make-row();
     }
 
 }
