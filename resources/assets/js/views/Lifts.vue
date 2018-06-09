@@ -65,6 +65,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        font-size: $list-group-item-font-size;
+        height: $list-group-item-height;
     }
 
     &__repmax {

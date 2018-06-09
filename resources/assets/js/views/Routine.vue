@@ -75,11 +75,14 @@ export default {
         cursor: pointer;
         display: flex;
         align-items: center;
+        font-size: $list-group-item-font-size;
+        height: $list-group-item-height;
     }
 
     &__subheader {
-        padding: 5px 0px 5px 20px;
+        padding: $list-header-padding;
         opacity: 0.7;
+        font-size: $list-header-font-size;
     }
 
 }

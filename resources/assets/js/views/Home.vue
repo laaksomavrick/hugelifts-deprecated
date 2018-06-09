@@ -41,6 +41,8 @@ export default {
 
 .home {
 
+    height: 100vh;
+
     &__slot {
         @include make-container();
         padding-left: 0;

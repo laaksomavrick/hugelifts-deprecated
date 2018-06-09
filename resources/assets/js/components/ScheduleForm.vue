@@ -68,7 +68,9 @@ export default {
     flex-direction: column;
 
     &__header {
-        font-size: 1.5rem;
+        font-size: $list-header-font-size;
+        padding: $list-header-padding;
+        padding-left: 0px;
     }
 
 }
