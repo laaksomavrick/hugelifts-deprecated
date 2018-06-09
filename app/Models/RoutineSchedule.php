@@ -20,7 +20,7 @@ class RoutineSchedule extends Model
 
     public function routine()
     {
-        return $this->belongsTo(Routine::class);
+        return $this->belongsTo(Routine::class, 'routine_id');
     }
 
     public function day()
