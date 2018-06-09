@@ -76,8 +76,8 @@ export default {
         checkAndHandleCompleted: function() {
             const done = this.sets.filter(s => s.active === false).length === 0
             if (done) {
-                const completed = this.sets.filter(s => s.completed_reps !== s.reps).length === 0
-                const data = { exercise_id: this.exercise.exercise_id, completed }
+                const increase = this.sets.filter(s => s.completed_reps !== s.reps).length === 0
+                const data = { id: this.exercise.id, exercise_id: this.exercise.exercise_id, increase }
                 this.$emit('completed', data)
             }
         }
@@ -111,7 +111,6 @@ export default {
 
 .exercise-row {
 
-
     @include make-col-ready();
 
     @include media-breakpoint-up(xs) {
@@ -144,14 +143,16 @@ export default {
     &__sets {
         display: flex;
         justify-content: space-evenly;
+        flex-wrap: wrap;
     }
 
     &__set {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-left: 3px;
-        margin-right: 3px;
+        margin-left: 2.5px;
+        margin-right: 2.5px;
+        margin-top: 2px;
     }
 
     &__reps {

@@ -8,23 +8,35 @@
                 <exercise-row :exercise="exercise" @completed="handleExerciseCompleted"/>
             </template>
         </div>
+        <div class="schedule-form__submit">
+            <progress-button
+                class="schedule-form__button schedule-form__button--primary"
+                v-bind:class="{ 'disabled': disabled }"
+                :submitWorking="working"
+                :handleClick="handleSubmit"
+                buttonText="Complete Workout"
+            />
+        </div>
     </div>
 </template>
 
 <script>
 
 import ExerciseRow from './ExerciseRow'
+import ProgressButton from './ProgressButton'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
 
     components: {
-        ExerciseRow
+        ExerciseRow,
+        ProgressButton
     },
 
     data: function() {
         return {
-            workoutStatus: []
+            workouts: [],
+            working: false
         }
     },
 
@@ -45,13 +57,21 @@ export default {
     methods: {
 
         handleExerciseCompleted: function(data) {
-            console.log(data)
-            //create or update depending if exists or not
+            const filtered = this.workouts.filter(w => w.id !== data.id)
+            this.workouts = [...filtered, data]
         },
+
+        handleSubmit: function() {
+
+        }
 
     },
 
     computed: {
+
+        disabled: function() {
+            return this.workouts.length !== this.exercises.length
+        },
 
         dayName: function() {
             return this.getSchedule.day ? this.getSchedule.day.name : ''
@@ -73,6 +93,7 @@ export default {
 <style lang="scss" scoped>
 
 @import '../../sass/bscore';
+@import '~bootstrap/scss/buttons';
 
 .schedule-form {
 
@@ -89,6 +110,24 @@ export default {
         @include make-row();
     }
 
+    &__submit {
+        @include make-col(12);
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    &__button {
+
+        @extend .btn;
+
+        &--primary {
+
+            @extend .btn-primary;
+
+        }
+
+    }
 }
 
 </style>

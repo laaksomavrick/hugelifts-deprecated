@@ -58,6 +58,7 @@ export default {
         @include make-container();
         padding-left: 0;
         padding-right: 0;
+        height: 100%;
     }
 
 }
