@@ -213,7 +213,8 @@ export default {
 
         valid: function() {
             return (
-                true === true
+                   this.name
+                && this.days.length > 0
             )
         },
 
@@ -388,6 +389,7 @@ export default {
     }
 
     &__alert {
+        margin-top: 15px;
         @extend .form__alert;
     }
 }

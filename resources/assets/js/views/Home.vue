@@ -2,7 +2,9 @@
     <div class="home">
         <navbar></navbar>
         <div class="home__slot">
-            <router-view></router-view>
+            <transition name="fade" mode="out-in">
+                <router-view :key="key"></router-view>
+            </transition>
         </div>
     </div>
 </template>
@@ -29,6 +31,14 @@ export default {
             'startup'
         ])
 
+    },
+
+    computed: {
+
+        key: function() {
+            return this.$route.name
+        }
+
     }
 
 }
@@ -38,13 +48,17 @@ export default {
 <style lang="scss" scoped>
 
 @import '../../sass/bscore';
+@import '../../sass/transitions';
 
 .home {
+
+    height: 100vh;
 
     &__slot {
         @include make-container();
         padding-left: 0;
         padding-right: 0;
+        height: 100%;
     }
 
 }

@@ -96,7 +96,7 @@ export default {
                 id,
                 exercises: [],
                 name: this.text,
-                ordinal: this.days.length === 0 ? 0 : this.days.length,
+                ordinal: this.days.length === 0 ? 0 : this.days.length + 1,
                 routine_id: this.routine.id
             }
 

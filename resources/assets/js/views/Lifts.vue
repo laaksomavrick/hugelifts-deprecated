@@ -56,6 +56,7 @@ export default {
 .exercises {
 
     @extend .list-group;
+    padding-top: 15px;
 
     &__item {
         @extend .list-group-item;
@@ -65,6 +66,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        font-size: $list-group-item-font-size;
+        height: $list-group-item-height;
     }
 
     &__repmax {

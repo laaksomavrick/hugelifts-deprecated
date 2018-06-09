@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\RoutineDay;
+use App\Models\RoutineSchedule;
 
 class Routine extends Model
 {
@@ -25,6 +26,11 @@ class Routine extends Model
     public function days()
     {
         return $this->hasMany(RoutineDay::class);
+    }
+
+    public function schedule()
+    {
+        return $this->hasOne(RoutineSchedule::class);
     }
 
 }

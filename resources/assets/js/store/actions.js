@@ -7,7 +7,8 @@ export const startup = ({dispatch}) => {
             const user = dispatch('fetchUser')
             const exercises = dispatch('fetchExercises')
             const routines = dispatch('fetchRoutines')
-            await Promise.all([user, exercises, routines])
+            const schedule = dispatch('fetchSchedule')
+            await Promise.all([user, exercises, routines, schedule])
             resolve()
         } catch (e) {
             //TODO

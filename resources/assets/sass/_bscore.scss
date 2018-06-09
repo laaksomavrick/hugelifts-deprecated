@@ -2,13 +2,4 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/root';
-
-$xs: 0px;
-$sm: 576px;
-$md: 768px;
-$lg: 992px;
-$xl: 1200px;
-
-$mobile-sm: 320px;
-$mobile-md: 375px;
-$mobile-lg: 425px;
+@import './variables';

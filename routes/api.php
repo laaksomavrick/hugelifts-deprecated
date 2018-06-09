@@ -29,4 +29,8 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/routines', 'RoutinesController@create');
     Route::patch('/routines/{routineId}', 'RoutinesController@update');
     Route::delete('/routines/{routineId}', 'RoutinesController@destroy');
+
+    Route::get('/schedule', 'SchedulesController@show');
+    Route::patch('/schedule/{scheduleId}', 'SchedulesController@update');
+
 });
