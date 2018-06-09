@@ -1,13 +1,10 @@
-@import 'variables';
-@import '~bootstrap/scss/bootstrap';
-
 .fade-enter-active, .fade-leave-active {
     transition-property: opacity;
-    transition-duration: 100ms;
+    transition-duration: 50ms;
 }
 
 .fade-enter-active {
-    transition-delay: 100ms;
+    transition-delay: 50ms;
 }
 
 .fade-enter, .fade-leave-active {
