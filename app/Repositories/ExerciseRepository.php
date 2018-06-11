@@ -43,4 +43,13 @@ class ExerciseRepository
         return Exercise::destroy($id);
     }
 
+    public function incrementRecords($ids) {
+        $oldExercises = Exercise::whereIn('id', $ids)->get();
+        foreach ($oldExercises as $oldExercise) {
+            $pr = $oldExercise->rep_max;
+            $oldExercise->update(['rep_max' => $pr + 5]);
+        }
+
+    }
+
 }

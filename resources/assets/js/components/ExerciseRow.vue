@@ -76,8 +76,8 @@ export default {
         checkAndHandleCompleted: function() {
             const done = this.sets.filter(s => s.active === false).length === 0
             if (done) {
-                const increase = this.sets.filter(s => s.completed_reps !== s.reps).length === 0
-                const data = { id: this.exercise.id, exercise_id: this.exercise.exercise_id, increase }
+                const record = this.sets.filter(s => s.completed_reps !== s.reps).length === 0
+                const data = { id: this.exercise.id, exercise_id: this.exercise.exercise_id, record }
                 this.$emit('completed', data)
             }
         }
