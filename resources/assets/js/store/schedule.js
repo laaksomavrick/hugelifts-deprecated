@@ -20,7 +20,7 @@ const actions = {
         })
     },
 
-    updateRoutine({ commit }, data) {
+    updateSchedule({ commit }, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await update(data)

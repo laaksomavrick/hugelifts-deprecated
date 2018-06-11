@@ -61,9 +61,34 @@ export default {
             this.workouts = [...filtered, data]
         },
 
-        handleSubmit: function() {
+        handleSubmit: async function() {
 
-        }
+            if (this.disabled) { return }
+
+            try {
+
+                this.working = true
+
+                const id = this.schedule.id
+                const records = this.workouts.filter(w => w.record === true)
+                const data = { id, records }
+
+                console.log(data)
+
+                await this.updateSchedule(data)
+
+                this.working = false
+
+            } catch (e) {
+                //TODO
+                console.error(e)
+            }
+
+        },
+
+        ...mapActions([
+            'updateSchedule'
+        ])
 
     },
 
@@ -79,6 +104,10 @@ export default {
 
         exercises: function() {
             return this.getSchedule.day ? this.getSchedule.day.exercises.sort((a, b) => a.ordinal > b.ordinal) : []
+        },
+
+        schedule: function() {
+            return this.getSchedule
         },
 
         ...mapGetters([
