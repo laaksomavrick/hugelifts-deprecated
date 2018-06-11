@@ -19,12 +19,11 @@ class SchedulesController extends Controller
 
     public function update($scheduleId, Request $request, CompleteWorkoutService $completeWorkoutService) 
     {
-        //TODO need to update any maxes via ExerciseRepository
-
-        $completeWorkoutService->run();
-
-        $data = Routine::where(['user_id' => $request->user()->id, 'active' => 1])->first()->schedule;
-
+        if ($request->only('records')) {
+            $records = $request->only('records');
+            $completeWorkoutService->setRecords($records);
+        }
+        $data = $completeWorkoutService->run();
         return response($data, 200);
     }
 

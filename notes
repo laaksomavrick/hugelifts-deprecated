@@ -9,7 +9,7 @@ TODOS:
     trim json payloads
 
     BLUR on all inputs
-    Flash on success
+    Flash/toast on success
     scrolly in forms
     transitions between states
     bug in edit routine form, exercise disappearing...?
