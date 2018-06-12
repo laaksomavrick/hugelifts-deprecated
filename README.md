@@ -1,3 +1,6 @@
 # hugelifts
 
-Work in progress! Will update once release candidate is ready and live with a description of the functionality and an explanation of design decisions.
+A simple, web based mobile first weight lifting routine helper.
+
+![alt text](https://raw.githubusercontent.com/laaksomavrick/hugelifts/master/gh-img/logo.png)
+![alt text](https://raw.githubusercontent.com/laaksomavrick/hugelifts/master/gh-img/main.png)
