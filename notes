@@ -4,6 +4,7 @@ TODOS:
 
     set active in routine form; backend handle change
     better client side validation for routine form
+    ** exercise row stays toggled on completion
     ** ensure routineSchedule exists on creation of routine; update of active
         -> new user creation, create default routines; exercises
     trim json payloads

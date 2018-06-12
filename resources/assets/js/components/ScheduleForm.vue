@@ -73,8 +73,6 @@ export default {
                 const records = this.workouts.filter(w => w.record === true)
                 const data = { id, records }
 
-                console.log(data)
-
                 await this.updateSchedule(data)
 
                 this.working = false

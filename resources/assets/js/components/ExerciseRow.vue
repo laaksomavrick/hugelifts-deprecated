@@ -111,6 +111,9 @@ export default {
 
 .exercise-row {
 
+    padding: 0!important;
+    margin-bottom: 1px;
+
     @include make-col-ready();
 
     @include media-breakpoint-up(xs) {
@@ -128,7 +131,10 @@ export default {
     &__content {
         @extend .list-group-item;
         padding: 0.75rem;
-        margin: 5px;
+        border-top-left-radius: 0px!important;
+        border-bottom-left-radius: 0px!important;
+        border-top-right-radius: 0px!important;
+        border-bottom-right-radius: 0px!important;
     }
 
     &--complete {
