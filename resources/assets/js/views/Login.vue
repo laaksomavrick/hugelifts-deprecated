@@ -1,6 +1,9 @@
 <template>
     <div class="login">
         <div class="login__form">
+            <div class="login__logo">
+                Hugelifts
+            </div>
             <div class="login__form-group">
                 <label>Email</label>
                 <input 
@@ -128,6 +131,12 @@ export default {
     @include make-container();
     @extend .form;
 
+    &__logo {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
     &__form {
         @extend .form__form;
     }
