@@ -90,39 +90,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '../../sass/bscore';
-@import '../../sass/form';
-@import '~bootstrap/scss/buttons';
-
-.set-row {
-    display: flex;
-    align-items: center;
-
-    &__text {
-        width: 55px;
-        text-align: center;
-    }
-
-    &__actions {
-        margin-left: auto;
-        display: flex;
-    }
-
-    &__form-control {
-        @extend .form-control;
-        padding: 2.5px;
-        max-width: 80px;
-        min-width: 50px;
-        margin-left: 5px;
-        margin-right: 5px;
-        text-align: center;
-    }
-
-    &__delete {
-        @extend .btn;
-        @extend .btn-danger;
-    }
-}
-
 </style>

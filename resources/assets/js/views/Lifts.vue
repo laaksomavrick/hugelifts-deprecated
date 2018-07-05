@@ -48,34 +48,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '../../sass/bscore';
-@import '~bootstrap/scss/list-group';
-@import '~bootstrap/scss/badge';
-
-.exercises {
-
-    @extend .list-group;
-    padding-top: 15px;
-
-    &__item {
-        @extend .list-group-item;
-        @extend .list-group-item-action;
-        border-radius: 0px!important;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: $list-group-item-font-size;
-        height: $list-group-item-height;
-    }
-
-    &__repmax {
-        @extend .badge;
-        @extend .badge-primary;
-        @extend .badge-pill;
-    }
-
-}
-
 </style>

@@ -136,34 +136,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '../../sass/bscore';
-@import '../../sass/form';
-
-.create {
-
-    @extend .form;
-    @include make-container();
-
-    &__form {
-        @extend .form__form;
-    }
-
-    &__form-group {
-        @extend .form__form-group;
-    }
-
-    &__form-control {
-        @extend .form__form-control;
-    }
-
-    &__button {
-        @extend .form__button;
-    }
-
-    &__alert {
-        @extend .form__alert;
-    }
-}
-
 </style>

@@ -46,21 +46,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '../../sass/bscore';
-@import '../../sass/transitions';
-
-.home {
-
-    height: 100vh;
-
-    &__slot {
-        @include make-container();
-        padding-left: 0;
-        padding-right: 0;
-        height: 100%;
-    }
-
-}
-
 </style>
