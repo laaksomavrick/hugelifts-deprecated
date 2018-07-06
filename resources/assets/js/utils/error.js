@@ -1,5 +1,4 @@
 export const formatErrors = (e) => {
-    console.log(e.response)
     const response = e.response
     if (response && response.data && response.data.errors) {
         const obj = response.data.errors
