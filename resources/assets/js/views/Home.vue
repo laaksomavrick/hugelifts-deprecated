@@ -1,11 +1,11 @@
 <template>
     <div class="home">
         <navbar></navbar>
-        <div class="home__slot">
+        <b-container fluid class="home__slot">
             <transition name="fade" mode="out-in">
                 <router-view :key="key"></router-view>
             </transition>
-        </div>
+        </b-container>
     </div>
 </template>
 

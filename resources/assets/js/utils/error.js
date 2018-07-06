@@ -1,4 +1,5 @@
 export const formatErrors = (e) => {
+    console.log(e.response)
     const response = e.response
     if (response && response.data && response.data.errors) {
         const obj = response.data.errors
@@ -8,6 +9,8 @@ export const formatErrors = (e) => {
         }
         errors = errors.reduce((acc, e) => acc.concat(e), [])
         return errors
+    } else if (response && response.data && response.data.error) {
+        return [response.data.message]
     } else {
         return ['Oops! Something went wrong']
     }

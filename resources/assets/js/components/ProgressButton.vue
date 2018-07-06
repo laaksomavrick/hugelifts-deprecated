@@ -1,5 +1,7 @@
 <template>
-    <button
+    <b-button
+        :variant="variant"
+        :type="type"
         @click="handleClick"
     >
         <template v-if="working">
@@ -8,7 +10,7 @@
         <template v-else>
             {{ buttonText }}
         </template>
-    </button>
+    </b-button>
 </template>
 
 <script>
@@ -19,9 +21,17 @@ import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
 export default {
 
     props: {
-        handleClick: Function,
+        handleClick: {
+           default: () => {},
+           type: Function
+        },
         working: Boolean,
-        buttonText: String
+        buttonText: String,
+        variant: {
+            default: "primary",
+            type: String
+        },
+        type: String
     },
 
     components: {
