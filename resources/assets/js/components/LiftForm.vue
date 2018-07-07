@@ -46,7 +46,8 @@
             </b-form-group>
 
             <b-row class="lift-form__button-row">
-                <b-col class="lift-form__button-col--left">
+                <b-col 
+                    v-bind:class="{'lift-form__button-col--left': deleteable }">
                     <progress-button
                         class="lift-form__button"
                         v-bind:class="{ disabled: !valid }"
@@ -56,9 +57,10 @@
                         variant="primary"
                     />
                 </b-col>
-                <b-col class="lift-form__button-col--right">
+                <b-col 
+                    class="lift-form__button-col--right" 
+                    v-if="deleteable">
                     <progress-button
-                        v-if="deleteable"
                         class="lift-form__button"
                         :working="deleteWorking"
                         :handleClick="destroy"

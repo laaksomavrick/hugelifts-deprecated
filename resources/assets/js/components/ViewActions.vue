@@ -27,6 +27,7 @@ export default {
 
 .view-actions {
 
+    height: 40px;
     margin-bottom: .5rem;
 
     display: flex;

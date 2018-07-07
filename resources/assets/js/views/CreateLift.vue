@@ -9,5 +9,21 @@
 
 <script>
 
+import LiftForm from '../components/LiftForm'
+import { mapActions } from 'vuex'
+
+export default {
+
+    components: {
+        LiftForm
+    },
+
+    methods: {
+        ...mapActions([
+            'createExercise'
+        ])
+    }
+
+}
 
 </script>
