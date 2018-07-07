@@ -135,47 +135,4 @@ export default {
 
 
 <style lang="scss" scoped>
-
-@import '../../../sass/bscore';
-@import '~bootstrap/scss/buttons';
-
-.exercises {
-
-    &__items {
-        & > * {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        & > *:first-child {
-            margin-top: 0px;
-            margin-bottom: 10px;
-        }
-        & > *:last-child {
-            margin-top: 10px;
-            margin-bottom: 0px;
-        }
-    }
-
-    &__item {
-        display: flex;
-        align-items: center;
-    }
-
-    &__text {
-        flex: 1;
-        font-size: 16px;
-    }
-
-    &__delete {
-        @extend .btn;
-        @extend .btn-danger;
-        margin-left: auto;
-        height: 25px;
-        width: 25px;
-        padding: 0;
-        margin: 0;
-    }
-
-}
-
 </style>

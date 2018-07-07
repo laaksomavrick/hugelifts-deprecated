@@ -118,43 +118,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '../../sass/bscore';
-@import '~bootstrap/scss/buttons';
-
-.schedule-form {
-
-    display: flex;
-    flex-direction: column;
-
-    &__header {
-        font-size: $list-header-font-size;
-        padding: $list-header-padding;
-        padding-left: 0px;
-    }
-
-    &__exercises {
-        @include make-row();
-    }
-
-    &__submit {
-        @include make-col(12);
-        display: flex;
-        justify-content: center;
-        margin-top: 15px;
-    }
-
-    &__button {
-
-        @extend .btn;
-
-        &--primary {
-
-            @extend .btn-primary;
-
-        }
-
-    }
-}
-
 </style>

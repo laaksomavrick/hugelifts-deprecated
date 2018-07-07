@@ -1,44 +1,60 @@
 <template>
-    <div class="login">
-        <div class="login__form">
-            <div class="login__logo">
-                Hugelifts
-            </div>
-            <div class="login__form-group">
-                <label>Email</label>
-                <input 
-                    class="login__form-control"
-                    v-model="email"
-                >
-                </input>
-            </div>
-            <div class="login__form-group">
-                <label>Password</label>
-                <input 
-                    class="login__form-control" 
-                    type="password"
-                    v-model="password"
-                >
-                </input>
-            </div>
-            <progress-button 
-                class="login__button"
-                v-bind:class="{ disabled: !valid }"
-                :working="working"
-                :handleClick="submit"
-                buttonText="Login"
-            />
-            <div class="login__message">
-                No account? Click <router-link :to="create">here</router-link> to register.
-            </div>
-            <div
-                class="login__alert"
-                v-for="error in errors"
-            >
-                {{ error }}
-            </div>
-        </div>
-    </div>
+    <b-container class="login">
+        <b-row>
+            <b-col>
+
+                <b-form 
+                    class="login__form" 
+                    @submit="submit">
+
+                    <h1 class="login__logo">
+                        Hugelifts
+                    </h1>
+
+                    <b-form-group 
+                        class="login__form-group"
+                        label="Email address">
+                        <b-form-input 
+                            class="login__form-control"
+                            v-model="email"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group 
+                        class="login__form-group"
+                        label="Password">
+                        <b-form-input 
+                            class="login__form-control" 
+                            type="password"
+                            v-model="password"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+
+                    <progress-button 
+                        class="login__button"
+                        v-bind:class="{ disabled: !valid }"
+                        :working="working"
+                        buttonText="Login"
+                        type="submit"
+                    />
+
+                    <div class="login__message">
+                        No account? Click <router-link :to="create">here</router-link> to register.
+                    </div>
+                    <b-alert
+                        show
+                        variant="danger"
+                        v-for="(error, index) in errors"
+                        v-bind:key="index"
+                    >
+                        {{ error }}
+                    </b-alert>
+                </b-form>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -65,9 +81,11 @@ export default {
 
     methods: {
 
-        submit: async function() {
+        submit: async function(e) {
 
             try {
+
+                e.preventDefault()
 
                 if (!this.valid) { return }
 
@@ -123,39 +141,31 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../../sass/bscore';
-@import '../../sass/form';
-
 .login {
 
-    @include make-container();
-    @extend .form;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     &__logo {
-        font-size: 3rem;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 2.5rem;
     }
-    
+
     &__form {
-        @extend .form__form;
-    }
-
-    &__form-group {
-        @extend .form__form-group;
-    }
-
-    &__form-control {
-        @extend .form__form-control;
+        display: flex;
+        flex-direction: column;
     }
 
     &__button {
-        @extend .form__button;
+        margin-bottom: 1rem;
     }
 
-    &__alert {
-        @extend .form__alert;
+    &__message {
+        margin-bottom: 1rem;
     }
+
 }
 
 </style>

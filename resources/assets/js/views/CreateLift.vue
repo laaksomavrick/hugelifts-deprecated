@@ -19,11 +19,9 @@ export default {
     },
 
     methods: {
-
         ...mapActions([
             'createExercise'
         ])
-
     }
 
 }

@@ -60,31 +60,5 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../../sass/bscore';
-@import '~bootstrap/scss/list-group';
-@import '~bootstrap/scss/badge';
-
-.routines {
-
-    @extend .list-group;
-
-    &__item {
-        @extend .list-group-item;
-        @extend .list-group-item-action;
-        border-radius: 0px!important;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        font-size: $list-group-item-font-size;
-        height: $list-group-item-height;
-    }
-
-    &__subheader {
-        padding: $list-header-padding;
-        opacity: 0.7;
-        font-size: $list-header-font-size;
-    }
-
-}
 
 </style>

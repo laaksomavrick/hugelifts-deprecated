@@ -18,13 +18,6 @@ export default {
 
 </script>
 
-        asd
 <style lang="scss" scoped>
-
-@import '../../sass/bscore';
-
-.schedule {
-    @include make-container();
-}
 
 </style>

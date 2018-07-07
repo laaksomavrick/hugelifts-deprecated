@@ -1,15 +1,6 @@
-@import 'variables';
-@import '~bootstrap/scss/bootstrap';
+@import '_transitions';
 
-.fade-enter-active, .fade-leave-active {
-    transition-property: opacity;
-    transition-duration: 100ms;
-}
-
-.fade-enter-active {
-    transition-delay: 100ms;
-}
-
-.fade-enter, .fade-leave-active {
-    opacity: 0;
+body {
+  background: #fafafa;
+  color: #222;
 }

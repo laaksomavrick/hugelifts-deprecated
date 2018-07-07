@@ -8,6 +8,8 @@ export const formatErrors = (e) => {
         }
         errors = errors.reduce((acc, e) => acc.concat(e), [])
         return errors
+    } else if (response && response.data && response.data.error) {
+        return [response.data.message]
     } else {
         return ['Oops! Something went wrong']
     }

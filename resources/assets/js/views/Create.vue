@@ -1,55 +1,80 @@
 <template>
-    <div class="create">
-        <div class="create__form">
-            <div class="create__form-group">
-                <label>Name</label>
-                <input 
-                    class="create__form-control"
-                    v-model="name"
-                >
-                </input>
-            </div>
-            <div class="create__form-group">
-                <label>Email</label>
-                <input 
-                    class="create__form-control"
-                    v-model="email"
-                >
-                </input>
-            </div>
-            <div class="create__form-group">
-                <label>Password</label>
-                <input 
-                    class="create__form-control" 
-                    type="password"
-                    v-model="password"
-                >
-                </input>
-            </div>
-            <div class="create__form-group">
-                <label>Confirm password</label>
-                <input 
-                    class="create__form-control" 
-                    type="password"
-                    v-model="confirmPassword"
-                >
-                </input>
-            </div>
-            <progress-button 
-                class="create__button"
-                v-bind:class="{ disabled: !valid }"
-                :working="working"
-                :handleClick="submit"
-                buttonText="Create"
-            />
-            <div
-                class="create__alert"
-                v-for="error in errors"
-            >
-                {{ error }}
-            </div>
-        </div>
-    </div>
+    <b-container class="create">
+        <b-row>
+            <b-col>
+
+                <b-form 
+                    class="create__form"
+                    @submit="submit">
+
+                    <h1 class="create__logo">
+                        Hugelifts
+                    </h1>
+
+                    <b-form-group 
+                        class="create__form-group"
+                        label="Name">
+                        <b-form-input 
+                            class="create__form-control"
+                            v-model="name"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group 
+                        class="create__form-group"
+                        label="Email">
+                        <b-form-input 
+                            class="create__form-control"
+                            v-model="email"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group 
+                        class="create__form-group"
+                        label="Password">
+                        <b-form-input 
+                            class="create__form-control" 
+                            type="password"
+                            v-model="password"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+
+                    <b-form-group 
+                        class="create__form-group"
+                        label="Confirm password">
+                        <b-form-input 
+                            class="create__form-control" 
+                            type="password"
+                            v-model="confirmPassword"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+
+                    <progress-button 
+                        class="create__button"
+                        v-bind:class="{ disabled: !valid }"
+                        :working="working"
+                        buttonText="Create"
+                        type="submit"
+                    />
+
+                    <b-alert
+                        show
+                        class="create__alert"
+                        variant="danger"
+                        v-for="(error, index) in errors"
+                        v-bind:key="index"
+                    >
+                        {{ error }}
+                    </b-alert>
+
+                </b-form>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -77,9 +102,13 @@ export default {
 
     methods: {
 
-        submit: async function() {
+        submit: async function(e) {
 
             try {
+
+                console.log("here")
+
+                e.preventDefault()
 
                 if (!this.valid) { return }
 
@@ -137,33 +166,31 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../../sass/bscore';
-@import '../../sass/form';
-
 .create {
 
-    @extend .form;
-    @include make-container();
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__logo {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
 
     &__form {
-        @extend .form__form;
-    }
-
-    &__form-group {
-        @extend .form__form-group;
-    }
-
-    &__form-control {
-        @extend .form__form-control;
+        display: flex;
+        flex-direction: column;
     }
 
     &__button {
-        @extend .form__button;
+        margin-bottom: 1rem;
     }
 
-    &__alert {
-        @extend .form__alert;
+    &__message {
+        margin-bottom: 1rem;
     }
+
 }
 
 </style>
