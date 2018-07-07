@@ -1,18 +1,20 @@
 <template>
-    <div class="exercises">
-        <div 
+    <b-list-group class="exercises">
+        <b-list-group-item 
             v-for="exercise in getExercises"
+            v-bind:key="exercise.id"
             class="exercises__item"
             @click="handleExerciseClick(exercise)"
         >
             {{ exercise.name }}
-            <span 
-                class="exercises__repmax"
-            >
+            <b-badge 
+                variant="primary"
+                pill
+                class="exercises__repmax">
                 {{ maxRep(exercise) }}
-            </span>
-        </div>
-    </div>
+            </b-badge>
+        </b-list-group-item>
+    </b-list-group>
 </template>
 
 <script>
@@ -48,4 +50,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.exercises {
+
+    &__item {
+        display: flex;
+        align-items: center;
+    }
+
+    &__repmax {
+        margin-left: auto;
+    }
+
+}
+
 </style>
