@@ -46,4 +46,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.home {
+
+    &__slot {
+        padding-bottom: 15px;
+    }
+
+}
+
 </style>
