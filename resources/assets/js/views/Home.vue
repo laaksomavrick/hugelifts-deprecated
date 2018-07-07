@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <navbar></navbar>
-        <b-container fluid class="home__slot">
+        <b-container class="home__slot">
             <transition name="fade" mode="out-in">
                 <router-view :key="key"></router-view>
             </transition>

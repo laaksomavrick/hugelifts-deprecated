@@ -64,6 +64,7 @@
                     <b-alert
                         show
                         class="create__alert"
+                        variant="danger"
                         v-for="(error, index) in errors"
                         v-bind:key="index"
                     >

@@ -6,7 +6,9 @@
             class="exercises__item"
             @click="handleExerciseClick(exercise)"
         >
-            {{ exercise.name }}
+            <div class="exercises__text">
+                {{ exercise.name }}
+            </div>
             <b-badge 
                 variant="primary"
                 pill
@@ -56,6 +58,18 @@ export default {
     &__item {
         display: flex;
         align-items: center;
+        cursor: pointer;
+
+        &:hover {
+            background: darken(#fff, 5%);
+        }
+    }
+
+    &__text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 1rem;
     }
 
     &__repmax {
