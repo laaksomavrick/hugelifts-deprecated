@@ -4,3 +4,12 @@ body {
   background: #fafafa;
   color: #222;
 }
+
+.list-group-item {
+  cursor: pointer;
+
+  &:hover {
+    background: darken(#fff, 5%);
+  }
+
+}

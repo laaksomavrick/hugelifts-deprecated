@@ -112,6 +112,7 @@ export default {
     computed: {
 
         open: function() {
+            console.log(this.getRoutineDaysModal.open)
             return this.getRoutineDaysModal.open
         },
         
