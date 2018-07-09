@@ -1,6 +1,6 @@
 <template>
     <modal
-        v-if="open"
+        :open="open"
         :headerText="headerText"
         :onClose="onClose"
         :onSubmit="onSubmit"
@@ -112,7 +112,6 @@ export default {
     computed: {
 
         open: function() {
-            console.log(this.getRoutineDaysModal.open)
             return this.getRoutineDaysModal.open
         },
         

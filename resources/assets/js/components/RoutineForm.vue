@@ -189,7 +189,6 @@ export default {
                     onSubmit: async (routine) => { 
                         this.days =  [...routine.days ]
                     }
-
                 }
             }
             this.toggleRoutineDaysModal(data)
