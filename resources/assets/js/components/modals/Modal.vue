@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="modalOpen">
+    <b-modal v-model="modalOpen" @hidden="onClose">
         <template slot="modal-header">
             <h3>
             {{ headerText }}

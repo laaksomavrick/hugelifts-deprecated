@@ -1,35 +1,41 @@
 <template>
-    <div class="routine-form">
-        <div class="routine-form__form">
-            <!-- title, name -->
-            <h4 class="routine-form__title">
-                {{ title }}
-            </h4>
-            <div class="routine-form__form-group">
-                <label>Name</label>
-                <input 
-                    class="routine-form__form-control"
-                    v-model="name"
-                >
-                </input>
+    <b-form class="routine-form" @submit="onSubmitClick">
+
+        <form-header :title="title" />
+
+        <b-form-group
+            class="routine-form__form-group"
+            label="Name">
+            <b-form-input 
+                class="routine-form__form-control"
+                v-model="name">
+            </b-form-input>
+        </b-form-group>
+
+        <!-- days -->
+        <b-form-group 
+            class="routine-form__days"
+            label="Days">
+            <div v-for="day in sortedDays" :key="day.ordinal">
+                <b-btn 
+                    class="routine-form__day-btn"
+                    variant="primary"
+                    v-b-toggle="`collapse-${day.ordinal}`"
+                    :pressed="day.id === selected">
+                    {{ day.name }}
+                </b-btn>
+
+                <b-collapse :id="`collapse-${day.ordinal}`" visible>
+                    <routine-day 
+                        :day="day" 
+                        :onChange="handleRoutineDayChange" 
+                        :visible="true" />
+                </b-collapse>
+
             </div>
-            <!-- days -->
-            <div class="routine-form__days">
-                <label class="routine-form__label">Days</label>
-                <div v-for="day in sortedDays">
-                    <div 
-                        class="routine-form__day" 
-                        v-bind:class="{ 'routine-form__day--active': day.id === selected }"
-                    >
-                        <div class="routine-form__day-header" @click="select(day)">
-                            {{ day.name }}
-                        </div>
-                    </div>
-                    <routine-day :day="day" :onChange="handleRoutineDayChange" :visible="day.id === selected" />
-                </div>
-            </div>
-        </div>
-        <!-- buttons -->
+        </b-form-group>
+
+    <!-- buttons -->
         <div class="routine-form__buttons">
             <div class="routine-form__add-buttons">
                 <button 
@@ -67,7 +73,7 @@
                 {{ error }}
             </div>
         </div>
-    </div>
+    </b-form>
 </template>
 
 <script>
@@ -78,6 +84,7 @@ import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
 
 import ProgressButton from '../components/ProgressButton'
 import RoutineDay from '../components/RoutineDay'
+import FormHeader from '../components/FormHeader'
 import { formatErrors } from '../utils/error'
 import { mapActions } from 'vuex'
 
@@ -86,6 +93,7 @@ export default {
     components: {
         ProgressButton,
         RoutineDay,
+        FormHeader,
         FontAwesomeIcon
     },
 
@@ -111,9 +119,11 @@ export default {
 
     methods: {
 
-        onSubmitClick: async function() {
+        onSubmitClick: async function(e) {
 
             try {
+                
+                e.preventDefault()
 
                 if (!this.valid) { return }
 
@@ -187,7 +197,7 @@ export default {
                     headerText: this.name ? `Add days to ${this.name}` : 'Add days',
                     routine: routine,
                     onSubmit: async (routine) => { 
-                        this.days =  [...routine.days ]
+                        this.days = [...routine.days ]
                     }
                 }
             }
@@ -244,4 +254,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.routine-form {
+
+    &__day-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+}
+
 </style>

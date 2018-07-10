@@ -4,7 +4,11 @@
             v-if="visible"
             v-for="exercise in sortedExercises"
         >
-            <routine-day-exercise :exercise="exercise" :onChange="handleRoutineDayExerciseChange" />
+            <routine-day-exercise
+                :key="exercise.id"
+                :exercise="exercise" 
+                :onChange="handleRoutineDayExerciseChange" />
+
         </template>
     </div>
 </template>
