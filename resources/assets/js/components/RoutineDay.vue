@@ -10,6 +10,14 @@
                 :onChange="handleRoutineDayExerciseChange" />
 
         </template>
+        <div class="routine-day__actions">
+            <b-btn
+                class="routine-day__add-btn"
+                variant="secondary"
+                @click="handleAddExercise">
+                    Add Lift
+            </b-btn>
+        </div>
     </div>
 </template>
 
@@ -36,6 +44,10 @@ export default {
             const exercises = [...filtered, routineDayExercise]
             const routineDay = {...this.day, exercises }
             this.onChange(routineDay)
+        },
+
+        handleAddExercise: function() {
+            console.log("todo")
         }
 
     },
@@ -51,6 +63,16 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
+
+.routine-day {
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+}
 
 </style>

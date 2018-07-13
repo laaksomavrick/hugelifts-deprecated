@@ -1,19 +1,4 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/0.1178cca321d40eac5c3f.hot-update.js": "/0.1178cca321d40eac5c3f.hot-update.js",
-    "/0.951ec5460f01f5b270f4.hot-update.js": "/0.951ec5460f01f5b270f4.hot-update.js",
-    "/0.e4847f73ddcd607db133.hot-update.js": "/0.e4847f73ddcd607db133.hot-update.js",
-    "/0.f8de5285f305cba2e032.hot-update.js": "/0.f8de5285f305cba2e032.hot-update.js",
-    "/0.657b0aff30f785753897.hot-update.js": "/0.657b0aff30f785753897.hot-update.js",
-    "/0.a8e5dd3fbc93406ececd.hot-update.js": "/0.a8e5dd3fbc93406ececd.hot-update.js",
-    "/0.97cdd163026939a2219d.hot-update.js": "/0.97cdd163026939a2219d.hot-update.js",
-    "/0.1a8b62844fc0bbb4bb66.hot-update.js": "/0.1a8b62844fc0bbb4bb66.hot-update.js",
-    "/0.f134e592f9023e8a2877.hot-update.js": "/0.f134e592f9023e8a2877.hot-update.js",
-    "/0.9e92c656a59a665a9b57.hot-update.js": "/0.9e92c656a59a665a9b57.hot-update.js",
-    "/0.74592987dabf70ec08c2.hot-update.js": "/0.74592987dabf70ec08c2.hot-update.js",
-    "/0.cdb891798dc5cb2a376f.hot-update.js": "/0.cdb891798dc5cb2a376f.hot-update.js",
-    "/0.8d0f442813f0b5711e80.hot-update.js": "/0.8d0f442813f0b5711e80.hot-update.js",
-    "/0.27afc670f963fe21b921.hot-update.js": "/0.27afc670f963fe21b921.hot-update.js",
-    "/0.5e2051cf603337c1c19a.hot-update.js": "/0.5e2051cf603337c1c19a.hot-update.js"
+    "/css/app.css": "/css/app.css"
 }
