@@ -1,15 +1,22 @@
 <template>
-    <div class="autocomplete">
-        <b-input 
-            id="typeahead"
-            placeholder="Add a new exercise"
-            v-model="text"
-            @keyup="handleKeyup"
-        >
-        </b-input>
+    <div class="exercise-autocomplete">
+        <div class="exercise-autocomplete__input-container">
+            <div class="exercise-autocomplete__complete" ref="completion">
+
+            </div>
+            <input 
+                class="exercise-autocomplete__input form-control"
+                placeholder=""
+                ref="input"
+                v-model="text"
+                @keyup="handleKeyup"/>
+        </div>
         <b-button 
+            class="exercise-autocomplete__btn"
+            variant="primary"
             v-bind:class="{ 'disabled':disabled }"
-            @click="handleAdd">
+            @click="handleAdd"
+        >
             <font-awesome-icon :icon="plus" />
         </b-button>
     </div>
@@ -106,4 +113,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.exercise-autocomplete {
+
+    display: flex;
+
+    &__input-container {
+        position: relative;
+        flex: 1;
+    }
+
+    &__complete {
+        position: absolute;
+        top: 0.375rem;
+        left: 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border: 1px solid transparent;
+        opacity: 0.7;
+    }
+
+    &__input {
+        background: transparent;
+        color: darken(#495057, 70%);
+        &:focus {
+            background: transparent!important;
+        }
+    }
+
+    &__btn {
+        width: 37px;
+        display: flex;
+        justify-content: center;
+        margin-left: .5rem;
+    }
+
+
+}
 </style>

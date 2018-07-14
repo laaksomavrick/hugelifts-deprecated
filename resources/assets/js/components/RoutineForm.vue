@@ -36,42 +36,33 @@
 
     <!-- buttons -->
         <div class="routine-form__buttons">
-            <div class="routine-form__add-buttons">
-                <button 
-                    v-bind:class="{ disabled: selected === null }"
-                    class="routine-form__add-exercise"
-                    @click="handleEditExercise"
-                >
-                    Edit Exercises 
-                </button>
-                <button 
-                    class="routine-form__add-day"
-                    @click="handleEditDays"
-                >
-                    Edit Days
-                </button>
-            </div>
             <progress-button
-                class="routine-form__button routine-form__button--primary"
+                v-if="deleteable"
+                variant="danger"
+                :submitWorking="deleteWorking"
+                :handleClick="onDeleteClick"
+                buttonText="Delete"
+            />
+            <b-button 
+                class="routine-form__edit-btn"
+                variant="secondary"
+                @click="handleEditDays">
+                Edit Days
+            </b-button>
+            <progress-button
+                class="routine-form__update-btn"
                 v-bind:class="{ disabled: !valid }"
                 :submitWorking="submitWorking"
                 :handleClick="onSubmitClick"
                 :buttonText="buttonText"
             />
-            <progress-button
-                v-if="deleteable"
-                class="routine-form__button routine-form__button--danger"
-                :submitWorking="deleteWorking"
-                :handleClick="onDeleteClick"
-                buttonText="Delete"
-            />
-            <div
-                class="routine-form__alert"
-                v-for="error in errors"
-            >
-                {{ error }}
-            </div>
         </div>
+        <b-alert
+            v-for="(error, index) in errors"
+            variant="danger"
+            :key="index">
+            {{ error }}
+        </b-alert>
     </b-form>
 </template>
 
@@ -251,9 +242,22 @@ export default {
 
 .routine-form {
 
+
+    &__buttons {
+        display: flex;
+    }
+
     &__day-btn {
         width: 100%;
         margin-bottom: 0.5rem;
+    }
+
+    &__edit-btn {
+        margin-left: .5rem;
+    }
+
+    &__update-btn {
+        margin-left: auto;
     }
 
 }

@@ -10,20 +10,20 @@
         <div class="days">
             <div class="days__items">
                 <div 
-                    v-for="day in days"
+                    v-for="(day, index) in days"
                     class="days__item"
-                 >
-                    <div class="days__text">
+                    :key="index">
+                    <h5 class="days__text">
                         {{ day.name }}
-                    </div>
-                    <button class="days__delete" @click="handleDelete(day)">
+                    </h5>
+                    <b-button variant="danger" class="days__del-btn" @click="handleDelete(day)">
                         <font-awesome-icon :icon="times" />
-                    </button>
+                    </b-button>
                 </div>
             </div>
             <div class="days__input-container">
-                <input class="days__input" @keyup="handleKeyup" v-model="text"></input>
-                <button class="days__add" @click="handleAdd"><font-awesome-icon :icon="plus" /></button>
+                <b-input class="days__input" @keyup="handleKeyup" v-model="text" />
+                <b-button class="days__add-btn" variant="primary" @click="handleAdd"><font-awesome-icon :icon="plus" /></b-button>
             </div>
         </div>
     </modal>
@@ -147,6 +147,30 @@ export default {
 
 </script>
 
-
 <style lang="scss" scoped>
+
+.days {
+
+    &__item {
+        display: flex;
+        align-items: center;
+        margin-bottom: .5rem;
+    }
+
+    &__del-btn {
+        margin-left: auto;
+    }
+
+    &__input-container {
+        display: flex;
+    }
+
+    &__add-btn {
+        margin-left: .5rem;
+        width: 37px;
+        display: flex;
+        justify-content: center;
+    }
+
+}
 </style>
