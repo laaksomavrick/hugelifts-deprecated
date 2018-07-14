@@ -1,5 +1,5 @@
 <template>
-    <div class="exercise-table">
+    <b-list-group-item class="exercise-table">
         <div class="exercise-table__header">
             <h5 class="exercise-table__header-text">
                 {{ name }}
@@ -20,17 +20,18 @@
                 </b-btn>
             </div>
         </div>
-        <table class="exercise-table__content">
+        <table class="table exercise-table__content">
             <tbody>
                 <tr>
                     <th class="exercise-table__left-column">Set</th>
-                    <td v-for="(set, index) in sortedSets" :key="index">
-                        {{ index + 1 }}
-                    </td>
-                </tr>
-                <tr>
                     <th class="exercise-table__left-column"> Reps </th>
-                    <td v-for="(set, index) in sortedSets" :key="index">
+                    <th class="exercise-table__left-column"> % of 1RM </th>
+                </tr>
+                <tr v-for="(set, index) in sortedSets" :key="index">
+                    <th>
+                        {{ index + 1 }}
+                    </th>
+                    <td>
                         <b-input
                             type="number"
                             min="1"
@@ -39,10 +40,7 @@
                             @change="handleRepChange($event, set)"
                             :value="set.reps"/>
                     </td>
-                </tr>
-                <tr>
-                    <th class="exercise-table__left-column"> % of 1RM </th>
-                    <td v-for="(set, index) in sortedSets" :key="index">
+                    <td>
                         <b-input
                             type="number"
                             min="0"
@@ -54,7 +52,7 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </b-list-group-item>
 </template>
 
 <script>
@@ -162,11 +160,18 @@ export default {
 
     overflow-x: auto;
     margin-bottom: 1rem;
+    cursor: unset;
+
+    &:hover {
+        background: white;
+    }
 
     td {
-        min-width: 70px;
-        text-align: center;
         font-weight: 600;
+    }
+
+    input {
+        width: 70px;
     }
 
     &__header {
@@ -174,6 +179,7 @@ export default {
         align-items: center;
         margin-bottom: .5rem;
         margin-top: .5rem;
+        width: 100%;
     }
 
     &__header-text {

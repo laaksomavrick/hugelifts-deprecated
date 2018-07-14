@@ -21,15 +21,14 @@
                     class="routine-form__day-btn"
                     variant="primary"
                     v-b-toggle="`collapse-${day.ordinal}`"
-                    :pressed="day.id === selected">
+                    @click="select(day)">
                     {{ day.name }}
                 </b-btn>
 
-                <b-collapse :id="`collapse-${day.ordinal}`" visible>
+                <b-collapse :id="`collapse-${day.ordinal}`" :visible="day.id === selected">
                     <routine-day 
                         :day="day" 
-                        :onChange="handleRoutineDayChange" 
-                        :visible="true" />
+                        :onChange="handleRoutineDayChange"/>
                 </b-collapse>
 
             </div>
@@ -78,10 +77,6 @@
 
 <script>
 
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
-import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
-
 import ProgressButton from '../components/ProgressButton'
 import RoutineDay from '../components/RoutineDay'
 import FormHeader from '../components/FormHeader'
@@ -94,7 +89,6 @@ export default {
         ProgressButton,
         RoutineDay,
         FormHeader,
-        FontAwesomeIcon
     },
 
     props: {

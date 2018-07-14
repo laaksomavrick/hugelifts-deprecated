@@ -1,23 +1,17 @@
 <template>
-    <div class="container">
-        <div class="autocomplete">
-            <div class="autocomplete__complete" ref="completion"></div>
-            <input 
-                class="autocomplete__form-control"
-                placeholder="Add a new exercise"
-                ref="input"
-                v-model="text"
-                @keyup="handleKeyup"
-            >
-            </input>
-        </div>
-        <button 
-            class="container__add" 
-            v-bind:class="{ 'disabled':disabled }"
-            @click="handleAdd"
+    <div class="autocomplete">
+        <b-input 
+            id="typeahead"
+            placeholder="Add a new exercise"
+            v-model="text"
+            @keyup="handleKeyup"
         >
+        </b-input>
+        <b-button 
+            v-bind:class="{ 'disabled':disabled }"
+            @click="handleAdd">
             <font-awesome-icon :icon="plus" />
-        </button>
+        </b-button>
     </div>
 </template>
 
