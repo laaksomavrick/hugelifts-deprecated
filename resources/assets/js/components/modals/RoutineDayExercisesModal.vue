@@ -1,6 +1,6 @@
 <template>
     <modal
-        v-if="open"
+        :open="open"
         :headerText="headerText"
         :onClose="onClose"
         :onSubmit="onSubmit"
@@ -12,13 +12,13 @@
                 <div 
                     v-for="exercise in exercises"
                     class="exercises__item"
-                 >
-                    <div class="exercises__text">
+                    :key="exercise.id">
+                    <h5 class="exercises__text">
                         {{ exerciseName(exercise.exercise_id) }}
-                    </div>
-                    <button class="exercises__delete" @click="handleDelete(exercise)">
+                    </h5>
+                    <b-button class="exercises__btn" variant="danger" @click="handleDelete(exercise)">
                         <font-awesome-icon :icon="times" />
-                    </button>
+                    </b-button>
                 </div>
             </div>
             <exercise-autocomplete :onSubmit="handleAdd" />
@@ -135,4 +135,21 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.exercises {
+
+    &__items {
+
+    }
+
+    &__item {
+        display: flex;
+        margin-bottom: .5rem;
+    }
+
+    &__btn {
+        margin-left: auto;
+    }
+
+}
 </style>

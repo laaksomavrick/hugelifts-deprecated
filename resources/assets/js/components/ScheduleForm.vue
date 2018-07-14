@@ -1,16 +1,19 @@
 <template>
     <div class="schedule-form">
-        <div class="schedule-form__header">
+        <h3 class="schedule-form__header">
             {{ dayName }}
-        </div>
+        </h3>
         <div class="schedule-form__exercises">
             <template v-for="exercise in exercises">
-                <exercise-row :exercise="exercise" @completed="handleExerciseCompleted"/>
+                <exercise-row 
+                    :exercise="exercise" 
+                    @completed="handleExerciseCompleted" 
+                    :key="exercise.id"/>
             </template>
         </div>
         <div class="schedule-form__submit">
             <progress-button
-                class="schedule-form__button schedule-form__button--primary"
+                class="schedule-form__button"
                 v-bind:class="{ 'disabled': disabled }"
                 :submitWorking="working"
                 :handleClick="handleSubmit"
@@ -46,6 +49,8 @@ export default {
     },
 
     mounted: function() {
+        console.log("here")
+        console.log(this.exercises)
     },
 
     beforeDestroy: function() {
@@ -118,4 +123,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.schedule-form {
+
+    display: flex;
+    flex-direction: column;
+
+    &__submit {
+        display: flex;
+    }
+
+    &__button {
+        margin: auto;
+    }
+
+}
+
 </style>

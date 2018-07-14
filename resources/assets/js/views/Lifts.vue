@@ -103,11 +103,6 @@ export default {
     &__item {
         display: flex;
         align-items: center;
-        cursor: pointer;
-
-        &:hover {
-            background: darken(#fff, 5%);
-        }
     }
 
     &__text {

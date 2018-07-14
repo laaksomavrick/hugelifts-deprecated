@@ -26,19 +26,6 @@
                 </template>
             </b-navbar-nav>
 
-            <b-navbar-nav class="ml-auto">
-                <div class="navbar__actions">
-                    <div class="navbar__action">
-                        <font-awesome-icon 
-                            class="navbar__plus-icon" 
-                            :icon="plusIcon" 
-                            v-if="addIsVisible"
-                            @click="handleAddClick" 
-                        />
-                    </div>
-                </div>
-            </b-navbar-nav>
-
         </b-collapse>
     </b-navbar>
 </template>
@@ -46,9 +33,8 @@
 <script>
 
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare'
 import faDumbbell from '@fortawesome/fontawesome-free-solid/faDumbbell'
-import { HOME_ROUTE, ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE, NEW_LIFT_ROUTE, EDIT_LIFT_ROUTE, NEW_ROUTINE_ROUTE } from '../constants'
+import { ACTIVE_ROUTE, ROUTINES_ROUTE, LIFTS_ROUTE } from '../constants'
 
 export default {
 
@@ -72,35 +58,11 @@ export default {
 
         isActive: function(name) {
             return this.$route.path.includes(name)
-        },
-
-        handleAddClick: function() {
-            switch(this.$route.name) {
-                case LIFTS_ROUTE:
-                    this.$router.push(NEW_LIFT_ROUTE)
-                break
-                case ROUTINES_ROUTE:
-                    this.$router.push(NEW_ROUTINE_ROUTE)
-                break
-                default: break
-            }
         }
 
     },
 
     computed : {
-
-        addIsVisible: function() {
-            const path = this.$route.path
-            return (
-                   path === ROUTINES_ROUTE
-                || path === LIFTS_ROUTE
-            )
-        },
-
-        plusIcon: function() {
-            return faPlusSquare
-        },
 
         brandIcon: function() {
             return faDumbbell

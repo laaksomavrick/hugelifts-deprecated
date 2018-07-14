@@ -1,23 +1,34 @@
 <template>
     <div class="routine-day">
         <template
-            v-if="visible"
             v-for="exercise in sortedExercises"
         >
-            <routine-day-exercise :exercise="exercise" :onChange="handleRoutineDayExerciseChange" />
+            <routine-day-exercise
+                :key="exercise.id"
+                :exercise="exercise" 
+                :onChange="handleRoutineDayExerciseChange" />
+
         </template>
+        <div class="routine-day__actions">
+            <b-btn
+                class="routine-day__edit-btn"
+                variant="secondary"
+                @click="handleEditDay">
+                    Edit Lifts
+            </b-btn>
+        </div>
     </div>
 </template>
 
 <script>
 
 import RoutineDayExercise from '../components/RoutineDayExercise'
+import { mapActions } from 'vuex'
 
 export default {
 
     props: {
         day: Object,
-        visible: Boolean,
         onChange: Function
     },
 
@@ -32,7 +43,25 @@ export default {
             const exercises = [...filtered, routineDayExercise]
             const routineDay = {...this.day, exercises }
             this.onChange(routineDay)
-        }
+        },
+
+        handleEditDay: function() {
+            const data = {
+                open: true,
+                props: {
+                    headerText: `Edit ${this.day.name}`,
+                    day: this.day,
+                    onSubmit: async (routineDay) => { 
+                        this.onChange(routineDay)
+                    }
+                }
+            }
+            this.toggleRoutineDayExercisesModal(data)
+        },
+
+        ...mapActions([
+            'toggleRoutineDayExercisesModal'
+        ])
 
     },
 
@@ -47,6 +76,20 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
+
+.routine-day {
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    &__edit-btn {
+        width: 33%;
+    }
+
+}
 
 </style>

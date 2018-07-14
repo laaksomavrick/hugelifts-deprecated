@@ -1,39 +1,66 @@
 <template>
     <div class="routines">
-        <div class="routines__subheader">
+
+        <view-actions class="exercises__actions">
+            <template slot="right">
+                <b-button 
+                    @click="create" 
+                    variant="primary">
+                    New
+                </b-button>
+            </template>
+        </view-actions>
+
+        <h3 class="routines__subheader">
             Active
-        </div>
-        <div
-            class="routines__item"
-            @click="handleRoutineClick(getActiveRoutine)"
-        >
-            {{ getActiveRoutine ? getActiveRoutine.name : '' }}
-        </div>
-        <div class="routines__subheader">
+        </h3>
+
+        <b-list-group id="routines__active">
+            <b-list-group-item
+                class="routines__item"
+                @click="handleRoutineClick(getActiveRoutine)">
+                {{ getActiveRoutine ? getActiveRoutine.name : '' }}
+            </b-list-group-item>
+        </b-list-group>
+
+        <h3 class="routines__subheader" v-if="inactiveRoutinesExist">
             Inactive
-        </div>
-        <div
-            v-for="routine in getInactiveRoutines"
-            class="routines__item"
-            @click="handleRoutineClick(routine)"
-        >
-            {{ routine.name }}
-        </div>
+        </h3>
+
+        <b-list-group v-if="inactiveRoutinesExist">
+            <b-list-group-item
+                v-for="routine in getInactiveRoutines"
+                v-bind:key="routine.id"
+                class="routines__item"
+                @click="handleRoutineClick(routine)">
+                {{ routine.name }}
+            </b-list-group-item>
+        </b-list-group>
+
     </div>
 </template>
 
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
-import { EDIT_ROUTINE_ROUTE } from '../constants'
+import { EDIT_ROUTINE_ROUTE, NEW_ROUTINE_ROUTE } from '../constants'
+import ViewActions from '../components/ViewActions'
 
 export default {
+
+    components: {
+        ViewActions
+    },
 
     methods: {
 
         handleRoutineClick: function(routine) {
             const id = routine.id
             this.$router.push({ name: EDIT_ROUTINE_ROUTE, params: { id }})
+        },
+
+        create: function() {
+            this.$router.push({ name: NEW_ROUTINE_ROUTE })
         }
 
     },
@@ -48,6 +75,10 @@ export default {
             return this.getRoutines.filter(r => !!r.active !== true)
         },
 
+        inactiveRoutinesExist: function() {
+            return this.getRoutines.filter(r => !!r.active !== true).length > 0
+        },
+
         ...mapGetters([
             'getRoutines'
         ])
@@ -60,5 +91,8 @@ export default {
 
 <style lang="scss" scoped>
 
+#routines__active {
+    margin-bottom: .5rem;
+}
 
 </style>

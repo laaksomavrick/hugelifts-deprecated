@@ -1,83 +1,76 @@
 <template>
-    <div class="routine-form">
-        <div class="routine-form__form">
-            <!-- title, name -->
-            <h4 class="routine-form__title">
-                {{ title }}
-            </h4>
-            <div class="routine-form__form-group">
-                <label>Name</label>
-                <input 
-                    class="routine-form__form-control"
-                    v-model="name"
-                >
-                </input>
+    <b-form class="routine-form" @submit="onSubmitClick">
+
+        <form-header :title="title" />
+
+        <b-form-group
+            class="routine-form__form-group"
+            label="Name">
+            <b-form-input 
+                class="routine-form__form-control"
+                v-model="name">
+            </b-form-input>
+        </b-form-group>
+
+        <!-- days -->
+        <b-form-group 
+            class="routine-form__days"
+            label="Days">
+            <div v-for="day in sortedDays" :key="day.ordinal">
+                <b-btn 
+                    class="routine-form__day-btn"
+                    variant="primary"
+                    v-b-toggle="`collapse-${day.ordinal}`"
+                    @click="select(day)">
+                    {{ day.name }}
+                </b-btn>
+
+                <b-collapse :id="`collapse-${day.ordinal}`" :visible="day.id === selected">
+                    <routine-day 
+                        :day="day" 
+                        :onChange="handleRoutineDayChange"/>
+                </b-collapse>
+
             </div>
-            <!-- days -->
-            <div class="routine-form__days">
-                <label class="routine-form__label">Days</label>
-                <div v-for="day in sortedDays">
-                    <div 
-                        class="routine-form__day" 
-                        v-bind:class="{ 'routine-form__day--active': day.id === selected }"
-                    >
-                        <div class="routine-form__day-header" @click="select(day)">
-                            {{ day.name }}
-                        </div>
-                    </div>
-                    <routine-day :day="day" :onChange="handleRoutineDayChange" :visible="day.id === selected" />
-                </div>
-            </div>
-        </div>
-        <!-- buttons -->
+        </b-form-group>
+
+    <!-- buttons -->
         <div class="routine-form__buttons">
-            <div class="routine-form__add-buttons">
-                <button 
-                    v-bind:class="{ disabled: selected === null }"
-                    class="routine-form__add-exercise"
-                    @click="handleEditExercise"
-                >
-                    Edit Exercises 
-                </button>
-                <button 
-                    class="routine-form__add-day"
-                    @click="handleEditDays"
-                >
-                    Edit Days
-                </button>
-            </div>
             <progress-button
-                class="routine-form__button routine-form__button--primary"
+                v-if="deleteable"
+                variant="danger"
+                :submitWorking="deleteWorking"
+                :handleClick="onDeleteClick"
+                buttonText="Delete"
+            />
+            <b-button 
+                class="routine-form__edit-btn"
+                variant="secondary"
+                @click="handleEditDays">
+                Edit Days
+            </b-button>
+            <progress-button
+                class="routine-form__update-btn"
                 v-bind:class="{ disabled: !valid }"
                 :submitWorking="submitWorking"
                 :handleClick="onSubmitClick"
                 :buttonText="buttonText"
             />
-            <progress-button
-                v-if="deleteable"
-                class="routine-form__button routine-form__button--danger"
-                :submitWorking="deleteWorking"
-                :handleClick="onDeleteClick"
-                buttonText="Delete"
-            />
-            <div
-                class="routine-form__alert"
-                v-for="error in errors"
-            >
-                {{ error }}
-            </div>
         </div>
-    </div>
+        <b-alert
+            v-for="(error, index) in errors"
+            variant="danger"
+            :key="index">
+            {{ error }}
+        </b-alert>
+    </b-form>
 </template>
 
 <script>
 
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
-import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
-
 import ProgressButton from '../components/ProgressButton'
 import RoutineDay from '../components/RoutineDay'
+import FormHeader from '../components/FormHeader'
 import { formatErrors } from '../utils/error'
 import { mapActions } from 'vuex'
 
@@ -86,7 +79,7 @@ export default {
     components: {
         ProgressButton,
         RoutineDay,
-        FontAwesomeIcon
+        FormHeader,
     },
 
     props: {
@@ -111,9 +104,11 @@ export default {
 
     methods: {
 
-        onSubmitClick: async function() {
+        onSubmitClick: async function(e) {
 
             try {
+                
+                e.preventDefault()
 
                 if (!this.valid) { return }
 
@@ -187,9 +182,8 @@ export default {
                     headerText: this.name ? `Add days to ${this.name}` : 'Add days',
                     routine: routine,
                     onSubmit: async (routine) => { 
-                        this.days =  [...routine.days ]
+                        this.days = [...routine.days ]
                     }
-
                 }
             }
             this.toggleRoutineDaysModal(data)
@@ -245,4 +239,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.routine-form {
+
+
+    &__buttons {
+        display: flex;
+    }
+
+    &__day-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    &__edit-btn:nth-child(2) {
+        margin-left: .5rem;
+    }
+
+    &__update-btn {
+        margin-left: auto;
+    }
+
+}
+
 </style>
