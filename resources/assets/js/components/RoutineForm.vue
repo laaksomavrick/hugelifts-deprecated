@@ -252,7 +252,7 @@ export default {
         margin-bottom: 0.5rem;
     }
 
-    &__edit-btn {
+    &__edit-btn:nth-child(2) {
         margin-left: .5rem;
     }
 

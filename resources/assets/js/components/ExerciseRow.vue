@@ -1,6 +1,6 @@
 <template>
     <div class="exercise-row">
-        <div class="exercise-row__content">
+        <b-list-group-item class="exercise-row__content">
             <div class="exercise-row__name">
                 {{ name }}
             </div>
@@ -23,9 +23,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </b-list-group-item>
     </div>
-
 </template>
 
 <script>
@@ -105,4 +104,55 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.exercise-row {
+
+    $primary: #007bff;
+    margin-bottom: .5rem;
+
+    &__content {
+        cursor: unset;
+
+        &:hover {
+            background: white;
+        }
+    }
+
+    &__sets {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+
+    &__set {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__reps {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45px;
+        height: 45px;
+        border-radius: 22.5px;
+        border: 3px solid $primary;
+        margin-bottom: 2px;
+        cursor: pointer;
+        user-select: none;
+        font-size: 1.0rem;
+        &--active {
+            background: $primary;
+            color: white;
+        }
+    }
+
+    &__weight {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+}
+
 </style>
