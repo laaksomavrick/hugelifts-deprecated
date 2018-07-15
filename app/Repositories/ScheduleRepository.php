@@ -13,6 +13,14 @@ use App\Repositories\RoutineDayRepository;
 class ScheduleRepository
 {
 
+    public function create($routineId, $routineDayId)
+    {
+        return RoutineSchedule::create([
+            'routine_id' => $routineId,
+            'routine_day_id' => $routineDayId
+        ]);
+    }
+
     public function getActive($userId)
     {
         return Routine::where(['user_id' => $userId, 'active' => 1])->first()->schedule;

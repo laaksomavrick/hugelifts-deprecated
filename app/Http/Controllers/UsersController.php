@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\CreateUser;
 Use App\Repositories\UserRepository;
+use App\Services\PopulateNewUserService;
 
 class UsersController extends Controller 
 {
@@ -17,10 +18,11 @@ class UsersController extends Controller
         return response($user, 200);
     }
 
-    public function create(CreateUser $request, UserRepository $users) 
+    public function create(CreateUser $request, UserRepository $users, PopulateNewUserService $service) 
     {
         $validated = $request->validated();
         $user = $users->create($validated);
+        $service->run($user);
         return response($user, 200);
     }
 

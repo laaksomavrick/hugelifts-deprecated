@@ -1,11 +1,14 @@
 <template>
     <div class="exercise-row">
         <b-list-group-item class="exercise-row__content">
-            <div class="exercise-row__name">
+            <h5 class="exercise-row__name">
                 {{ name }}
-            </div>
+            </h5>
             <div class="exercise-row__sets">
-                <div v-for="set in sets" class="exercise-row__set" >
+                <div 
+                    v-for="set in sets" 
+                    :key="set.id"
+                    class="exercise-row__set">
                     <div 
                         class="exercise-row__reps" 
                         @click="handleClick(set)" 
