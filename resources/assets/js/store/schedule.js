@@ -11,7 +11,6 @@ const actions = {
             try {
                 const response = await get()
                 const json = response.data
-                console.log(response)
                 commit('setSchedule', json)
                 resolve()
             } catch (e) {

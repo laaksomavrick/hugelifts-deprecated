@@ -106,8 +106,6 @@ export default {
 
             try {
 
-                console.log("here")
-
                 e.preventDefault()
 
                 if (!this.valid) { return }

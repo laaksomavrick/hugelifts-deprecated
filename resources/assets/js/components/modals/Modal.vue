@@ -81,7 +81,6 @@ export default {
     watch: {
 
         open: function(newVal, oldval) {
-            console.log(newVal)
             this.modalOpen = newVal
         }
 

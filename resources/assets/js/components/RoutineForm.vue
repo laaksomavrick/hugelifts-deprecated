@@ -130,7 +130,8 @@ export default {
                 }
 
                 await this.onSubmit(data)
-                await this.fetchSchedule(); 
+                await this.fetchSchedule() 
+                await this.fetchRoutines()
 
                 this.submitWorking = false
                 this.$router.go(-1)
@@ -200,7 +201,6 @@ export default {
         },
 
         handleRoutineDayChange: function(routineDay) {
-            console.log("handle routine day change")
             const filtered = this.days.filter(day => day.id !== routineDay.id)
             this.days = [...filtered, routineDay]
         },
@@ -210,7 +210,8 @@ export default {
             'toggleRoutineDaysModal',
             'toggleConfirmModal',
             'destroyRoutine',
-            'fetchSchedule'
+            'fetchSchedule',
+            'fetchRoutines'
         ])
 
     },
