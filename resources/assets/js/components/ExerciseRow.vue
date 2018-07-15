@@ -38,13 +38,26 @@ import { mapGetters } from 'vuex'
 export default {
 
     props: {
-        exercise: Object
+        exercise: Object,
+        completing: Boolean
     },
 
     data: function() {
         return {
-            sets: this.formattedSets()
+            sets: this.formattedSets(),
+            cachedSets: null
         }
+    },
+
+    beforeDestroy: function() {
+        if (this.sets && !this.completing) {
+            const id = this.routineExerciseStorageId
+            localStorage.setItem(id, JSON.stringify(this.sets))
+        }
+    },
+
+    mounted: function() {
+        this.checkAndHandleCompleted()
     },
 
     methods: {
@@ -56,10 +69,17 @@ export default {
         },
 
         formattedSets: function() {
-            const sets = this.exercise.sets.map(set => {
-                return {...set, completed_reps: 0, completed: false, active: false}
+            this.setCachedExercise()
+            const unformattedSets = this.cachedSets ? this.cachedSets : this.exercise.sets
+            const sets = unformattedSets.map(set => {
+                return {
+                    ...set, 
+                    completed_reps: set.completed_reps ? set.completed_reps : 0, 
+                    completed: set.completed ? set.completed : false, 
+                    active: set.active ? set.active : false
+                }
             })
-            return sets
+            return sets.sort((a, b) => a.id < b.id)
         },
 
         handleClick: function(set) {
@@ -72,6 +92,8 @@ export default {
             } else if (set.completed_reps > 0){
                 set.completed_reps = set.completed_reps - 1
             }
+            const filtered = this.sets.filter(s => s.id !== set.id)
+            this.sets = [...filtered, set].sort((a, b) => a.id < b.id)
             this.checkAndHandleCompleted()
         },
 
@@ -81,6 +103,14 @@ export default {
                 const record = this.sets.filter(s => s.completed_reps !== s.reps).length === 0
                 const data = { id: this.exercise.id, exercise_id: this.exercise.exercise_id, record }
                 this.$emit('completed', data)
+            }
+        },
+
+        setCachedExercise: function() {
+            const id = `routineExercise_${this.exercise.id}`
+            const cached = localStorage.getItem(id) 
+            if (cached) {
+                this.cachedSets = JSON.parse(cached)
             }
         }
 
@@ -94,6 +124,10 @@ export default {
 
         exerciseMeta: function() {
             return this.getExercise(this.exercise.exercise_id)
+        },
+
+        routineExerciseStorageId: function() {
+            return `routineExercise_${this.exercise.id}`
         },
 
         ...mapGetters([

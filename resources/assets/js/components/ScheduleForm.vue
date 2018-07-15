@@ -7,6 +7,7 @@
             <template v-for="exercise in exercises">
                 <exercise-row 
                     :exercise="exercise" 
+                    :completing="completing"
                     @completed="handleExerciseCompleted" 
                     :key="exercise.id"/>
             </template>
@@ -38,25 +39,10 @@ export default {
 
     data: function() {
         return {
-            workouts: [],
-            working: false
+            workouts: [], //TODO set this on load from localStorage
+            working: false,
+            completing: false
         }
-    },
-
-    beforeCreate: function() {
-        //todo check vuex for temp state; reset if tempStore is there
-        console.log("beforeCreate")
-    },
-
-    mounted: function() {
-        console.log("here")
-        console.log(this.exercises)
-    },
-
-    beforeDestroy: function() {
-        //todo set vuex temp state in EACH EXERCSIE ROW
-        console.log("beforeDestroy")
-        console.log(this.exercises)
     },
 
     methods: {
@@ -73,20 +59,29 @@ export default {
             try {
 
                 this.working = true
+                this.completing = true
 
                 const id = this.schedule.id
                 const records = this.workouts.filter(w => w.record === true)
                 const data = { id, records }
 
+                this.clearStorage()
+                this.workouts = []
                 await this.updateSchedule(data)
-
                 this.working = false
+                this.completing = false
 
             } catch (e) {
                 //TODO
                 console.error(e)
             }
 
+        },
+
+        clearStorage: function() {
+            for (let exercise of this.exercises) {
+                localStorage.removeItem(`routineExercise_${exercise.id}`)
+            }
         },
 
         ...mapActions([
