@@ -10,24 +10,9 @@ use App\Models\RoutineDay;
 class RoutineDayRepository
 {
 
-    public function get($user) 
+    public function get($routineId)
     {
-    }
-
-    public function create($userId, $data)
-    {
-    }
-
-    public function update($id, $data)
-    {
-    }
-
-    public function show($id) 
-    {
-    }
-
-    public function destroy($id)
-    {
+        return RoutineDay::where('routine_id', $routineId);
     }
 
     public function ordinals($routineId) {

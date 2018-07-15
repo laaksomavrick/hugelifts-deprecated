@@ -259,7 +259,7 @@ class PopulateNewUserService
             ->where('ordinal', 0)
             ->first()
             ->id;
-        $this->scheduleRepository->create($routineId, $routineDayId);
+        $this->scheduleRepository->create($userId, $routineId, $routineDayId);
 
     }
 

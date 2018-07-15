@@ -72,9 +72,6 @@ export default {
 
             const filtered = this.exercise.sets.filter(set => set.id !== changedSet.id)
             const sets = [...filtered, changedSet]
-
-            console.log(sets)
-
             const routineDayExercise = {...this.exercise, sets }
             this.onChange(routineDayExercise)
         },
@@ -89,7 +86,6 @@ export default {
         },
 
         handleSetAdd: function() {
-            
             const id = this.exercise.sets.length === 0 ? (
                 1 
             ) : (

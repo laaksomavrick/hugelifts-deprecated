@@ -12,6 +12,13 @@
             </b-form-input>
         </b-form-group>
 
+        <b-form-group label="Active">
+            <b-form-radio-group v-model="active">
+                <b-form-radio :value="1">Active</b-form-radio>
+                <b-form-radio :value="0">Inactive</b-form-radio>
+            </b-form-radio-group>
+        </b-form-group>
+
         <!-- days -->
         <b-form-group 
             class="routine-form__days"
@@ -95,6 +102,7 @@ export default {
         return {
             days: this.routine ? this.routine.days : [],
             name: this.routine ? this.routine.name : null,
+            active: this.routine ? this.routine.active : false,
             errors: [],
             selected: null,
             submitWorking: false,
@@ -107,7 +115,7 @@ export default {
         onSubmitClick: async function(e) {
 
             try {
-                
+
                 e.preventDefault()
 
                 if (!this.valid) { return }
@@ -117,10 +125,12 @@ export default {
                 const data = {
                     id: this.routine ? this.routine.id : null,
                     name: this.name,
-                    days: this.days
+                    days: this.days,
+                    active: this.active
                 }
 
                 await this.onSubmit(data)
+                await this.fetchSchedule(); 
 
                 this.submitWorking = false
                 this.$router.go(-1)
@@ -190,6 +200,7 @@ export default {
         },
 
         handleRoutineDayChange: function(routineDay) {
+            console.log("handle routine day change")
             const filtered = this.days.filter(day => day.id !== routineDay.id)
             this.days = [...filtered, routineDay]
         },
@@ -198,7 +209,8 @@ export default {
             'toggleRoutineDayExercisesModal',
             'toggleRoutineDaysModal',
             'toggleConfirmModal',
-            'destroyRoutine'
+            'destroyRoutine',
+            'fetchSchedule'
         ])
 
     },

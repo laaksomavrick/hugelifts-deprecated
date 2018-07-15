@@ -39,7 +39,9 @@ export default {
     methods: {
 
         handleRoutineDayExerciseChange: function(routineDayExercise) {
-            const filtered = this.day.exercises.filter(e => e.id !== routineDayExercise.id)
+            const filtered = this.day.exercises.filter(e => 
+                e.exercise_id !== routineDayExercise.exercise_id
+            )
             const exercises = [...filtered, routineDayExercise]
             const routineDay = {...this.day, exercises }
             this.onChange(routineDay)

@@ -13,12 +13,18 @@ use App\Repositories\RoutineDayRepository;
 class ScheduleRepository
 {
 
-    public function create($routineId, $routineDayId)
+    public function create($userId, $routineId, $routineDayId)
     {
         return RoutineSchedule::create([
             'routine_id' => $routineId,
-            'routine_day_id' => $routineDayId
+            'routine_day_id' => $routineDayId,
+            'user_id' => $userId
         ]);
+    }
+
+    public function destroy($id)
+    {
+        return RoutineSchedule::destroy($id);
     }
 
     public function getActive($userId)

@@ -28,6 +28,7 @@ class UpdateRoutine extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'active' => 'required|boolean',
             'days' => 'required|array',
             'days.*.exercises' => 'required|array',
             'days.*.exercises.*.sets' => 'required|array'

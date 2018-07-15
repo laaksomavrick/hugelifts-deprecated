@@ -31,9 +31,14 @@ class RoutineRepository
 
     public function update($id, $data)
     {
-        Routine::where('id', $id)->update(['name' => $data['name']]);
+        Routine::where('id', $id)->update(['name' => $data['name'], 'active' => $data['active']]);
         $this->handleRoutineChange($id, $data);
         return $this->show($id);
+    }
+
+    public function find($conditions)
+    {
+        return Routine::where($conditions);
     }
 
     public function show($id) 
@@ -50,15 +55,12 @@ class RoutineRepository
     {
         $days = $data['days'];
 
-
         //TODO optimize nested loops
         DB::transaction(function() use ($id, $days) {
 
             //clear old records
-            $routineDay = RoutineDay::where('routine_id', $id)->first();
-            if ($routineDay) {
-                $routineDay->delete();
-            }
+            RoutineDay::where('routine_id', $id)->delete();
+
             //get fresh record
             $routine = Routine::setEagerLoads([])->where('id', $id)->first();
 

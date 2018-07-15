@@ -79,12 +79,17 @@ export default {
     computed: {
 
         exercises: function() {
-            const exercises = this.getExercises
+            const exercises = this.sortedExercises
             if (this.query) {
                 return exercises.filter(exercise => textSearch(this.query, exercise.name))
             } else {
                 return exercises
             }
+        },
+
+        sortedExercises: function() {
+            const exercises = this.getExercises
+            return exercises.sort((a, b) => a.name > b.name)
         },
 
         ...mapGetters([

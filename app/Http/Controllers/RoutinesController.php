@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Routine\UpdateRoutine;
 use App\Http\Requests\Routine\CreateRoutine;;
 use App\Http\Requests\Routine\DeleteRoutine;;
+use App\Services\ScheduleChangeService;
 
 Use App\Repositories\RoutineRepository;
 
@@ -19,17 +20,19 @@ class RoutinesController extends Controller
         return response($data, 200);
     }
 
-    public function create(CreateRoutine $request, RoutineRepository $routines) 
+    public function create(CreateRoutine $request, RoutineRepository $routines, ScheduleChangeService $service) 
     {
         $validated = $request->validated();
         $routine = $routines->create($request->user()->id, $validated);
+        $service->run($routine);
         return response($routine, 200);
     }
 
-    public function update($routineId, UpdateRoutine $request, RoutineRepository $routines) 
+    public function update($routineId, UpdateRoutine $request, RoutineRepository $routines, ScheduleChangeService $service) 
     {
         $validated = $request->validated();
         $routine = $routines->update($routineId, $validated);
+        $service->run($routine);
         return response($routine, 200);
     }
 

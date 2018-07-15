@@ -35,6 +35,7 @@ const actions = {
     createRoutine({ commit }, data) {
         return new Promise(async (resolve, reject) => {
             try {
+                console.log(data)
                 const response = await create(data)
                 const json = response.data
                 commit('addRoutine', json)

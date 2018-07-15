@@ -29,6 +29,9 @@
                             v-model="repMaxInterval"
                         >
                         </b-form-input>
+                        <b-form-text>
+                            Reps
+                        </b-form-text>
                     </b-col>
                     <b-col>
                         <b-form-input 
@@ -40,6 +43,9 @@
                             v-model="repMax"
                         >
                         </b-form-input>
+                        <b-form-text>
+                            Weight
+                        </b-form-text>
                     </b-col>
                 </b-form-row>
 

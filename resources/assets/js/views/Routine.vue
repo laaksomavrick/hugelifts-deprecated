@@ -52,6 +52,10 @@ export default {
         ViewActions
     },
 
+    mounted: function() {
+        console.log(this.getRoutines)
+    },
+
     methods: {
 
         handleRoutineClick: function(routine) {

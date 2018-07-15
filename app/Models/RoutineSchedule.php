@@ -12,6 +12,7 @@ class RoutineSchedule extends Model
     protected $fillable = [
         'routine_id',
         'routine_day_id',
+        'user_id'
     ];
 
     protected $with = [
