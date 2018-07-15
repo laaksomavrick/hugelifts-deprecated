@@ -22,7 +22,7 @@ class ExerciseRepository
             'rep_max_interval' => $data['rep_max_interval']
         ]);
     }
-
+    
     public function update($id, $data)
     {
         Exercise::where('id', $id)->update([
